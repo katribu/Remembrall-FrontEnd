@@ -10,7 +10,7 @@ export class Users extends Component {
 
         this.state = {
             users: [],
-        }
+        };
 
     }
 
@@ -19,9 +19,9 @@ export class Users extends Component {
 
         this.setState({
             users: usersArray
-        })
+        });
 
-    }
+    };
 
     render() {
         const { users } = this.state;

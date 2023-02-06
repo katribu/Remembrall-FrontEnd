@@ -22,7 +22,9 @@ export default function firstNotification(chosenTime){
     }
 }
 
-function randomize(array){
-    const result =  array[Math.floor(Math.random() * array.length)]
-    return result
-}
+
+// Randomize function for future use
+// function randomize(array){
+//     const result =  array[Math.floor(Math.random() * array.length)]
+//     return result
+// }

@@ -19,7 +19,7 @@ function App() {
         <h2>Hello, it works</h2>
       </div>
 
-      <div style={{width: '100px', height: '100px'}}>
+      <div style={{ height: '100vh', width: '100%' }}>
         <GeoLocation/>
       </div>
 

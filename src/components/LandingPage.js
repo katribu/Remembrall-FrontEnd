@@ -1,21 +1,21 @@
 const headerStyle = {
-    color: Red, 
+    color: 'red', 
 }
 
 const buttonStyle = {
-    display: flex,
-    flexDirection: column,
-    alignItems: center,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
     padding: '6px 14px',
-    fontFamily: '-apple-system', BlinkMacSystemFont, Roboto, sansSerif,
+    fontFamily:'sansSerif',
     borderRadius: '6px',
     color: '#3D3D3D',
     background: '#fff',
     border: 'none',
     boxShadow: '0px 0.5px 1px rgba(0, 0, 0, 0.1)',
-    userSelect: none,
-    webkitUserSelect: none,
-    touchAction: manipulation,
+    userSelect: 'none',
+    webkitUserSelect: 'none',
+    touchAction: 'manipulation',
 }
 
 

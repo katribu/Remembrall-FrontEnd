@@ -1,22 +1,25 @@
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import React from "react"
+import { LandingPage, LogIn, SignUp } from './components/LandingPage';
 
 
 function App() {
   return (
     <BrowserRouter>
     <Switch>
-      <Route path="/" exact component={Main} />
+      <Route path="/" exact component={LandingPage} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={LogIn} />
-      <Route path="/profile/:username" component={Profile} />
+   {/*    <Route path="/profile/:username" component={Profile} />
       <Route path="/profile/:username/setreminder" component={SetReminder} />
-      <Route path="/logout" component={LogOut} />
+      <Route path="/logout" component={LogOut} /> */}
       </Switch>
       </BrowserRouter>
   )
 }
+
+export default App;
 
 
 
@@ -74,4 +77,4 @@ function App() {
 //   );
 // }
 
-// export default App;
+

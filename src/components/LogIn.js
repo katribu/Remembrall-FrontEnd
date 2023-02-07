@@ -3,6 +3,7 @@ import { getLoginToken } from "../functions/fetch"
 import { Link } from 'react-router-dom';
 import '../App.css';
 import { Profile } from "./Profile";
+import { Smoke } from "./Smoke";
 
 export function LogIn(props) {
     
@@ -46,8 +47,10 @@ export function LogIn(props) {
 
     return(
         <div className="mainDiv">
+             <Smoke/>
             <div>
                 <h1>Remember'All</h1>
+               
             </div>
             <div>
                 <label>Email:</label>

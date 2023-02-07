@@ -11,7 +11,7 @@ export async function getUsersFromServer() {
 
 //get LogIn Token to Sign In 
 export async function getLoginToken(email,password){
-    const response = fetch(`${API_URL}/login`, {
+    const response = await fetch(`${API_URL}/login`, {
         method:"POST",
         headers:{
             'Content-Type': 'application/json'

@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
+import jwtDecode from 'jwt-decode'; 
 
 const headerStyle = {
     color: 'red', 
@@ -7,11 +9,29 @@ const headerStyle = {
 
 
 
-export function LandingPage() {
+export function LandingPage(props) {
+    const { history } = props; 
+    //Check if we have a token in local storage
+    const token = localStorage.getItem('TWITTER_TOKEN'); 
 
+    //If not - redirect to /login
+    if(!token) {
+        history.replace('/login'); 
+        return; 
+    }
 
-    return(
-        <div className="mainDiv">
+    //Else - get info from token and show in UI
+ /*    const payload = jwtDecode(token); 
+    this.setState({
+        user: payload,
+    });  */
+
+    //Fetch tweets from server
+
+    history.replace('/profile'); 
+
+    return;
+     /*    <div className="mainDiv">
             <div>
                 <h1 style={{headerStyle}}>Remember'All</h1>
             </div>
@@ -21,8 +41,7 @@ export function LandingPage() {
             <div>
                 <Link to="/signup" className='linkButton'>Sign up</Link>
             </div>
-        </div>
-    )
+        </div> */
 }
 
 

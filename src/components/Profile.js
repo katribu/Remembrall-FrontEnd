@@ -7,10 +7,21 @@ import { Link } from 'react-router-dom';
 // We also want a button for toggling hide/show "Upcoming reminders" that are not set for "today" 
 // Also for "today" we dont want to show the date, only the time, but for the upcoming events, we want to show "day" (mon, tuesd etc), and date 
 
-export function Profile() {
+export function Profile(props) {
 
     const [remembralls, setRemembralls] = useState(false);
     const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
+
+    //Check if you are logged in - lines 16 -24
+    const { history } = props; 
+    //Check if we have a token in local storage
+    const token = localStorage.getItem('TWITTER_TOKEN'); 
+
+    //If not - redirect to /login
+    if(!token) {
+        history.replace('/login'); 
+        return; 
+    }
 
     const toggleRemembralls = () => {
         setRemembralls(!remembralls);

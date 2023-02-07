@@ -2,6 +2,7 @@ import React from "react"
 import { getLoginToken } from "../functions/fetch"
 import { Link } from 'react-router-dom';
 import '../App.css';
+import { Profile } from "./Profile";
 
 export function LogIn(props) {
     
@@ -32,13 +33,16 @@ export function LogIn(props) {
             // add token to local storage
             localStorage.setItem('TWITTER_TOKEN',token)
             //redirect to LandingPage.js
-            props.history.replace('/')
+            props.history.replace('/profile')
+
         }catch(error){
             setError(error)
         }
 
 
     }
+
+
 
     return(
         <div className="mainDiv">
@@ -63,10 +67,12 @@ export function LogIn(props) {
             </div>
             <div>
             </div>
-                <Link to="/" className='linkButton' onClick={handleLoginAttempt}>Log in</Link>
+                <button className='linkButton' onClick={handleLoginAttempt}>Log in</button>
+                {/* <Link to="/profile" className='linkButton' onClick={handleLoginAttempt}>Log in</Link> */}
             <div>
-                <Link to="/" className='linkButton'>Back</Link>
+                <Link to="/signup" className='linkButton'>Create account</Link>
             </div>
+            {error && <div>{error.message}</div>}
         </div>
     )
 }

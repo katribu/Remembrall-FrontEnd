@@ -3,7 +3,7 @@ import './App.css';
 import { Users } from './components/Users';
 import React from "react"
 import firstNotification from './functions/notifications';
-import { GeoLocation } from './components/GeoLocation';
+import { Map } from './components/Map';
 
 
 
@@ -20,7 +20,7 @@ function App() {
       </div>
 
       <div style={{ height: '100vh', width: '100%' }}>
-        <GeoLocation/>
+        <Map/>
       </div>
 
       <div>

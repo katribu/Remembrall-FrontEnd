@@ -1,22 +1,24 @@
 
-
-export default function geoTest() {
+export default function geoTest(latitude,longitude) {
     navigator.geolocation.getCurrentPosition(function (position) {
-        const latitude = 59.9195648;
-        const longitude = 10.780672;
         if (latitude === position.coords.latitude && longitude === position.coords.longitude) {
             alert(`You are currently at latitude ${latitude} and longitude ${longitude}`)
         }
-        console.log("Latitude is :", position.coords.latitude);
-        console.log("Longitude is :", position.coords.longitude);
     });
 }
 
-geoTest();
+function getCurrentLatitude() {
+    navigator.geolocation.getCurrentPosition(function(position){
+        return position.coords.latitude;
+    })
+}
+
+export {getCurrentLatitude}
 
 
-
-
+//Shahin's coordinates
+// const latitude = 59.9195648;
+// const longitude = 10.780672;
 
 
 // Updates location once location is changed

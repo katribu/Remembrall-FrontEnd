@@ -1,7 +1,11 @@
-import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import React from "react"
+
+import './App.css';
+
 import { LandingPage, LogIn, SignUp } from './components/LandingPage';
+import { Profile } from './components/Profile';
+import { SetRemembrall } from './components/SetRemembrall';
 
 
 function App() {
@@ -11,9 +15,8 @@ function App() {
       <Route path="/" exact component={LandingPage} />
       <Route path="/signup" component={SignUp} />
       <Route path="/login" component={LogIn} />
-   {/*    <Route path="/profile/:username" component={Profile} />
-      <Route path="/profile/:username/setreminder" component={SetReminder} />
-      <Route path="/logout" component={LogOut} /> */}
+      <Route path="/profile" component={Profile} />
+      <Route path="/setremembrall" component={SetRemembrall} />
       </Switch>
       </BrowserRouter>
   )
@@ -78,3 +81,4 @@ export default App;
 // }
 
 
+// export default App;

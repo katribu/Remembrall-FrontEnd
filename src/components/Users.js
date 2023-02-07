@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { getUsersFromServer } from "../functions/fetch";
 
-// *Need to use hooks if we are to use functional components with async JS
+// Need to use hooks if we are to use functional components with async JS
 
 export class Users extends Component {
 

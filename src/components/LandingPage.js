@@ -1,55 +1,43 @@
 import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../App.css';
-import jwtDecode from 'jwt-decode'; 
+import jwtDecode from 'jwt-decode';
+
 
 const headerStyle = {
-    color: 'red', 
-}
-
-
+    color: 'red',
+};
 
 export function LandingPage(props) {
-    const { history } = props; 
-    //Check if we have a token in local storage
-    const token = localStorage.getItem('TWITTER_TOKEN'); 
+    const { history } = props;
 
-    //If not - redirect to /login
-    if(!token) {
-        history.replace('/login'); 
-        return; 
-    }
+    // Check if we have a token in local storage
+    const token = localStorage.getItem('TWITTER_TOKEN');
 
-    //Else - get info from token and show in UI
- /*    const payload = jwtDecode(token); 
-    this.setState({
-        user: payload,
-    });  */
+    // If not - redirect to /login
+    if (!token) {
+        history.replace('/login');
+        return;
+    };
 
-    //Fetch tweets from server
+    // Else - get info from token and show in UI
+    /*    const payload = jwtDecode(token); 
+       this.setState({
+           user: payload,
+       });  */
 
-    history.replace('/profile'); 
+    // Fetch tweets from server
+    history.replace('/profile');
 
     return;
-     /*    <div className="mainDiv">
-            <div>
-                <h1 style={{headerStyle}}>Remember'All</h1>
-            </div>
-            <div>
-                <Link to="/login" className='linkButton'>Log in</Link>
-            </div>
-            <div>
-                <Link to="/signup" className='linkButton'>Sign up</Link>
-            </div>
-        </div> */
-}
+};
 
 
 export function SignUp() {
-    return(
+    return (
         <div className="mainDiv">
             <div>
-                <h1 style={{headerStyle}}>Remember'All</h1>
+                <h1 style={{ headerStyle }}>Remembr'All</h1>
             </div>
             <div>
                 <label>Name:</label>
@@ -60,15 +48,15 @@ export function SignUp() {
                 <input type={"email"}></input>
             </div>
             <div>
-                <label>Password</label>
+                <label>Password:</label>
                 <input type={"password"}></input>
             </div>
             <div>
-                <Link to="/signup" className='linkButton'>Sign up</Link>
+                <Link to="/signup" className='linkButton'>Sign Up</Link>
             </div>
             <div>
                 <Link to="/" className='linkButton'>Back</Link>
             </div>
         </div>
     )
-}
+};

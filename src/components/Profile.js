@@ -12,15 +12,16 @@ export function Profile(props) {
     const [remembralls, setRemembralls] = useState(false);
     const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
 
-    //Check if you are logged in - lines 16 -24
-    const { history } = props; 
-    //Check if we have a token in local storage
-    const token = localStorage.getItem('TWITTER_TOKEN'); 
+    // Check if you are logged in - lines 16 -24
+    const { history } = props;
 
-    //If not - redirect to /login
-    if(!token) {
-        history.replace('/login'); 
-        return; 
+    // Check if we have a token in local storage
+    const token = localStorage.getItem('TWITTER_TOKEN');
+
+    // If no token in local storage - redirect to /login
+    if (!token) {
+        history.replace('/login');
+        return;
     }
 
     const toggleRemembralls = () => {
@@ -42,17 +43,15 @@ export function Profile(props) {
                 <li className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Submit your tax-statements</li>
                 <div className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}><MdOutlineNotificationsNone /> Sunday 12/2/23 10:30</div>
             </ul>
-                <div>
-                    <button onClick={toggleRemembralls}>{buttonText}</button>
-                </div>
+            <div>
+                <button onClick={toggleRemembralls}>{buttonText}</button>
+            </div>
 
-                <div>
-                    <Link to="/setremembrall">
+            <div>
+                <Link to="/setremembrall">
                     <button>Set Remembr'all</button>
-                    </Link>
-                </div>
-
-
+                </Link>
+            </div>
         </div>
     )
 }

@@ -1,59 +1,37 @@
+import { Link } from 'react-router-dom';
+import '../App.css';
+
 const headerStyle = {
     color: 'red', 
 }
 
-const buttonStyle = {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    padding: '6px 14px',
-    fontFamily:'sansSerif',
-    borderRadius: '6px',
-    color: '#3D3D3D',
-    background: '#fff',
-    border: 'none',
-    boxShadow: '0px 0.5px 1px rgba(0, 0, 0, 0.1)',
-    userSelect: 'none',
-    webkitUserSelect: 'none',
-    touchAction: 'manipulation',
-}
 
 
 export function LandingPage() {
 
 
     return(
-        <div>
-            <h1 style={{headerStyle}}>Remembr'All</h1>
-            <button style={{buttonStyle}}>Log in</button>
-            <button style={{buttonStyle}}>Sign up</button>
+        <div className="mainDiv">
+            <div>
+                <h1 style={{headerStyle}}>Remember'All</h1>
+            </div>
+            <div>
+                <Link to="/login" className='linkButton'>Log in</Link>
+            </div>
+            <div>
+                <Link to="/signup" className='linkButton'>Sign up</Link>
+            </div>
         </div>
     )
 }
 
-export function LogIn() {
-    return(
-        <div>
-            <h1 style={{headerStyle}}>Remberer'All</h1>
-            <div>
-                <label>Email:</label>
-                <input></input>
-            </div>
-            <div>
-                <label>Password:</label>
-                <input></input>
-            </div>
-            <div>
-                <button style={{buttonStyle}}>Log in</button>
-            </div>
-        </div>
-    )
-}
 
 export function SignUp() {
     return(
-        <div>
-            <h1 style={{headerStyle}}>Remberer'All</h1>
+        <div className="mainDiv">
+            <div>
+                <h1 style={{headerStyle}}>Remember'All</h1>
+            </div>
             <div>
                 <label>Name:</label>
                 <input type={"text"}></input>
@@ -67,7 +45,10 @@ export function SignUp() {
                 <input type={"password"}></input>
             </div>
             <div>
-                <button style={{buttonStyle}}>Sign up</button>
+                <Link to="/signup" className='linkButton'>Sign up</Link>
+            </div>
+            <div>
+                <Link to="/" className='linkButton'>Back</Link>
             </div>
         </div>
     )

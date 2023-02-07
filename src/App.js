@@ -1,7 +1,8 @@
 import './App.css';
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import React from "react"
-import { LandingPage, LogIn, SignUp } from './components/LandingPage';
+import { LandingPage,SignUp } from './components/LandingPage';
+import { LogIn } from './components/LogIn';
 
 
 function App() {

@@ -24,7 +24,7 @@ export function LandingPage() {
 
     return(
         <div>
-            <h1 style={{headerStyle}}>Remberer'All</h1>
+            <h1 style={{headerStyle}}>Remembr'All</h1>
             <button style={{buttonStyle}}>Log in</button>
             <button style={{buttonStyle}}>Sign up</button>
         </div>

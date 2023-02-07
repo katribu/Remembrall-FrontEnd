@@ -4,6 +4,7 @@ import { Users } from './components/Users';
 import React from "react"
 import firstNotification from './functions/notifications';
 import { Map } from './components/Map';
+import Smoke from './components/Smoke';
 
 
 

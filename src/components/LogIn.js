@@ -31,7 +31,7 @@ export function LogIn(props) {
             }
             // add token to local storage
             localStorage.setItem('TWITTER_TOKEN',token)
-            //redirect to Feed.js
+            //redirect to LandingPage.js
             props.history.replace('/')
         }catch(error){
             setError(error)

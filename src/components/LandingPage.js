@@ -33,30 +33,3 @@ export function LandingPage(props) {
 };
 
 
-export function SignUp() {
-    return (
-        <div className="mainDiv">
-            <div>
-                <h1 style={{ headerStyle }}>Remembr'All</h1>
-            </div>
-            <div>
-                <label>Name:</label>
-                <input type={"text"}></input>
-            </div>
-            <div>
-                <label>Email:</label>
-                <input type={"email"}></input>
-            </div>
-            <div>
-                <label>Password:</label>
-                <input type={"password"}></input>
-            </div>
-            <div>
-                <Link to="/signup" className='linkButton'>Sign Up</Link>
-            </div>
-            <div>
-                <Link to="/" className='linkButton'>Back</Link>
-            </div>
-        </div>
-    )
-};

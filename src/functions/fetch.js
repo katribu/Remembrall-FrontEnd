@@ -24,3 +24,20 @@ export async function getLoginToken(email, password) {
     const data = await response.json();
     return data;
 }
+
+// Get SIGNUP info to Create User in Users table
+export async function createNewUser(name, email, password) {
+    const response = await fetch(`${API_URL}/signup`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            name,
+            email,
+            password
+        })
+    });
+    const data = await response.json();
+    return data;
+}

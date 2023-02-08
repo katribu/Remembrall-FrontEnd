@@ -1,12 +1,11 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import React from "react"
-
+import React from "react";
 import './App.css';
-
-import { LandingPage, SignUp } from './components/LandingPage';
+import { LandingPage } from './components/LandingPage';
 import { Profile } from './components/Profile';
 import { SetRemembrall } from './components/SetRemembrall';
 import { LogIn } from './components/LogIn';
+import { SignUp } from './components/SignUp';
 
 
 function App() {

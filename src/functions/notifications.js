@@ -1,3 +1,4 @@
+import { MdAlarm } from "react-icons/md";
 
 // First try to randomize function times for the alarm type notifications
 export default function firstNotification(chosenTime) {
@@ -17,9 +18,9 @@ export default function firstNotification(chosenTime) {
         setTimeout(() => {
             firstNotification(chosenTime)
             return;
-        }, 60000)
+        }, 5000)
     }
-}
+};
 
 
 // Randomize function for use with random pushes within set time.
@@ -33,4 +34,13 @@ function randomizeSetTime(startTime, endTime) {
 };
 
 randomizeSetTime(0, 2);
+
+
+
+/* ID  TYPE     JSON
+[
+{ID:1,   TYPE:alarm;    JSON: {id: id, time:time, days: {monday: true, tuesday: false}}}
+
+2   GEO     {id: id, location: {lng: 50, lat: 40}}
+] */
 

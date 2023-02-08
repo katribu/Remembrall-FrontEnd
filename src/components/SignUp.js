@@ -7,6 +7,7 @@ export function SignUp(props) {
     const [name, setName] = React.useState("");
     const [email, setEmail] = React.useState("");
     const [password, setPassword] = React.useState("");
+    const [username, setUsername] = React.useState("");
     const [error, setError] = React.useState(null);
 
     const handleNameInputChange = (event) => {
@@ -21,20 +22,23 @@ export function SignUp(props) {
         setPassword(event.target.value);
     }
 
+    const handleUsernameInputChange = (event) => {
+        setUsername(event.target.value);
+    }
+
     
     const handleSignupAttempt = async () => {
         try {
 
-            const { error, newUser } = await createNewUser(name, email, password);
+            const { error, newUserResponse } = await createNewUser(name, email, password,username);
 
             // Check if successful
             if (error) {
                 throw new Error(error.message)
             }  
+            
 
-            console.log(newUser);
-
-            alert(`${newUser} has been created`)
+            alert(`${newUserResponse}`)
                 
             // Redirect to /login
             props.history.replace('/login');
@@ -56,6 +60,13 @@ export function SignUp(props) {
                 <input type={"text"}
                  onChange={handleNameInputChange}
                  value={name}
+                />
+            </div>
+            <div>
+                <label>Username:</label>
+                <input type={"text"}
+                onChange={handleUsernameInputChange}
+                value={username}
                 />
             </div>
             <div>

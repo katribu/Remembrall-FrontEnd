@@ -26,7 +26,7 @@ export async function getLoginToken(email, password) {
 }
 
 // Get SIGNUP info to Create User in Users table
-export async function createNewUser(name, email, password) {
+export async function createNewUser(name, email, password,username) {
     const response = await fetch(`${API_URL}/signup`, {
         method: "POST",
         headers: {
@@ -35,9 +35,12 @@ export async function createNewUser(name, email, password) {
         body: JSON.stringify({
             name,
             email,
-            password
+            password,
+            username
         })
     });
+    console.log(response)
     const data = await response.json();
+    console.log(data)
     return data;
 }

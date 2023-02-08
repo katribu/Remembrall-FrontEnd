@@ -20,7 +20,7 @@ const lib = ['places']
 // Map positioned at Oslo long and lat.
 const center = {
   lat: 59.911491,
-  lng: 10.757933
+  lng: 10.757933,
 }
 
 export function Map(props) {

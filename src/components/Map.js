@@ -1,17 +1,14 @@
-import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
 // For the Markers to show up in React version 18+ need to import as "MarkerF" due to the App running strict mode.
+import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
 import React from 'react';
-// Import { getCurrentLatitude } from '../functions/geolocation';
 
-// Irgen's API key
-// const GOOGLE_MAP_API_KEY = 'AIzaSyBeb5Xps4ARfD70ETVn372OWj2KLzwPNzs'
-
-//Kat's API key: "AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY"
+const MY_MAP_KEY = process.env.REACT_APP_WEATHER_API_KEY
 
 const containerStyle = {
   width: '100vw',
   height: '400px'
 };
+
 
 // Need to have places as a prop in the Loaded Script tag. StackOverflow said to put it outside the component to keep it from
 // Infinitly rendering. (or add as state inside the componenet)
@@ -63,7 +60,7 @@ export function Map(props) {
     // Important! Always set the container height explicitly
 
     <div style={{ height: '100vh', width: '100%' }}>
-      <LoadScript libraries={lib} googleMapsApiKey="AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY">
+      <LoadScript libraries={lib} googleMapsApiKey={MY_MAP_KEY}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={center}

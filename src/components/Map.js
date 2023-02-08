@@ -2,7 +2,7 @@
 import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
 import React from 'react';
 
-const MY_MAP_KEY = process.env.REACT_APP_WEATHER_API_KEY
+const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
 
 const containerStyle = {
   width: '100vw',
@@ -20,7 +20,7 @@ const center = {
   lng: 10.757933
 }
 
-export function Map(props) {
+export default function Map(props) {
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
   // const [markers, setMarkers] = React.useState([])
@@ -38,7 +38,7 @@ export function Map(props) {
   const onPlacesChanged = () => console.log(searchBox.getPlaces());
   const onSBLoad = ref => {
     setSearchBox(ref);
-  };
+  }
 
 /*   const onPlacesChanged = () => {
     let markerArray = [];
@@ -54,7 +54,7 @@ export function Map(props) {
   const defaultProps = {
     center: currentLocation,
     zoom: 11
-  };
+  }
 
   return (
     // Important! Always set the container height explicitly

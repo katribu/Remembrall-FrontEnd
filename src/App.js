@@ -27,7 +27,7 @@ export default App;
 
 
 
-
+// Comments for function that creates user: email already exists. If all fields where filled in, add user to database, and link to profile 
 
 
 

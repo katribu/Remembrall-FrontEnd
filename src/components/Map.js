@@ -23,7 +23,7 @@ const center = {
 export default function Map(props) {
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
-  // const [markers, setMarkers] = React.useState([])
+  const [markers, setMarkers] = React.useState([])
 
 
   const onMapLoad = () => {
@@ -34,22 +34,28 @@ export default function Map(props) {
     );
   }
 
+  //Katrina updated this function.... 
+  const onPlacesChanged = () => {
+    let result = searchBox.getPlaces()
+    let coordinates = result.map(coords => {
+      return {
+        lat:coords.geometry.location.lat(),
+        lng:coords.geometry.location.lng()
+      }
+    })
+    console.log(coordinates)
+    setMarkers(prevState => [...prevState,coordinates])
 
-  const onPlacesChanged = () => console.log(searchBox.getPlaces());
+    console.log(markers) // get an empty array logged out.....
+    let lat = result[0].geometry.location.lat()
+    let lng = result[0].geometry.location.lng()
+    console.log(result)
+    console.log(`lat:${lat},lng:${lng}`)
+  };
+
   const onSBLoad = ref => {
     setSearchBox(ref);
   }
-
-/*   const onPlacesChanged = () => {
-    let markerArray = [];
-    let results = searchBox.getPlaces();
-    for (let i = 0; i < results.length; i++) {
-      let place = results[i].geometry.location;
-      markerArray.push(place);
-    }
-    setMarkers(markerArray);
-    console.log(markers);
-  }; */
 
   const defaultProps = {
     center: currentLocation,
@@ -71,6 +77,8 @@ export default function Map(props) {
             position={currentLocation}
             onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
+          {/* Katrina tried to get the markers array to map to add a new marker to the map(didn't work) */}
+          {/* {markers.map(mark => {mark.map((mark,index) => {<MarkerF key={index} position={mark} />})})} */}
 
           <StandaloneSearchBox
             onLoad={onSBLoad}

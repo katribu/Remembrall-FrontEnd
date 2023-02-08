@@ -29,15 +29,16 @@ export function SignUp(props) {
     
     const handleSignupAttempt = async () => {
         try {
+            //Sends the inputvalues to create a new user and receives back the '"username" have been created'
+            const newUserResponse = await createNewUser(name, email, password,username);
 
-            const { error, newUserResponse } = await createNewUser(name, email, password,username);
-
-            // Check if successful
+          /*   // Check if successful
             if (error) {
                 throw new Error(error.message)
-            }  
+            }  */ 
             
-
+          
+            //Message the user that their account has been created
             alert(`${newUserResponse}`)
                 
             // Redirect to /login

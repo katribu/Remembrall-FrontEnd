@@ -39,8 +39,6 @@ export async function createNewUser(name, email, password,username) {
             username
         })
     });
-    console.log(response)
     const data = await response.json();
-    console.log(data)
     return data;
 }

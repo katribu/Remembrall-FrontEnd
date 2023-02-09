@@ -2,7 +2,6 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 import React, { useState,} from 'react';
 import { Link} from 'react-router-dom';
 import { getUserNotifications } from "../functions/fetch";
-import jwtDecode from 'jwt-decode';
 
 // We want to order the "Today's Reminders" based on date and time
 // We also want a button for toggling hide/show "Upcoming reminders" that are not set for "today" 
@@ -13,25 +12,20 @@ export function Profile(props) {
     const [remembralls, setRemembralls] = useState(false);
     const [userNotifications, setUserNotifications] = useState(undefined)
     const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
-    const [user, setUser] = useState('');
 
-    // Check if you are logged in - lines 16 -24
+    // Check if you are logged in - lines 16 -28
     const { history } = props;
 
     // Check if we have a token in local storage
-    const token = localStorage.getItem('TWITTER_TOKEN');
-   
-    const payload = jwtDecode(token);
-    console.log(payload)
-    setUser(payload)
-    // If no token in local storage - redirect to /login
-    if (!token) {
-        history.replace('/login');
-        return;
-    }
-
-  
-     
+    // useEffect will run after the first render, it will check if the token is valid.
+    //If no token in local storage - redirect to /login
+    React.useEffect(()=>{
+        const token = localStorage.getItem('TWITTER_TOKEN');
+        if (!token) {
+            history.replace('/login');
+            return;
+        }
+   },[history])
 
     const toggleRemembralls = () => {
         setRemembralls(prevState => !prevState);
@@ -39,10 +33,8 @@ export function Profile(props) {
     };
 
     const getNotifications = async() => {
-        const notifications = await getUserNotifications(user)
-        console.log(notifications)
+        const notifications = await getUserNotifications()
         setUserNotifications(notifications)
-        console.log(userNotifications)
     }
 
     // We want to add "Welcome NAME" (instead of logged in as fex)

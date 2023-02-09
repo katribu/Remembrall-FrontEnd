@@ -10,10 +10,10 @@ export function SetRemembrall() {
     }
 
     //Info that will be sent to the database: 
-    const [type, setType] = React.useState('')
-    const [time, setTime] = React.useState('')
-    const [markedLocation, setMarkedLocation] = React.useState(null)
-    const [message, setMessage] = React.useState('')
+    const [type, setType] = React.useState('');
+    const [time, setTime] = React.useState('');
+    const [markedLocation, setMarkedLocation] = React.useState(null);
+    const [message, setMessage] = React.useState('');
 
     return (
         <div>

@@ -5,8 +5,8 @@ export function SetRemembrall() {
 
     const [text, setText] = useState('');
     const handleText = (event) => {
-            setText(event.target.value);
-            console.log(text);
+        setText(event.target.value);
+        console.log(text);
     }
 
     const [slidervalue, setSlidervalue] = useState(100);
@@ -15,37 +15,46 @@ export function SetRemembrall() {
         console.log(slidervalue);
     }
 
-    const [time, setTime] = useState('00:00');
+    const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
     const handleTime = (event) => {
-            setTime(event.target.value);
-            console.log(time);
+        setTime(event.target.value);
+        console.log(time);
     }
 
-    const [date, setDate] = useState(new Date().toJSON())
+    const [date, setDate] = useState(new Date().toJSON().slice(0, 10))
     const handleDate = (event) => {
-            setDate(event.target.value);
-            console.log(date);
+        setDate(event.target.value);
+        console.log(date);
     }
 
-    const [checked, setChecked] = useState(false);
-    const handleChecked = (event) => {
-        setChecked(event.target.checked);
-        console.log(checked);
+
+    const [checkedPush, setCheckedPush] = useState(false);
+    const handleCheckedPush = (event) => {
+        setCheckedPush(event.target.checked);
+        console.log(checkedPush);
     }
 
-    const [location, setLocation] = useState({ lat: 0, lng: 0});
+    const [checkedSound, setCheckedSound] = useState(false);
+    const handleCheckedSound = (event) => {
+        setCheckedSound(event.target.checked);
+        console.log(checkedSound);
+    }
+
+    const [location, setLocation] = useState({ lat: 0, lng: 0 });
     const handleLocationChange = (coordinates) => {
         setLocation(coordinates)
     }
 
-    // Add handleSetRememberall (which onClick will do a post req)
+    // Add handleSubmit (must do a post request, to our database)
     const handleSubmit = () => {
         console.log({
             time,
             text,
             slidervalue,
             date,
-            checked
+            checkedPush,
+            checkedSound,
+
         })
     }
 
@@ -55,12 +64,15 @@ export function SetRemembrall() {
 
             <div>My Remembr'all:</div>
 
+            
             <textarea
                 maxLength={'200'}
                 minLength={'3'}
                 placeholder='Example: Prepare for salary negotations with Academic Work'
                 onChange={handleText}
                 value={text}
+                cols='25'
+                rows='3'
             />
 
             <div>Notify me at:</div>
@@ -92,13 +104,10 @@ export function SetRemembrall() {
                     value={slidervalue}
                     min="0"
                     max="1000"
+                    step='50'
                 />
 
-                {slidervalue ? (
-                    `${slidervalue} meter radius of:`
-                ) : (
-                    'Exact position'
-                )}
+                <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div>
 
                 <Map location={location} onCoordinatesChanged={handleLocationChange} />
             </div>
@@ -108,25 +117,23 @@ export function SetRemembrall() {
                 <input
                     type={'checkbox'}
                     name={'checked'}
-                    onChange={handleChecked}
-                    value={checked}
-                    checked={checked}
+                    onChange={handleCheckedPush}
+                    value={checkedPush}
+                    checked={checkedPush}
                 />
                 <label>Push Notification</label>
 
                 <input
                     type={'checkbox'}
                     name={'checked'}
-                    onChange={handleChecked}
-                    value={checked}
-                    checked={checked}
+                    onChange={handleCheckedSound}
+                    value={checkedSound}
+                    checked={checkedSound}
                 />
                 <label>Sound</label>
             </div>
 
             <button onClick={handleSubmit}>Set Remembr'all</button>
-
-            <div>The values registered on click are:</div>
 
         </div >
     )

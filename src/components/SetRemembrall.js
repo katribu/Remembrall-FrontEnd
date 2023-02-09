@@ -41,7 +41,7 @@ export function SetRemembrall() {
 
     // Add handleSetRememberall (which onClick will do a post req)
     const handleSubmit = async () => {
-        console.log({
+    console.log({
             time,
             text,
             slidervalue,
@@ -50,7 +50,11 @@ export function SetRemembrall() {
             location
         })
 
-        const submitResponse = await createNewRemembrall(null, time, location.lat, location.lng, text ); 
+        const type = 'location'
+
+        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, text ); 
+        console.log(submitResponse)
+        console.log(location.lat, location.lng)
         return submitResponse;
     }
 

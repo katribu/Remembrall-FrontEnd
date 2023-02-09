@@ -5,32 +5,26 @@ export function SetRemembrall() {
 
     const [text, setText] = useState('');
     const handleText = (event) => {
-        if (event.key === 'Enter') {
             setText(event.target.value);
             console.log(text);
-        }
     }
 
-    const [slidervalue, setSlidervalue] = useState(500);
+    const [slidervalue, setSlidervalue] = useState(100);
     const handleSliderValue = (event) => {
-        setSlidervalue(event.target.value * 10);
+        setSlidervalue(event.target.value);
         console.log(slidervalue);
     }
 
     const [time, setTime] = useState('00:00');
     const handleTime = (event) => {
-        if (event.key === 'Enter') {
             setTime(event.target.value);
             console.log(time);
-        }
     }
 
-    const [date, setDate] = useState()
+    const [date, setDate] = useState(new Date().toJSON())
     const handleDate = (event) => {
-        if (event.key === 'Enter') {
             setDate(event.target.value);
             console.log(date);
-        }
     }
 
     const [checked, setChecked] = useState(false);
@@ -39,8 +33,21 @@ export function SetRemembrall() {
         console.log(checked);
     }
 
-    // Add handleSetRememberall (which onClick will do a post req)
+    const [location, setLocation] = useState({ lat: 0, lng: 0});
+    const handleLocationChange = (coordinates) => {
+        setLocation(coordinates)
+    }
 
+    // Add handleSetRememberall (which onClick will do a post req)
+    const handleSubmit = () => {
+        console.log({
+            time,
+            text,
+            slidervalue,
+            date,
+            checked
+        })
+    }
 
     return (
         <div>
@@ -52,7 +59,8 @@ export function SetRemembrall() {
                 maxLength={'200'}
                 minLength={'3'}
                 placeholder='Example: Prepare for salary negotations with Academic Work'
-                onKeyDown={handleText}
+                onChange={handleText}
+                value={text}
             />
 
             <div>Notify me at:</div>
@@ -62,14 +70,16 @@ export function SetRemembrall() {
                 min='00:00'
                 max='23:59'
                 step='60'
-                onKeyDown={handleTime}
+                onChange={handleTime}
+                value={time}
             />
 
             {/* Default value should be today's date. Might have to install moment */}
             {/* Something is not working right. I have to click enter twice to get the correct value logged out */}
             <input
                 type={'date'}
-                onKeyDown={handleDate}
+                onChange={handleDate}
+                value={date}
             />
 
             <div>
@@ -79,15 +89,18 @@ export function SetRemembrall() {
                 <input
                     type={'range'}
                     onChange={handleSliderValue}
+                    value={slidervalue}
+                    min="0"
+                    max="1000"
                 />
 
                 {slidervalue ? (
                     `${slidervalue} meter radius of:`
                 ) : (
                     'Exact position'
-                )};
+                )}
 
-                <Map />
+                <Map location={location} onCoordinatesChanged={handleLocationChange} />
             </div>
 
             <b>Notification Settings:</b>
@@ -96,6 +109,8 @@ export function SetRemembrall() {
                     type={'checkbox'}
                     name={'checked'}
                     onChange={handleChecked}
+                    value={checked}
+                    checked={checked}
                 />
                 <label>Push Notification</label>
 
@@ -103,11 +118,13 @@ export function SetRemembrall() {
                     type={'checkbox'}
                     name={'checked'}
                     onChange={handleChecked}
+                    value={checked}
+                    checked={checked}
                 />
                 <label>Sound</label>
             </div>
 
-            <button>Set Remembr'all</button>
+            <button onClick={handleSubmit}>Set Remembr'all</button>
 
             <div>The values registered on click are:</div>
 

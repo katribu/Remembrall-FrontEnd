@@ -13,12 +13,6 @@ const containerStyle = {
 // Infinitly rendering. (or add as state inside the componenet)
 const lib = ['places']
 
-// Map positioned at Oslo lng and lat.
-const center = {
-  lat: 59.911491,
-  lng: 10.757933,
-}
-
 export default function Map(props) {
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
@@ -73,7 +67,7 @@ export default function Map(props) {
       <LoadScript libraries={lib} googleMapsApiKey={MY_MAP_KEY}>
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
+          center={currentLocation}
           zoom={10}
           onLoad={onMapLoad}
         >

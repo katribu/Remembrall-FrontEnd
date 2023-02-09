@@ -11,6 +11,8 @@ export function Profile(props) {
 
     const [remembralls, setRemembralls] = useState(false);
     const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
+    const [user, setUser] = useState('');
+
 
     // Check if you are logged in - lines 16 -24
     const { history } = props;
@@ -24,10 +26,15 @@ export function Profile(props) {
         return;
     }
 
+  
+     
+
     const toggleRemembralls = () => {
         setRemembralls(!remembralls);
         setButtonText(buttonText === 'Hide Upcoming Remembr\'alls' ? 'Show Upcoming Remembr\'alls' : 'Hide Upcoming Remembr\'alls');
     };
+
+   
 
     // We want to add "Welcome NAME" (instead of logged in as fex)
     // We also want THE VERY FIRST TIME, someone enters the profile site, for it to say "Get started by creating a remembra'll. Examples: "Get up and stretch for 5 minutes".

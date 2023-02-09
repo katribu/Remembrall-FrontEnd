@@ -42,3 +42,20 @@ export async function createNewUser(name, email, password,username) {
     const data = await response.json();
     return data;
 }
+
+export async function createNewRemembrall(type, {time, markedLocation, message}) {
+    const response = await fetch(`${API_URL}/setremembrall`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            type,
+            data: {time,
+            markedLocation,
+            message}
+        })
+    });
+    const data = await response.json();
+    return data;
+}

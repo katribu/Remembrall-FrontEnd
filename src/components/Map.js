@@ -14,7 +14,7 @@ const containerStyle = {
 // Infinitly rendering. (or add as state inside the componenet)
 const lib = ['places']
 
-// Map positioned at Oslo long and lat.
+// Map positioned at Oslo lng and lat.
 const center = {
   lat: 59.911491,
   lng: 10.757933,
@@ -46,21 +46,20 @@ export default function Map(props) {
     console.log(coordinates)
     setMarkers(prevState => [...prevState,coordinates])
 
-    console.log(markers) // get an empty array logged out.....
+    // get an empty array logged out.....
     let lat = result[0].geometry.location.lat()
     let lng = result[0].geometry.location.lng()
-    console.log(result)
+    // console.log(result)
     console.log(`lat:${lat},lng:${lng}`)
   };
-
   const onSBLoad = ref => {
     setSearchBox(ref);
-  }
+  };
 
   const defaultProps = {
     center: currentLocation,
     zoom: 11
-  }
+  };
 
   return (
     // Important! Always set the container height explicitly
@@ -79,7 +78,7 @@ export default function Map(props) {
           />
           {/* Katrina tried to get the markers array to map to add a new marker to the map(didn't work) */}
           {/* {markers.map(mark => {mark.map((mark,index) => {<MarkerF key={index} position={mark} />})})} */}
-
+          
           <StandaloneSearchBox
             onLoad={onSBLoad}
             onPlacesChanged={onPlacesChanged}

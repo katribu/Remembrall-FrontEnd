@@ -14,10 +14,9 @@ const containerStyle = {
 const lib = ['places']
 
 export default function Map(props) {
+  const { location, onCoordinatesChanged } = props;
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
-  const [markers, setMarkers] = React.useState({ lat: 0, lng: 0 })
-
 
   const onMapLoad = () => {
     navigator.geolocation.getCurrentPosition(
@@ -27,7 +26,7 @@ export default function Map(props) {
     );
   }
 
-  //Katrina updated this function.... 
+  //Returns the lat/lng based on the search field. 
   const onPlacesChanged = () => {
     let result = searchBox.getPlaces()
     let coordinates = result.map(coords => {
@@ -36,18 +35,9 @@ export default function Map(props) {
         lng:coords.geometry.location.lng()
       }
     })
-    console.log(coordinates)
 
- /*    setMarkers(markers => [...markers, coordinates]); */
-    setMarkers(coordinates[0]);
+    onCoordinatesChanged(coordinates[0])
 
-    // get an empty array logged out.....
-    let lat = result[0].geometry.location.lat()
-    let lng = result[0].geometry.location.lng()
-
-
-    // console.log(result)
-    console.log(`lat:${lat},lng:${lng}`)
   };
   const onSBLoad = ref => {
     setSearchBox(ref);
@@ -78,7 +68,7 @@ export default function Map(props) {
 
           {/* Marker that comes from the search field. */}
           <MarkerF 
-            position={markers}
+            position={location}
           />
           
           <StandaloneSearchBox

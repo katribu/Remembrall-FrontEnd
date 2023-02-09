@@ -14,6 +14,11 @@ export function SetRemembrall() {
     const [time, setTime] = React.useState('');
     const [markedLocation, setMarkedLocation] = React.useState(null);
     const [message, setMessage] = React.useState('');
+    const [location, setLocation] = React.useState({ lat: 0, lng: 0 });
+
+    const handleLocationChange = (coordinates) => {
+        setLocation(coordinates);
+    }
 
     return (
         <div>
@@ -27,7 +32,10 @@ export function SetRemembrall() {
 
             <div><em>*Optional</em>
                 <div>When I am in a <input type={'number'}></input> meter radius of:</div>
-                <Map />
+                <Map
+                    location={location}
+                    onCoordinatesChanged={handleLocationChange}
+                />
             </div>
 
             <b>Notification Settings:</b>

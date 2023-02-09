@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 
 export function SetRemembrall() {
@@ -46,7 +47,7 @@ export function SetRemembrall() {
     }
 
     // Add handleSubmit (must do a post request, to our database)
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log({
             time,
             text,
@@ -54,8 +55,14 @@ export function SetRemembrall() {
             date,
             checkedPush,
             checkedSound,
+            location
 
         })
+
+        const type = 'location';
+
+        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, text); 
+        return submitResponse;
     }
 
     return (

@@ -43,6 +43,7 @@ export async function createNewUser(name, email, password,username) {
     return data;
 }
 
+
 //Get notification information from database according to user.
 export async function getUserNotifications(){
     const response = await fetch(`${API_URL}/notifications`,{
@@ -55,7 +56,7 @@ export async function getUserNotifications(){
     return data;
 }
 
-export async function createNewRemembrall(type, {time, markedLocation, message}) {
+export async function createNewRemembrall(type, time, lng, lat, message) {
     const response = await fetch(`${API_URL}/setremembrall`, {
         method: "POST",
         headers: {
@@ -64,7 +65,7 @@ export async function createNewRemembrall(type, {time, markedLocation, message})
         body: JSON.stringify({
             type,
             data: {time,
-            markedLocation,
+            lng, lat,
             message}
         })
     });

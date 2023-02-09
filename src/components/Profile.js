@@ -1,23 +1,29 @@
 import { MdOutlineNotificationsNone } from "react-icons/md";
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-
+import React, { useState,} from 'react';
+import { Link} from 'react-router-dom';
+import { getUserNotifications } from "../functions/fetch";
+import jwtDecode from 'jwt-decode';
 
 // We want to order the "Today's Reminders" based on date and time
 // We also want a button for toggling hide/show "Upcoming reminders" that are not set for "today" 
 // Also for "today" we dont want to show the date, only the time, but for the upcoming events, we want to show "day" (mon, tuesd etc), and date 
 
 export function Profile(props) {
-
+    
     const [remembralls, setRemembralls] = useState(false);
+    const [userNotifications, setUserNotifications] = useState(undefined)
     const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
+    const [user, setUser] = useState('');
 
     // Check if you are logged in - lines 16 -24
     const { history } = props;
 
     // Check if we have a token in local storage
     const token = localStorage.getItem('TWITTER_TOKEN');
-
+   
+    const payload = jwtDecode(token);
+    console.log(payload)
+    setUser(payload)
     // If no token in local storage - redirect to /login
     if (!token) {
         history.replace('/login');
@@ -25,9 +31,16 @@ export function Profile(props) {
     }
 
     const toggleRemembralls = () => {
-        setRemembralls(!remembralls);
+        setRemembralls(prevState => !prevState);
         setButtonText(buttonText === 'Hide Upcoming Remembr\'alls' ? 'Show Upcoming Remembr\'alls' : 'Hide Upcoming Remembr\'alls');
     };
+
+    const getNotifications = async() => {
+        const notifications = await getUserNotifications(user)
+        console.log(notifications)
+        setUserNotifications(notifications)
+        console.log(userNotifications)
+    }
 
     // We want to add "Welcome NAME" (instead of logged in as fex)
     // We also want THE VERY FIRST TIME, someone enters the profile site, for it to say "Get started by creating a remembra'll. Examples: "Get up and stretch for 5 minutes".
@@ -73,10 +86,12 @@ export function Profile(props) {
             </ul>
             <div>
                 <button onClick={toggleRemembralls}>{buttonText}</button>
+                <button onClick={getNotifications}>Get my Remembr'alls</button>
             </div>
 
             <div>
                 <Link to="/setremembrall">
+                    {/* Goes to the set remembrall page. (to create new notification) */}
                     <button>Set Remembr'all</button>
                 </Link>
             </div>

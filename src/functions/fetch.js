@@ -42,3 +42,10 @@ export async function createNewUser(name, email, password,username) {
     const data = await response.json();
     return data;
 }
+
+//Get notification information from database according to user.
+export async function getUserNotifications(username){
+    const response = await fetch(`${API_URL}/${username}`)
+    const data = await response.json()
+    return data;
+}

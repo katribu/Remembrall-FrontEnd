@@ -48,7 +48,7 @@ export function SetRemembrall() {
 
     // Add handleSubmit (must do a post request, to our database)
     const handleSubmit = async () => {
-        console.log({
+    console.log({
             time,
             text,
             slidervalue,

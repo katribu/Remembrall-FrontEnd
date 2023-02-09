@@ -43,6 +43,19 @@ export async function createNewUser(name, email, password,username) {
     return data;
 }
 
+
+//Get notification information from database according to user.
+export async function getUserNotifications(){
+    const response = await fetch(`${API_URL}/notifications`,{
+        headers:{
+            "content-type":"application/json",
+            "x-token":localStorage.getItem('TWITTER_TOKEN')
+        }
+    })
+    const data = await response.json()
+    return data;
+}
+
 export async function createNewRemembrall(type, {time, lng, lat, message}) {
     const response = await fetch(`${API_URL}/setremembrall`, {
         method: "POST",

@@ -18,6 +18,8 @@ export default function Map(props) {
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
 
+
+
   const onMapLoad = () => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -26,7 +28,7 @@ export default function Map(props) {
     );
   }
 
-  //Returns the lat/lng based on the search field. 
+  // Returns the lat/lng based on the search field
   const onPlacesChanged = () => {
     let result = searchBox.getPlaces()
     let coordinates = result.map(coords => {
@@ -35,10 +37,10 @@ export default function Map(props) {
         lng:coords.geometry.location.lng()
       }
     })
-
+    
     onCoordinatesChanged(coordinates[0])
-
   };
+
   const onSBLoad = ref => {
     setSearchBox(ref);
   };

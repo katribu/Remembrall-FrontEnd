@@ -56,11 +56,12 @@ export async function getUserNotifications(){
     return data;
 }
 
-export async function createNewRemembrall(type, {time, lng, lat, message}) {
+export async function createNewRemembrall(type, time, lng, lat, message) {
     const response = await fetch(`${API_URL}/setremembrall`, {
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            "x-token":localStorage.getItem('TWITTER_TOKEN')
         },
         body: JSON.stringify({
             type,
@@ -69,6 +70,8 @@ export async function createNewRemembrall(type, {time, lng, lat, message}) {
             message}
         })
     });
+    console.log(response); 
     const data = await response.json();
+    console.log(data)
     return data;
 }

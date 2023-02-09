@@ -30,6 +30,9 @@ export function Profile(props) {
         return;
     }
 
+  
+     
+
     const toggleRemembralls = () => {
         setRemembralls(prevState => !prevState);
         setButtonText(buttonText === 'Hide Upcoming Remembr\'alls' ? 'Show Upcoming Remembr\'alls' : 'Hide Upcoming Remembr\'alls');

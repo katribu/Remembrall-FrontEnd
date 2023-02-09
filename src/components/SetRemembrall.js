@@ -9,6 +9,11 @@ export function SetRemembrall() {
         setChecked(event.target.checked)
     }
 
+    //Info that will be sent to the database: 
+    const [type, setType] = React.useState('')
+    const [time, setTime] = React.useState('')
+    const [markedLocation, setMarkedLocation] = React.useState(null)
+    const [message, setMessage] = React.useState('')
 
     return (
         <div>

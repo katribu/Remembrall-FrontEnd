@@ -19,6 +19,18 @@ export function LogIn(props) {
         setEmail(event.target.value)
     }
 
+    // Check if you are logged in - lines 16 -24
+    const { history } = props;
+
+    // Check if we have a token in local storage
+    const token = localStorage.getItem('TWITTER_TOKEN');
+
+    // If no token in local storage - redirect to /login
+    if (token) {
+        history.replace('/profile');
+        return;
+    }
+
     const handleLoginAttempt = async () => {
         try {
             // Make a request to create a token
@@ -43,6 +55,8 @@ export function LogIn(props) {
             setError(error)
         }
     }
+
+
 
 
 

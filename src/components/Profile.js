@@ -32,11 +32,19 @@ export function Profile(props) {
         setButtonText(buttonText === 'Hide Upcoming Remembr\'alls' ? 'Show Upcoming Remembr\'alls' : 'Hide Upcoming Remembr\'alls');
     };
 
-    const getNotifications = async() => {
-        const notifications = await getUserNotifications()
-        setUserNotifications(notifications)
-    }
+    React.useEffect(()=>{
+            async function getNotifications(){
+                const notifications = await getUserNotifications()
+                setUserNotifications(notifications)
+            }
+        getNotifications()
+    },[])
 
+    const myNotifications = userNotifications?.map((notification,index) => {
+        return(
+            <div key={index}><li>{notification.data.message}</li></div>
+        )
+    })
     // We want to add "Welcome NAME" (instead of logged in as fex)
     // We also want THE VERY FIRST TIME, someone enters the profile site, for it to say "Get started by creating a remembra'll. Examples: "Get up and stretch for 5 minutes".
     // We also want to add a conditional, that checks if there are any remembra'lls in the list. If no list, then show "No active remembr'alls for today".
@@ -45,6 +53,7 @@ export function Profile(props) {
     return (
         <div style={{ maxWidth: '500px', margin: 'auto' }}>
             <h2>Your Remembr'alls for Today:</h2>
+           
             {/* Here, upcomingRemembralls is assumed to be an array of objects that represent the upcoming remembralls. Each object should have a title and a time property (in this example code).
                 Once we have linked the front-end and back-end, we can use this code. 
             
@@ -69,7 +78,7 @@ export function Profile(props) {
             )} 
             */}
             <ul id="upcoming-remebralls">
-                <li>Stretch for 5 minutes</li>
+                {myNotifications}
                 <div><MdOutlineNotificationsNone /> 13:00</div>
                 <li>Stop by Clas Ohlson</li>
                 <div><MdOutlineNotificationsNone /> 16:30</div>
@@ -81,7 +90,6 @@ export function Profile(props) {
             </ul>
             <div>
                 <button onClick={toggleRemembralls}>{buttonText}</button>
-                <button onClick={getNotifications}>Get my Remembr'alls</button>
             </div>
 
             <div>

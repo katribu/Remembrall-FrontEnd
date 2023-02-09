@@ -1,5 +1,5 @@
 // For the Markers to show up in React version 18+ need to import as "MarkerF" due to the App running strict mode.
-import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript, Marker } from '@react-google-maps/api';
 import React from 'react';
 
 const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
@@ -8,7 +8,6 @@ const containerStyle = {
   width: '100vw',
   height: '400px'
 };
-
 
 // Need to have places as a prop in the Loaded Script tag. StackOverflow said to put it outside the component to keep it from
 // Infinitly rendering. (or add as state inside the componenet)
@@ -23,7 +22,7 @@ const center = {
 export default function Map(props) {
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
-  const [markers, setMarkers] = React.useState([])
+  const [markers, setMarkers] = React.useState({ lat: 0, lng: 0 })
 
 
   const onMapLoad = () => {
@@ -44,11 +43,15 @@ export default function Map(props) {
       }
     })
     console.log(coordinates)
-    setMarkers(prevState => [...prevState,coordinates])
+
+ /*    setMarkers(markers => [...markers, coordinates]); */
+    setMarkers(coordinates[0]);
 
     // get an empty array logged out.....
     let lat = result[0].geometry.location.lat()
     let lng = result[0].geometry.location.lng()
+
+
     // console.log(result)
     console.log(`lat:${lat},lng:${lng}`)
   };
@@ -60,6 +63,8 @@ export default function Map(props) {
     center: currentLocation,
     zoom: 11
   };
+
+  
 
   return (
     // Important! Always set the container height explicitly
@@ -76,8 +81,11 @@ export default function Map(props) {
             position={currentLocation}
             onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
-          {/* Katrina tried to get the markers array to map to add a new marker to the map(didn't work) */}
-          {/* {markers.map(mark => {mark.map((mark,index) => {<MarkerF key={index} position={mark} />})})} */}
+
+          {/* Marker that comes from the search field. */}
+          <MarkerF 
+            position={markers}
+          />
           
           <StandaloneSearchBox
             onLoad={onSBLoad}

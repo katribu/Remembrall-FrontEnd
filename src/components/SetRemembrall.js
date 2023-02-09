@@ -1,4 +1,5 @@
 import React, { useState } from "react"
+import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 
 export function SetRemembrall() {
@@ -39,14 +40,18 @@ export function SetRemembrall() {
     }
 
     // Add handleSetRememberall (which onClick will do a post req)
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         console.log({
             time,
             text,
             slidervalue,
             date,
-            checked
+            checked,
+            location
         })
+
+        const submitResponse = await createNewRemembrall(null, time, location.lat, location.lng, text ); 
+        return submitResponse;
     }
 
     return (

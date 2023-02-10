@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 
+
 export function SetRemembrall() {
 
     const [text, setText] = useState('');
@@ -16,7 +17,7 @@ export function SetRemembrall() {
         console.log(slidervalue);
     }
 
-    const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
+    const [time, setTime] = useState(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
     const handleTime = (event) => {
         setTime(event.target.value);
         console.log(time);
@@ -63,6 +64,12 @@ export function SetRemembrall() {
 
         const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, text); 
         return submitResponse;
+
+        /* Remember to pass props as an argument to the component
+        const { history } = props;
+        history.replace('/profile');
+        return; */
+
     }
 
     return (
@@ -83,7 +90,6 @@ export function SetRemembrall() {
             />
 
             <div>Notify me at:</div>
-            {/* Something is not working right. I have to click enter twice to get the correct value logged out */}
             <input
                 type={'time'}
                 min='00:00'
@@ -93,8 +99,6 @@ export function SetRemembrall() {
                 value={time}
             />
 
-            {/* Default value should be today's date. Might have to install moment */}
-            {/* Something is not working right. I have to click enter twice to get the correct value logged out */}
             <input
                 type={'date'}
                 onChange={handleDate}

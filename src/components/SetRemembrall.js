@@ -3,7 +3,7 @@ import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 
 
-export function SetRemembrall() {
+export function SetRemembrall(props) {
 
     const [text, setText] = useState('');
     const handleText = (event) => {
@@ -63,13 +63,12 @@ export function SetRemembrall() {
         const type = 'location';
 
         const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, text); 
-        return submitResponse;
-
-        /* Remember to pass props as an argument to the component
+        
         const { history } = props;
         history.replace('/profile');
-        return; */
-
+        
+        return submitResponse; 
+    
     }
 
     return (

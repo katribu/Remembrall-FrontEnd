@@ -17,7 +17,6 @@ export function SetRemembrall() {
         console.log(slidervalue);
     }
 
-    // Commits 9 Feb kl 18.40: Change 'en-US' to 'nor', to get 24 hour format.
     const [time, setTime] = useState(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
     const handleTime = (event) => {
         setTime(event.target.value);
@@ -65,6 +64,12 @@ export function SetRemembrall() {
 
         const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, text); 
         return submitResponse;
+
+        /* Remember to pass props as an argument to the component
+        const { history } = props;
+        history.replace('/profile');
+        return; */
+
     }
 
     return (
@@ -85,7 +90,6 @@ export function SetRemembrall() {
             />
 
             <div>Notify me at:</div>
-            {/* Something is not working right. I have to click enter twice to get the correct value logged out */}
             <input
                 type={'time'}
                 min='00:00'
@@ -95,8 +99,6 @@ export function SetRemembrall() {
                 value={time}
             />
 
-            {/* Default value should be today's date. Might have to install moment */}
-            {/* Something is not working right. I have to click enter twice to get the correct value logged out */}
             <input
                 type={'date'}
                 onChange={handleDate}

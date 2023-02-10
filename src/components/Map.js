@@ -62,10 +62,12 @@ export default function Map(props) {
           center={currentLocation}
           zoom={12}
           onLoad={onMapLoad}
-
         >
-
+          {/* You have to search for a place, and then remove the markerf for the circle to show */}
+          <MarkerF />
+          
           <Circle
+            position={location}
             center={location}
             radius={Number(slidervalue)}
             options={{

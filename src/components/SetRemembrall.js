@@ -60,12 +60,11 @@ export function SetRemembrall(props) {
             checkedPush,
             checkedSound,
             location
-
         })
 
         const type = 'location';
 
-        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text); 
+        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text, checkedPush, checkedSound); 
         /* return submitResponse; */
 
         

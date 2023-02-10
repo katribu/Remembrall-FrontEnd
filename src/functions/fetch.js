@@ -26,7 +26,7 @@ export async function getLoginToken(email, password) {
 }
 
 // Get SIGNUP info to Create User in Users table
-export async function createNewUser(name, email, password,username) {
+export async function createNewUser(name, email, password, username) {
     const response = await fetch(`${API_URL}/signup`, {
         method: "POST",
         headers: {
@@ -45,33 +45,37 @@ export async function createNewUser(name, email, password,username) {
 
 
 //Get notification information from database according to user.
-export async function getUserNotifications(){
-    const response = await fetch(`${API_URL}/notifications`,{
-        headers:{
-            "content-type":"application/json",
-            "x-token":localStorage.getItem('TWITTER_TOKEN')
+export async function getUserNotifications() {
+    const response = await fetch(`${API_URL}/notifications`, {
+        headers: {
+            "content-type": "application/json",
+            "x-token": localStorage.getItem('TWITTER_TOKEN')
         }
     })
     const data = await response.json()
     return data;
 }
 
-export async function createNewRemembrall(type, time, lng, lat, slidervalue, message) {
+export async function createNewRemembrall(type, time, lng, lat, slidervalue, message, checkedPush, checkedSound) {
     const response = await fetch(`${API_URL}/setremembrall`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
-            "x-token":localStorage.getItem('TWITTER_TOKEN')
+            "x-token": localStorage.getItem('TWITTER_TOKEN')
         },
         body: JSON.stringify({
             type,
-            data: {time,
-            lng, lat, 
-            slidervalue,
-            message}
+            data: {
+                time,
+                lng, lat,
+                slidervalue,
+                message,
+                checkedPush,
+                checkedSound
+            }
         })
     });
-    console.log(response); 
+    console.log(response);
     const data = await response.json();
     console.log(data)
     return data;

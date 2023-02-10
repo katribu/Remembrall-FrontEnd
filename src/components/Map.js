@@ -1,5 +1,5 @@
 // For the Markers to show up in React version 18+ need to import as "MarkerF" due to the App running strict mode.
-import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript, Marker } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
 import React from 'react';
 
 const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
@@ -14,7 +14,7 @@ const containerStyle = {
 const lib = ['places']
 
 export default function Map(props) {
-  const { location, onCoordinatesChanged } = props;
+  const { location, onCoordinatesChanged, } = props;
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
 
@@ -33,11 +33,11 @@ export default function Map(props) {
     let result = searchBox.getPlaces()
     let coordinates = result.map(coords => {
       return {
-        lat:coords.geometry.location.lat(),
-        lng:coords.geometry.location.lng()
+        lat: coords.geometry.location.lat(),
+        lng: coords.geometry.location.lng()
       }
     })
-    
+
     onCoordinatesChanged(coordinates[0])
   };
 
@@ -50,7 +50,7 @@ export default function Map(props) {
     zoom: 11
   };
 
-  
+
 
   return (
     // Important! Always set the container height explicitly
@@ -62,17 +62,19 @@ export default function Map(props) {
           center={currentLocation}
           zoom={10}
           onLoad={onMapLoad}
+
         >
+
           <MarkerF
             position={currentLocation}
             onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
 
           {/* Marker that comes from the search field. */}
-          <MarkerF 
+          <MarkerF
             position={location}
           />
-          
+
           <StandaloneSearchBox
             onLoad={onSBLoad}
             onPlacesChanged={onPlacesChanged}

@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 
+
 export function SetRemembrall() {
 
     const [text, setText] = useState('');
@@ -16,7 +17,8 @@ export function SetRemembrall() {
         console.log(slidervalue);
     }
 
-    const [time, setTime] = useState(new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
+    // Commits 9 Feb kl 18.40: Change 'en-US' to 'nor', to get 24 hour format.
+    const [time, setTime] = useState(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
     const handleTime = (event) => {
         setTime(event.target.value);
         console.log(time);

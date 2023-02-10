@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 
@@ -41,15 +41,20 @@ export function SetRemembrall(props) {
         setCheckedSound(event.target.checked);
         console.log(checkedSound);
     }
-
-    const [location, setLocation] = useState({ lat: 0, lng: 0 });
+    // 59.91151554598712, 10.752414484654482
+    const [location, setLocation] = useState({ lat: 59.91151554598712, lng: 10.752414484654482 });
     const handleLocationChange = (coordinates) => {
         setLocation(coordinates)
     }
 
-  
+    const [type, setType] = useState('alarm')
+    const [checkedChooseLocation,setChooseLocation] = useState(false);
+    const handleCheckedLocation =(event) => {
+        setChooseLocation(event.target.checked);
+        setType('location')
+    }
 
-  
+
     // Add handleSubmit (must do a post request, to our database)
     const handleSubmit = async () => {
     console.log({
@@ -59,10 +64,10 @@ export function SetRemembrall(props) {
             date,
             checkedPush,
             checkedSound,
-            location
+            location,
+            type
         })
 
-        const type = 'location';
 
         const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text, checkedPush, checkedSound); 
         /* return submitResponse; */
@@ -120,9 +125,18 @@ export function SetRemembrall(props) {
                     step='50'
                 />
 
-                <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div>
+                <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div><br/>
+                <b>Choose Location: </b>
+                <input
+                    type={'checkbox'}
+                    name={'checked'}
+                    onChange={handleCheckedLocation}
+                    value={checkedChooseLocation}
+                    checked={checkedChooseLocation}
+                />
 
-                <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />
+
+                {checkedChooseLocation && <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />}
             </div>
 
             <b>Notification Settings:</b>

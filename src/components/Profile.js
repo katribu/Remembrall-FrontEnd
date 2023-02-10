@@ -60,7 +60,6 @@ export function Profile(props) {
             </div>
         )
     });
-    console.log(myLocationNotifications)
 
     // We want to add "Welcome NAME" (instead of logged in as fex)
     // We also want THE VERY FIRST TIME, someone enters the profile site, for it to say "Get started by creating a remembra'll. Examples: "Get up and stretch for 5 minutes".
@@ -100,7 +99,6 @@ export function Profile(props) {
 
                 <h3>Your Alarm-based Notifications</h3>
                 {myAlarmNotifications.length > 0?myAlarmNotifications: (<p>You currently have no alarm-based notifications!</p>)}
-                {/* {console.log(myAlarmNotifications.length)} */}
                 <h2 className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Your Upcoming Remembr'alls:</h2>
                 <li className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Visit Grandmother</li>
                 <div className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}><MdOutlineNotificationsNone /> Saturday 11/2/23 at 11:30</div>

@@ -1,5 +1,5 @@
 // For the Markers to show up in React version 18+ need to import as "MarkerF" due to the App running strict mode.
-import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript, Circle } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, StandaloneSearchBox,Circle, LoadScriptNext } from '@react-google-maps/api';
 import React from 'react';
 
 const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
@@ -56,7 +56,7 @@ export default function Map(props) {
     // Important! Always set the container height explicitly
 
     <div style={{ height: '100vh', width: '100%' }}>
-      <LoadScript libraries={lib} googleMapsApiKey={MY_MAP_KEY}>
+      <LoadScriptNext libraries={lib} googleMapsApiKey={MY_MAP_KEY}>
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={currentLocation}
@@ -64,7 +64,6 @@ export default function Map(props) {
           onLoad={onMapLoad}
         >
           {/* You have to search for a place, and then remove the markerf for the circle to show */}
-          <MarkerF />
           
           <Circle
             position={location}
@@ -79,12 +78,12 @@ export default function Map(props) {
             }}
           />
 
-          {/*  <MarkerF
+           <MarkerF
             position={currentLocation}
             onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
 
-          Marker that comes from the search field.
+          {/* Marker that comes from the search field.
           <MarkerF
             position={location}
           /> */}
@@ -116,7 +115,7 @@ export default function Map(props) {
           </StandaloneSearchBox>
 
         </GoogleMap>
-      </LoadScript>
+      </LoadScriptNext>
     </div>
   );
 }

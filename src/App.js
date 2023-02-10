@@ -8,7 +8,6 @@ import { LogIn } from './components/LogIn';
 import { SignUp } from './components/SignUp';
 import { LogOut } from './components/LogOut';
 
-
 function App() {
   return (
     <BrowserRouter>

@@ -10,12 +10,12 @@ import { getUserNotifications } from "../functions/fetch";
 export function Profile(props) {
     
     const [remembralls, setRemembralls] = useState(false);
-    const [userNotifications, setUserNotifications] = useState(undefined);
+    const [userNotifications, setUserNotifications] = useState([]);
     const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
 
     // Check if you are logged in - lines 16 -28
     const { history } = props;
-    
+
     // Check if we have a token in local storage
     // useEffect will run after the first render, it will check if the token is valid.
     //If no token in local storage - redirect to /login
@@ -44,7 +44,7 @@ export function Profile(props) {
     const myLocationNotifications = userNotifications?.filter(notification => notification.type ==="location")?.map((notification,index) => {
         return(
             <div key={index}>
-                <h3>Your Location-based Notifications</h3>
+                
                 <p>What: {notification.data.message}</p>
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
             </div>
@@ -54,13 +54,13 @@ export function Profile(props) {
     const myAlarmNotifications = userNotifications?.filter(notification => notification.type ==="alarm")?.map((notification,index) => {
         return(
             <div key={index}>
-                <h3>Your Alarm-based Notifications</h3>
+                
                 <p>What: {notification.data.message}</p>
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
             </div>
         )
     });
-
+    console.log(myLocationNotifications)
 
     // We want to add "Welcome NAME" (instead of logged in as fex)
     // We also want THE VERY FIRST TIME, someone enters the profile site, for it to say "Get started by creating a remembra'll. Examples: "Get up and stretch for 5 minutes".
@@ -95,8 +95,12 @@ export function Profile(props) {
             )} 
             */}
             <div id="upcoming-remebralls">
-                {myLocationNotifications || <p>You currently have no location-based notifications!</p>}
-                {myAlarmNotifications || <p>You currently have no alarm-based notifications!</p>}
+                <h3>Your Location-based Notifications</h3>
+                {myLocationNotifications.length>0? myLocationNotifications :(<p>You currently have no location-based notifications!</p>)}
+
+                <h3>Your Alarm-based Notifications</h3>
+                {myAlarmNotifications.length > 0?myAlarmNotifications: (<p>You currently have no alarm-based notifications!</p>)}
+                {/* {console.log(myAlarmNotifications.length)} */}
                 <h2 className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Your Upcoming Remembr'alls:</h2>
                 <li className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Visit Grandmother</li>
                 <div className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}><MdOutlineNotificationsNone /> Saturday 11/2/23 at 11:30</div>

@@ -65,7 +65,7 @@ export function SetRemembrall(props) {
 
         const type = 'location';
 
-        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, text); 
+        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text); 
         /* return submitResponse; */
 
         

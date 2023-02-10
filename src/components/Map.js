@@ -1,5 +1,5 @@
 // For the Markers to show up in React version 18+ need to import as "MarkerF" due to the App running strict mode.
-import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, StandaloneSearchBox, LoadScript, Circle } from '@react-google-maps/api';
 import React from 'react';
 
 const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
@@ -14,7 +14,7 @@ const containerStyle = {
 const lib = ['places']
 
 export default function Map(props) {
-  const { location, onCoordinatesChanged, } = props;
+  const { location, onCoordinatesChanged, slidervalue } = props;
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
 
@@ -60,20 +60,32 @@ export default function Map(props) {
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={currentLocation}
-          zoom={10}
+          zoom={12}
           onLoad={onMapLoad}
 
         >
 
-          <MarkerF
+          <Circle
+            center={location}
+            radius={Number(slidervalue)}
+            options={{
+              fillColor: 'red',
+              fillOpacity: 0.20,
+              strokeColor: 'red',
+              strokeOpacity: 1,
+              strokeWeight: 1,
+            }}
+          />
+
+          {/*  <MarkerF
             position={currentLocation}
             onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
 
-          {/* Marker that comes from the search field. */}
+          Marker that comes from the search field.
           <MarkerF
             position={location}
-          />
+          /> */}
 
           <StandaloneSearchBox
             onLoad={onSBLoad}

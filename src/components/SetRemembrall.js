@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 
 
-export function SetRemembrall() {
+export function SetRemembrall(props) {
 
     const [text, setText] = useState('');
     const handleText = (event) => {
@@ -47,6 +47,9 @@ export function SetRemembrall() {
         setLocation(coordinates)
     }
 
+  
+
+  
     // Add handleSubmit (must do a post request, to our database)
     const handleSubmit = async () => {
     console.log({
@@ -63,12 +66,12 @@ export function SetRemembrall() {
         const type = 'location';
 
         const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, text); 
-        return submitResponse;
+        /* return submitResponse; */
 
-        /* Remember to pass props as an argument to the component
+        
         const { history } = props;
         history.replace('/profile');
-        return; */
+        return submitResponse;
 
     }
 
@@ -113,14 +116,14 @@ export function SetRemembrall() {
                     type={'range'}
                     onChange={handleSliderValue}
                     value={slidervalue}
-                    min="0"
+                    min="50"
                     max="1000"
                     step='50'
                 />
 
                 <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div>
 
-                <Map location={location} onCoordinatesChanged={handleLocationChange} />
+                <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />
             </div>
 
             <b>Notification Settings:</b>

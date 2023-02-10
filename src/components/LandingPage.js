@@ -1,7 +1,4 @@
-import { useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import '../App.css';
-import jwtDecode from 'jwt-decode';
 
 
 const headerStyle = {
@@ -27,8 +24,8 @@ export function LandingPage(props) {
        });  */
 
     // Fetch tweets from server
+    
     history.replace('/profile');
-
     return;
 };
 

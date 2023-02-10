@@ -26,21 +26,21 @@ export function SignUp(props) {
         setUsername(event.target.value);
     }
 
-    
+
     const handleSignupAttempt = async () => {
         try {
-            //Sends the inputvalues to create a new user and receives back the '"username" have been created'
-            const newUserResponse = await createNewUser(name, email, password,username);
+            // Sends the inputvalues to create a new user and receives back the '"username" have been created'
+            const newUserResponse = await createNewUser(name, email, password, username);
 
-          /*   // Check if successful
-            if (error) {
-                throw new Error(error.message)
-            }  */ 
-            
-          
-            //Message the user that their account has been created
+            /*   // Check if successful
+              if (error) {
+                  throw new Error(error.message)
+              }  */
+
+
+            // Message the user that their account has been created
             alert(`${newUserResponse}`)
-                
+
             // Redirect to /login
             props.history.replace('/login');
 
@@ -59,29 +59,29 @@ export function SignUp(props) {
             <div>
                 <label>Name:</label>
                 <input type={"text"}
-                 onChange={handleNameInputChange}
-                 value={name}
+                    onChange={handleNameInputChange}
+                    value={name}
                 />
             </div>
             <div>
                 <label>Username:</label>
                 <input type={"text"}
-                onChange={handleUsernameInputChange}
-                value={username}
+                    onChange={handleUsernameInputChange}
+                    value={username}
                 />
             </div>
             <div>
                 <label>Email:</label>
                 <input type={"email"}
-                onChange={handleEmailInputChange}
-                value={email}
+                    onChange={handleEmailInputChange}
+                    value={email}
                 />
             </div>
             <div>
                 <label>Password:</label>
                 <input type={"password"}
-                onChange={handlePasswordInputChange}
-                value={password}
+                    onChange={handlePasswordInputChange}
+                    value={password}
                 />
             </div>
             <div>

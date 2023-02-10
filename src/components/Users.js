@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { getUsersFromServer } from "../functions/fetch";
 
-// Need to use hooks if we are to use functional components with async JS
+
 
 export class Users extends Component {
 
@@ -11,7 +11,6 @@ export class Users extends Component {
         this.state = {
             users: [],
         };
-
     }
 
     async componentDidMount() {
@@ -20,7 +19,6 @@ export class Users extends Component {
         this.setState({
             users: usersArray
         });
-
     };
 
     render() {
@@ -40,5 +38,4 @@ export class Users extends Component {
             </div>
         );
     }
-
 }

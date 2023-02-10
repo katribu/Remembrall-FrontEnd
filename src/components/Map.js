@@ -1,5 +1,5 @@
 // For the Markers to show up in React version 18+ need to import as "MarkerF" due to the App running strict mode.
-import { GoogleMap, MarkerF, StandaloneSearchBox,Circle, LoadScriptNext } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, StandaloneSearchBox, Circle, LoadScriptNext } from '@react-google-maps/api';
 import React from 'react';
 
 const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
@@ -10,15 +10,14 @@ const containerStyle = {
 };
 
 // Need to have places as a prop in the Loaded Script tag. StackOverflow said to put it outside the component to keep it from
-// Infinitly rendering. (or add as state inside the componenet)
+// Infinitly rendering (or add as state inside the component)
 const lib = ['places']
 
 export default function Map(props) {
+
   const { location, onCoordinatesChanged, slidervalue } = props;
   const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
   const [searchBox, setSearchBox] = React.useState(null);
-
-
 
   const onMapLoad = () => {
     navigator.geolocation.getCurrentPosition(
@@ -28,7 +27,7 @@ export default function Map(props) {
     );
   }
 
-  // Returns the lat/lng based on the search field
+  // Returns the lat/lng based on the position we search for in the searchfield
   const onPlacesChanged = () => {
     let result = searchBox.getPlaces()
     let coordinates = result.map(coords => {
@@ -54,17 +53,16 @@ export default function Map(props) {
 
   return (
     // Important! Always set the container height explicitly
-
     <div style={{ height: '100vh', width: '100%' }}>
       <LoadScriptNext libraries={lib} googleMapsApiKey={MY_MAP_KEY}>
+
         <GoogleMap
           mapContainerStyle={containerStyle}
           center={currentLocation}
           zoom={12}
           onLoad={onMapLoad}
         >
-          {/* You have to search for a place, and then remove the markerf for the circle to show */}
-          
+
           <Circle
             position={location}
             center={location}
@@ -78,7 +76,7 @@ export default function Map(props) {
             }}
           />
 
-           <MarkerF
+          <MarkerF
             position={currentLocation}
             onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
@@ -94,7 +92,7 @@ export default function Map(props) {
           >
             <input
               type="text"
-              placeholder="Customized your placeholder"
+              placeholder="Type in place or address"
               style={{
                 boxSizing: `border-box`,
                 border: `1px solid transparent`,
@@ -111,9 +109,7 @@ export default function Map(props) {
                 marginLeft: "-120px"
               }}
             />
-
           </StandaloneSearchBox>
-
         </GoogleMap>
       </LoadScriptNext>
     </div>

@@ -5,11 +5,10 @@ const API_URL = 'http://localhost:3333';
 export async function getUsersFromServer() {
     const response = await fetch(`${API_URL}/users`);
     const data = response.json();
-
     return data;
 }
 
-// Get LogIn Token to Sign In 
+// Get login token to sign in
 export async function getLoginToken(email, password) {
     const response = await fetch(`${API_URL}/login`, {
         method: "POST",
@@ -25,7 +24,7 @@ export async function getLoginToken(email, password) {
     return data;
 }
 
-// Get SIGNUP info to Create User in Users table
+// Get signup info to create user in users table
 export async function createNewUser(name, email, password, username) {
     const response = await fetch(`${API_URL}/signup`, {
         method: "POST",
@@ -44,7 +43,7 @@ export async function createNewUser(name, email, password, username) {
 }
 
 
-//Get notification information from database according to user.
+// Get notification information from database according to user.
 export async function getUserNotifications() {
     const response = await fetch(`${API_URL}/notifications`, {
         headers: {
@@ -75,8 +74,6 @@ export async function createNewRemembrall(type, time, lng, lat, slidervalue, mes
             }
         })
     });
-    console.log(response);
     const data = await response.json();
-    console.log(data)
     return data;
 }

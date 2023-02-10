@@ -2,7 +2,6 @@ import React from "react"
 import { getLoginToken } from "../functions/fetch"
 import { Link } from 'react-router-dom';
 import '../App.css';
-import { Profile } from "./Profile";
 import { Smoke } from "./Smoke";
 
 export function LogIn(props) {
@@ -33,6 +32,7 @@ export function LogIn(props) {
 
     const handleLoginAttempt = async () => {
         try {
+
             // Make a request to create a token
             const { error, token } = await getLoginToken(email, password);
 
@@ -57,12 +57,9 @@ export function LogIn(props) {
     }
 
 
-
-
-
     return (
         <div className="mainDiv">
-             <Smoke/>
+            <Smoke />
             <div>
                 <h1>Remembr'All</h1>
             </div>

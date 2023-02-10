@@ -1,6 +1,6 @@
 import { MdOutlineNotificationsNone } from "react-icons/md";
-import React, { useState,} from 'react';
-import { Link} from 'react-router-dom';
+import React, { useState, } from 'react';
+import { Link } from 'react-router-dom';
 import { getUserNotifications } from "../functions/fetch";
 
 // We want to order the "Today's Reminders" based on date and time
@@ -8,53 +8,53 @@ import { getUserNotifications } from "../functions/fetch";
 // Also for "today" we dont want to show the date, only the time, but for the upcoming events, we want to show "day" (mon, tuesd etc), and date 
 
 export function Profile(props) {
-    
+
     const [remembralls, setRemembralls] = useState(false);
     const [userNotifications, setUserNotifications] = useState([]);
     const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
 
-    // Check if you are logged in - lines 16 -28
+    // Check if you are logged in (lines 16 -28)
     const { history } = props;
 
     // Check if we have a token in local storage
     // useEffect will run after the first render, it will check if the token is valid.
-    //If no token in local storage - redirect to /login
-    React.useEffect(()=>{
+    // If no token in local storage - redirect to /login
+    React.useEffect(() => {
         const token = localStorage.getItem('TWITTER_TOKEN');
         if (!token) {
             history.replace('/login');
             return;
         }
-   },[history])
+    }, [history])
 
     const toggleRemembralls = () => {
         setRemembralls(prevState => !prevState);
         setButtonText(buttonText === 'Hide Upcoming Remembr\'alls' ? 'Show Upcoming Remembr\'alls' : 'Hide Upcoming Remembr\'alls');
     };
 
-    React.useEffect(()=>{
-            async function getNotifications(){
-                const notifications = await getUserNotifications()
-                setUserNotifications(notifications)
-            }
+    React.useEffect(() => {
+        async function getNotifications() {
+            const notifications = await getUserNotifications()
+            setUserNotifications(notifications)
+        }
         getNotifications()
-    },[])
+    }, [])
 
 
-    const myLocationNotifications = userNotifications?.filter(notification => notification.type ==="location")?.map((notification,index) => {
-        return(
+    const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
+        return (
             <div key={index}>
-                
+
                 <p>What: {notification.data.message}</p>
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
             </div>
         )
     });
 
-    const myAlarmNotifications = userNotifications?.filter(notification => notification.type ==="alarm")?.map((notification,index) => {
-        return(
+    const myAlarmNotifications = userNotifications?.filter(notification => notification.type === "alarm")?.map((notification, index) => {
+        return (
             <div key={index}>
-                
+
                 <p>What: {notification.data.message}</p>
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
             </div>
@@ -69,7 +69,7 @@ export function Profile(props) {
     return (
         <div style={{ maxWidth: '500px', margin: 'auto' }}>
             <h1>Welcome!</h1>
-           
+
             {/* Here, upcomingRemembralls is assumed to be an array of objects that represent the upcoming remembralls. Each object should have a title and a time property (in this example code).
                 Once we have linked the front-end and back-end, we can use this code. 
             
@@ -93,12 +93,13 @@ export function Profile(props) {
                 <button>Set your first remembr'all</button> 
             )} 
             */}
+
             <div id="upcoming-remebralls">
                 <h3>Your Location-based Notifications</h3>
-                {myLocationNotifications.length>0? myLocationNotifications :(<p>You currently have no location-based notifications!</p>)}
+                {myLocationNotifications.length > 0 ? myLocationNotifications : (<p>You currently have no location-based notifications!</p>)}
 
                 <h3>Your Alarm-based Notifications</h3>
-                {myAlarmNotifications.length > 0?myAlarmNotifications: (<p>You currently have no alarm-based notifications!</p>)}
+                {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
                 <h2 className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Your Upcoming Remembr'alls:</h2>
                 <li className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Visit Grandmother</li>
                 <div className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}><MdOutlineNotificationsNone /> Saturday 11/2/23 at 11:30</div>
@@ -111,7 +112,6 @@ export function Profile(props) {
 
             <div>
                 <Link to="/setremembrall">
-                    {/* Goes to the set remembrall page. (to create new notification) */}
                     <button>Set Remembr'all</button>
                 </Link>
                 <Link to="/logout">Log out</Link>

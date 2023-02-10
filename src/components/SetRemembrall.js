@@ -41,7 +41,8 @@ export function SetRemembrall(props) {
         setCheckedSound(event.target.checked);
         console.log(checkedSound);
     }
-    // 59.91151554598712, 10.752414484654482
+
+    // Coordinates of Oslo S is set as default state for now
     const [location, setLocation] = useState({ lat: 59.91151554598712, lng: 10.752414484654482 });
     const handleLocationChange = (coordinates) => {
         setLocation(coordinates)
@@ -55,28 +56,14 @@ export function SetRemembrall(props) {
     }
 
 
-    // Add handleSubmit (must do a post request, to our database)
+    // Add handleSubmit(must do a post request, to our database)
     const handleSubmit = async () => {
-    console.log({
-            time,
-            text,
-            slidervalue,
-            date,
-            checkedPush,
-            checkedSound,
-            location,
-            type
-        })
-
 
         const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text, checkedPush, checkedSound); 
-        /* return submitResponse; */
 
-        
         const { history } = props;
         history.replace('/profile');
         return submitResponse;
-
     }
 
     return (

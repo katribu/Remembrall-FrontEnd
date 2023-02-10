@@ -116,6 +116,7 @@ export function Profile(props) {
                     {/* Goes to the set remembrall page. (to create new notification) */}
                     <button>Set Remembr'all</button>
                 </Link>
+                <Link to="/logout">Log out</Link>
             </div>
         </div>
     )

@@ -6,6 +6,7 @@ import { Profile } from './components/Profile';
 import { SetRemembrall } from './components/SetRemembrall';
 import { LogIn } from './components/LogIn';
 import { SignUp } from './components/SignUp';
+import { LogOut } from './components/LogOut';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" component={LogIn} />
         <Route path="/profile" component={Profile} />
         <Route path="/setremembrall" component={SetRemembrall} />
+        <Route path="/logout" component={LogOut} />
       </Switch>
     </BrowserRouter>
   )

@@ -63,29 +63,36 @@ export function LogIn(props) {
             <div>
                 <h1>Remembr'All</h1>
             </div>
-            <div>
-                <label>Email:</label>
-                <input
-                    type={"email"}
-                    onChange={handleEmailInputChange}
-                    value={email}
-                ></input>
-            </div>
-            <div>
-                <label>Password:</label>
-                <input
-                    type={"password"}
-                    onChange={handlePasswordInputChange}
-                    value={password}
-                ></input>
-            </div>
-            <div>
-            </div>
-            <button className='linkButton' onClick={handleLoginAttempt}>Log in</button>
-            <div>
-                <Link to="/signup" className='linkButton'>Create account</Link>
+
+            <div className="loginInputs">
+                <div className="emailDiv">
+                    {/* <label>Email:</label> */}
+                    <input
+                        type={"email"}
+                        onChange={handleEmailInputChange}
+                        value={email}
+                        className="inputChild"
+                        placeholder={"Email"}
+                    ></input>
+                </div><br/>
+                <div>
+                    {/* <label>Password:</label> */}
+                    <input
+                        type={"password"}
+                        onChange={handlePasswordInputChange}
+                        value={password}
+                        placeholder={"Password"}
+                        className="inputChild"
+                    ></input>
+                </div>
             </div>
 
+            <div className="buttonDiv">
+                <button className='linkButton' onClick={handleLoginAttempt}>Log in</button>
+                <div>
+                    <Link to="/signup" className='linkButton'>Create account</Link>
+                </div>
+            </div>
             {/* If error is truthy, show error message under the button */}
             {error && <div>{error.message}</div>}
 

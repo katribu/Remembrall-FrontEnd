@@ -2,6 +2,7 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 import React, { useState, } from 'react';
 import { Link } from 'react-router-dom';
 import { getUserNotifications } from "../functions/fetch";
+import '../App.css';
 
 // We want to order the "Today's Reminders" based on date and time
 // We also want a button for toggling hide/show "Upcoming reminders" that are not set for "today" 
@@ -111,10 +112,10 @@ export function Profile(props) {
             </div>
 
             <div>
-                <Link to="/setremembrall">
-                    <button>Set Remembr'all</button>
+                <Link to="/setremembrall" className="linkButton">
+                    Set Remembr'All
                 </Link>
-                <Link to="/logout">Log out</Link>
+                <Link to="/logout" className="linkButton">Log out</Link>
             </div>
         </div>
     )

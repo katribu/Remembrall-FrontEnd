@@ -1,5 +1,5 @@
 // For the Markers to show up in React version 18+ need to import as "MarkerF" due to the App running strict mode.
-import { GoogleMap, MarkerF, StandaloneSearchBox, Circle, LoadScriptNext } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, StandaloneSearchBox, Circle, LoadScriptNext, DistanceMatrixService } from '@react-google-maps/api';
 import React from 'react';
 
 const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
@@ -20,7 +20,7 @@ export default function Map(props) {
   const [searchBox, setSearchBox] = React.useState(null);
 
   const onMapLoad = () => {
-    navigator.geolocation.getCurrentPosition(
+    navigator.geolocation.watchPosition(
       ({ coords: { latitude: lat, longitude: lng } }) => {
         setCurrentLocation({ lat, lng });
       }
@@ -79,6 +79,26 @@ export default function Map(props) {
           <MarkerF
             position={currentLocation}
             onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
+          />
+
+          <DistanceMatrixService
+          options={{
+                    destinations: [location],
+                    origins: [currentLocation],
+                    travelMode: "WALKING",
+                  }}
+          callback = {(response) => {
+            console.log(response)
+            const distanceText = response.rows[0].elements[0].distance.text
+            const distanceValue = response.rows[0].elements[0].distance.value
+            const diffRadiusandTotalDistance = distanceValue-Number(slidervalue)
+            console.log(distanceText,distanceValue)
+            console.log(diffRadiusandTotalDistance)
+
+            if(distanceValue === diffRadiusandTotalDistance){
+              console.log('You have reached your destination radius. Remember to do task.')
+            }
+          }}
           />
 
           {/* Marker that comes from the search field.

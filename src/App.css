@@ -7,19 +7,13 @@ body,html{
   margin: 0;
 }
 
-.App {
-  text-align: center;
-}
-
 .mainDiv {
   display: flex;
   flex-direction:column;
-  margin: 0 auto;
-  border: 1px solid black;
+  margin: 30px auto;
   max-width: 375px;
   text-align: center;
-  padding: 30% 20px;
-  max-height: 812px;
+  padding:20px;
 
 }
 
@@ -43,7 +37,7 @@ body,html{
   justify-content: center;
   letter-spacing: .25px;
   line-height: normal;
-  max-width: 50%;
+  width: 50%;
   overflow: visible;
   padding: 2px 24px;
   position: relative;
@@ -62,11 +56,14 @@ body,html{
   background: #F6F9FE;
   color: #174ea6;
 }
-
-button {
-  margin: 10px auto;
+.logInBtn{
+  margin: 0 auto 20px;
+  width: 50%;
 }
 
+.buttonDiv{
+  padding: 20px 0;
+}
 
 .loginInputs{
   display: flex;

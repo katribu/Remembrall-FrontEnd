@@ -2,7 +2,7 @@ import React from "react"
 import { getLoginToken } from "../functions/fetch"
 import { Link } from 'react-router-dom';
 import '../App.css';
-import { Smoke } from "./Smoke";
+// import { Smoke } from "./Smoke";
 
 export function LogIn(props) {
 
@@ -59,7 +59,7 @@ export function LogIn(props) {
 
     return (
         <div className="mainDiv">
-            <Smoke />
+            {/* <Smoke/> */}
             <div>
                 <h1>Remembr'All</h1>
             </div>
@@ -88,7 +88,7 @@ export function LogIn(props) {
             </div>
 
             <div className="buttonDiv">
-                <button className='linkButton' onClick={handleLoginAttempt}>Log in</button>
+                <button className='linkButton logInBtn' onClick={handleLoginAttempt}>Log in</button>
                 <div>
                     <Link to="/signup" className='linkButton'>Create account</Link>
                 </div>

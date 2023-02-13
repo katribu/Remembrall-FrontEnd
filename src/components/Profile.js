@@ -1,6 +1,6 @@
 import { MdOutlineNotificationsNone } from "react-icons/md";
 import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai";
-import React, { useState, } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { deleteNotification, getUserNotifications } from "../functions/fetch";
 import '../App.css';
@@ -22,7 +22,7 @@ export function Profile(props) {
     // Check if we have a token in local storage
     // useEffect will run after the first render, it will check if the token is valid.
     // If no token in local storage - redirect to /login
-    React.useEffect(() => {
+    useEffect(() => {
         const token = localStorage.getItem('TWITTER_TOKEN');
         if (!token) {
             history.replace('/login');
@@ -35,22 +35,26 @@ export function Profile(props) {
         setButtonText(buttonText === 'Hide Upcoming Remembr\'alls' ? 'Show Upcoming Remembr\'alls' : 'Hide Upcoming Remembr\'alls');
     };
 
-    React.useEffect(() => {
-        async function getNotifications() {
-            const notifications = await getUserNotifications()
-            setUserNotifications(notifications)
-        }
-        getNotifications()
-    }, [])
 
-
-    const handleDelete = async (id) => {
-        const data = await deleteNotification(id);
-        console.log(data);
+    async function populateNotifications() {
+        const notifications = await getUserNotifications()
+        setUserNotifications(notifications)
     }
 
+    useEffect(() => {
+        populateNotifications()
+    }, [])
 
+    const handleDelete = async (id) => {
+        const {error} = await deleteNotification(id);
 
+        if(error) {
+            console.log('Was not able to delete notification')
+            console.log({error});
+        }
+
+        await populateNotifications();
+    }
 
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
         return (
@@ -66,13 +70,16 @@ export function Profile(props) {
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
                 {hoverIndex === index && (
                     <>
-                        <button onClick={() => handleDelete(notification.id)} className="profile-delete"> <AiTwotoneDelete /> </button>
+                        <button onClick={() => {handleDelete(notification.id)
+                         console.log('clicked') 
+                         console.log(notification.id)}} className="profile-delete"> <AiTwotoneDelete /> </button>
                         <button className="profile-edit"> <AiFillEdit /> </button>
                     </>
                 )}
             </div>
         )
     });
+
 
     const myAlarmNotifications = userNotifications?.filter(notification => notification.type === "alarm")?.map((notification, index) => {
         return (

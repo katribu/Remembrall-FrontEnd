@@ -76,6 +76,26 @@ export async function createNewRemembrall(type, time, lng, lat, slidervalue, mes
     return data;
 }
 
+
+//Function that sends an email and takes in email-adress, subject and message for the email. 
+export async function createMail(email, subject, message) {
+    const response = await fetch(`${API_URL}/createmail`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "x-token": localStorage.getItem('TWITTER_TOKEN')
+        },
+        body: JSON.stringify({
+               email, 
+               subject, 
+               message
+        })
+    });
+    const data = await response.json();
+    return data;
+}
+
+
 export async function deleteNotification(id) {
     const response = await fetch(`${API_URL}/notifications`, {
         method: "DELETE",
@@ -86,4 +106,3 @@ export async function deleteNotification(id) {
     const data = await response.json();
     return data;
 }
-

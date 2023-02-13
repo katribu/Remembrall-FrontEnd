@@ -1,10 +1,5 @@
 import '../App.css';
 
-
-const headerStyle = {
-    color: 'red',
-};
-
 export function LandingPage(props) {
     const { history } = props;
 

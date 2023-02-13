@@ -31,18 +31,18 @@ export function SetRemembrall(props) {
     }
 
 
-    // const [checkedPush, setCheckedPush] = useState(false);
-    // const handleCheckedPush = (event) => {
-    //     setCheckedPush(event.target.checked);
-    //     console.log(checkedPush);
-    // }
-
-    // const [checkedSound, setCheckedSound] = useState(false);
-    // const handleCheckedSound = (event) => {
-    //     setCheckedSound(event.target.checked);
-    //     console.log(checkedSound);
-    // }
-
+ /*    const [checkedPush, setCheckedPush] = useState(false);
+    const handleCheckedPush = (event) => {
+        setCheckedPush(event.target.checked);
+        console.log(checkedPush);
+    }
+ */
+ /*    const [checkedSound, setCheckedSound] = useState(false);
+    const handleCheckedSound = (event) => {
+        setCheckedSound(event.target.checked);
+        console.log(checkedSound);
+    }
+ */
     // Coordinates of Oslo S is set as default state for now
     const [location, setLocation] = useState({ lat: 59.91151554598712, lng: 10.752414484654482 });
     const handleLocationChange = (coordinates) => {
@@ -60,7 +60,7 @@ export function SetRemembrall(props) {
     // Add handleSubmit(must do a post request, to our database)
     const handleSubmit = async () => {
 
-        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text, checkedPush, checkedSound); 
+        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text); 
 
         const { history } = props;
         history.replace('/profile');

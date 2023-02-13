@@ -88,6 +88,7 @@ export default function Map(props) {
                     travelMode: "WALKING",
                   }}
           callback = {(response) => {
+            console.log(response)
             const distanceValue = response.rows[0].elements[0].distance.value
 
             if(distanceValue <= Number(slidervalue)){

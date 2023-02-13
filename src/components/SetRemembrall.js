@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
+import { Link } from "react-router-dom";
 
 
 export function SetRemembrall(props) {
@@ -30,18 +31,18 @@ export function SetRemembrall(props) {
     }
 
 
-    const [checkedPush, setCheckedPush] = useState(false);
+ /*    const [checkedPush, setCheckedPush] = useState(false);
     const handleCheckedPush = (event) => {
         setCheckedPush(event.target.checked);
         console.log(checkedPush);
     }
-
-    const [checkedSound, setCheckedSound] = useState(false);
+ */
+ /*    const [checkedSound, setCheckedSound] = useState(false);
     const handleCheckedSound = (event) => {
         setCheckedSound(event.target.checked);
         console.log(checkedSound);
     }
-
+ */
     // Coordinates of Oslo S is set as default state for now
     const [location, setLocation] = useState({ lat: 59.91151554598712, lng: 10.752414484654482 });
     const handleLocationChange = (coordinates) => {
@@ -59,7 +60,7 @@ export function SetRemembrall(props) {
     // Add handleSubmit(must do a post request, to our database)
     const handleSubmit = async () => {
 
-        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text, checkedPush, checkedSound); 
+        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text); 
 
         const { history } = props;
         history.replace('/profile');
@@ -100,19 +101,7 @@ export function SetRemembrall(props) {
             />
 
             <div>
-                <em>*Optional</em>
-                <div>Within</div>
-
-                <input
-                    type={'range'}
-                    onChange={handleSliderValue}
-                    value={slidervalue}
-                    min="50"
-                    max="1000"
-                    step='50'
-                />
-
-                <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div><br/>
+                
                 <b>Choose a Location: </b>
                 <input
                     type={'checkbox'}
@@ -123,12 +112,29 @@ export function SetRemembrall(props) {
                 />
 
 
-                {checkedChooseLocation && <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />}
+                {checkedChooseLocation && 
+                    <div>
+                    <em>*Optional</em>
+                    <div>Within</div>
+
+                    <input
+                        type={'range'}
+                        onChange={handleSliderValue}
+                        value={slidervalue}
+                        min="50"
+                        max="1000"
+                        step='50'
+                    />
+
+                    <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div><br/>
+                    <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />
+                </div>}
             </div>
 
-
-            <button onClick={handleSubmit}>Set Remembr'all</button>
-
+            <div className="buttonDiv">
+                <button className="linkButton"onClick={handleSubmit}>Set Remembr'all</button>
+                <Link to="/profile" className='linkButton'>Back</Link>
+            </div>
         </div >
     )
 }

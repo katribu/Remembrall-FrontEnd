@@ -113,7 +113,7 @@ export function SetRemembrall(props) {
                 />
 
                 <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div><br/>
-                <b>Choose Location: </b>
+                <b>Choose a Location: </b>
                 <input
                     type={'checkbox'}
                     name={'checked'}
@@ -126,29 +126,34 @@ export function SetRemembrall(props) {
                 {checkedChooseLocation && <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />}
             </div>
 
-            <b>Notification Settings:</b>
-            <div>
-                <input
-                    type={'checkbox'}
-                    name={'checked'}
-                    onChange={handleCheckedPush}
-                    value={checkedPush}
-                    checked={checkedPush}
-                />
-                <label>Push Notification</label>
-
-                <input
-                    type={'checkbox'}
-                    name={'checked'}
-                    onChange={handleCheckedSound}
-                    value={checkedSound}
-                    checked={checkedSound}
-                />
-                <label>Sound</label>
-            </div>
 
             <button onClick={handleSubmit}>Set Remembr'all</button>
 
         </div >
     )
 }
+
+
+
+
+{/* Choosing Notifications will be part of V2. */}
+{/* <b>Notification Settings:</b>
+<div>
+    <input
+        type={'checkbox'}
+        name={'checked'}
+        onChange={handleCheckedPush}
+        value={checkedPush}
+        checked={checkedPush}
+    />
+    <label>Push Notification</label>
+
+    <input
+        type={'checkbox'}
+        name={'checked'}
+        onChange={handleCheckedSound}
+        value={checkedSound}
+        checked={checkedSound}
+    />
+    <label>Sound</label>
+</div> */}

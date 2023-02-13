@@ -94,8 +94,6 @@ export async function createMail(email, subject, message) {
                message
         })
     });
-    const data = await response.json();
-    return data;
 };
 
 //Function to delete notifications

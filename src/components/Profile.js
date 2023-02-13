@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { deleteNotification, getUserNotifications } from "../functions/fetch";
 import '../App.css';
+import { getDistance } from 'geolib';
+
 
 // We want to order the "Today's Reminders" based on date and time
 // We also want a button for toggling hide/show "Upcoming reminders" that are not set for "today" 
@@ -56,6 +58,7 @@ export function Profile(props) {
         await populateNotifications();
     }
 
+    //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
         return (
             <div
@@ -78,7 +81,25 @@ export function Profile(props) {
         )
     });
 
+   //Measuring set position with current position: 
+   navigator.geolocation.getCurrentPosition(
+        (position) => {
+            console.log(position.coords.latitude)
+            console.log(
+                'You are ',
+                getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+                    latitude: 59.918279,
+                    longitude: 10.746535,
+                }),
+                'meters away from 51.525, 7.4575'
+            );
+        },
+        () => {
+            alert('Position could not be determined.');
+        }
+    );
 
+    //Renders all the alarm-based notifications
     const myAlarmNotifications = userNotifications?.filter(notification => notification.type === "alarm")?.map((notification, index) => {
         return (
             <div key={index}>

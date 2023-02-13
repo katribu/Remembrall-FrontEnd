@@ -77,3 +77,21 @@ export async function createNewRemembrall(type, time, lng, lat, slidervalue, mes
     const data = await response.json();
     return data;
 }
+
+export async function createMail(email, subject, message) {
+    const response = await fetch(`${API_URL}/createmail`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+            "x-token": localStorage.getItem('TWITTER_TOKEN')
+        },
+        body: JSON.stringify({
+               email, 
+               subject, 
+               message
+        })
+    });
+    const data = await response.json();
+    return data;
+}
+

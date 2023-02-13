@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { deleteNotification, getUserNotifications } from "../functions/fetch";
 import '../App.css';
+import { getDistance } from 'geolib';
+
 
 // We want to order the "Today's Reminders" based on date and time
 // We also want a button for toggling hide/show "Upcoming reminders" that are not set for "today" 
@@ -11,9 +13,9 @@ import '../App.css';
 
 export function Profile(props) {
 
-    const [remembralls, setRemembralls] = useState(false);
     const [userNotifications, setUserNotifications] = useState([]);
-    const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
+    const [isHidden,setIsHidden] = useState(false)
+    const [buttonText, setButtonText] = useState('Show Upcoming Remembr\'alls');
     const [hoverIndex, setHoverIndex] = useState(-1);
 
     // Check if you are logged in (lines 16 -28)
@@ -31,7 +33,7 @@ export function Profile(props) {
     }, [history])
 
     const toggleRemembralls = () => {
-        setRemembralls(prevState => !prevState);
+        setIsHidden(prevState => !prevState);
         setButtonText(buttonText === 'Hide Upcoming Remembr\'alls' ? 'Show Upcoming Remembr\'alls' : 'Hide Upcoming Remembr\'alls');
     };
 
@@ -56,39 +58,67 @@ export function Profile(props) {
         await populateNotifications();
     }
 
+    //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
+       setInterval(getDistanceFunction(notification.data.lat, notification.data.lng), 5000)
+       
+       
         return (
             <div
-                className="profile-notifications"
                 key={index}
                 onMouseEnter={() => setHoverIndex(index)}
                 onMouseLeave={() => setHoverIndex(-1)}
             >
 
-                <p>What: {notification.data.message}</p>
-                <p>{notification.id}</p>
+                <p>My Remembr'All: {notification.data.message}</p>
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
                 {hoverIndex === index && (
                     <>
-                        <button 
-                        onClick={() => {handleDelete(notification.id)}} 
-                        className="profile-delete"> <AiTwotoneDelete /> </button>
-                        <button className="profile-edit"> <AiFillEdit /> </button>
+                        <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
+                        <button> <AiFillEdit /> </button>
                     </>
                 )}
             </div>
         )
     });
 
+   //Measuring set position with current position: 
+   function getDistanceFunction(lat, lng) {
+    navigator.geolocation.getCurrentPosition(
+        (position) => {
+            console.log(
+                'You are ',
+                getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+                    latitude: lat,
+                    longitude: lng,
+                }),
+                'meters away from 51.525, 7.4575'
+            );
+        },
+        () => {
+            alert('Position could not be determined.');
+        }
+    );
+   }
+ 
 
+    //Renders all the alarm-based notifications
     const myAlarmNotifications = userNotifications?.filter(notification => notification.type === "alarm")?.map((notification, index) => {
         return (
-            <div key={index}>
+            <div
+            key={index}
+            onMouseEnter={() => setHoverIndex(index)}
+            onMouseLeave={() => setHoverIndex(-1)}
+            >
 
-                <p>What: {notification.data.message}</p>
+                <p>My Remembr'All: {notification.data.message}</p>
                 <p> <MdOutlineNotificationsNone /> {notification.data.time}</p>
-                <button> <AiTwotoneDelete /> </button>
-                <button> <AiFillEdit /> </button>
+                {hoverIndex === index && (
+                    <>
+                        <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
+                        <button> <AiFillEdit /> </button>
+                    </>
+                )}
             </div>
         )
     });
@@ -102,44 +132,24 @@ export function Profile(props) {
         <div style={{ maxWidth: '500px', margin: 'auto' }}>
             <h1>Welcome!</h1>
 
-            {/* Here, upcomingRemembralls is assumed to be an array of objects that represent the upcoming remembralls. Each object should have a title and a time property (in this example code).
-                Once we have linked the front-end and back-end, we can use this code. 
-            
-            {upcomingRemembralls.length ? (
-                <ul id="upcoming-remebralls">
-                    {upcomingRemembralls.map((item, index) => (
-                        <React.Fragment key={index}>
-                            <li>{item.title}</li>
-                            <div>
-                                <MdOutlineNotificationsNone /> {item.time}
-                            </div>
-                        </React.Fragment>
-                    ))}
-                </ul>
-            ) : (
-                <div>Get started by setting a Remembr'all</div>
-                <div>Examples:</div>
-                <ul>
-                <li>Stretch for 5 minutes</li>
-                </ul>
-                <button>Set your first remembr'all</button> 
-            )} 
-            */}
-
             <div id="upcoming-remebralls">
-                <h3>Your Location-based Notifications</h3>
+                <h3>Your Notifications</h3>
+                {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
+                
                 {myLocationNotifications.length > 0 ? myLocationNotifications : (<p>You currently have no location-based notifications!</p>)}
 
-                <h3>Your Alarm-based Notifications</h3>
-                {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
-                <h2 className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Your Upcoming Remembr'alls:</h2>
-                <li className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Visit Grandmother</li>
-                <div className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}><MdOutlineNotificationsNone /> Saturday 11/2/23 at 11:30</div>
-                <li className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}>Submit your tax-statements</li>
-                <div className={`hideWhenClicked ${remembralls ? "hidden" : ""}`}><MdOutlineNotificationsNone /> Sunday 12/2/23 10:30</div>
+                {isHidden && 
+                    <div>
+                        <h2>Upcoming Remembr'Alls:</h2>
+                        <li>Visit Grandmother</li>
+                        <div><MdOutlineNotificationsNone /> Saturday 11/2/23 at 11:30</div>
+                        <li>Submit your tax-statements</li>
+                        <div><MdOutlineNotificationsNone /> Sunday 12/2/23 10:30</div>   
+                    </div>
+                }
             </div>
             <div>
-                <button onClick={toggleRemembralls}>{buttonText}</button>
+                <button onClick={toggleRemembralls} className="linkButton">{buttonText}</button>
             </div>
 
             <div>

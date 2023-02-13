@@ -88,10 +88,7 @@ export default function Map(props) {
                     travelMode: "WALKING",
                   }}
           callback = {(response) => {
-            console.log(response)
-            const distanceText = response.rows[0].elements[0].distance.text
             const distanceValue = response.rows[0].elements[0].distance.value
-            console.log(distanceText,distanceValue)
 
             if(distanceValue <= Number(slidervalue)){
               console.log('You have reached your destination radius. Remember to do task.')

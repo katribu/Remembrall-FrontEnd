@@ -70,9 +70,9 @@ export function Profile(props) {
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
                 {hoverIndex === index && (
                     <>
-                        <button onClick={() => {handleDelete(notification.id)
-                         console.log('clicked') 
-                         console.log(notification.id)}} className="profile-delete"> <AiTwotoneDelete /> </button>
+                        <button 
+                        onClick={() => {handleDelete(notification.id)}} 
+                        className="profile-delete"> <AiTwotoneDelete /> </button>
                         <button className="profile-edit"> <AiFillEdit /> </button>
                     </>
                 )}

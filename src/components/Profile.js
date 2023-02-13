@@ -60,6 +60,9 @@ export function Profile(props) {
 
     //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
+       setInterval(getDistanceFunction(notification.data.lat, notification.data.lng), 5000)
+       
+       
         return (
             <div
                 key={index}
@@ -80,14 +83,14 @@ export function Profile(props) {
     });
 
    //Measuring set position with current position: 
-   navigator.geolocation.getCurrentPosition(
+   function getDistanceFunction(lat, lng) {
+    navigator.geolocation.getCurrentPosition(
         (position) => {
-            console.log(position.coords.latitude)
             console.log(
                 'You are ',
                 getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
-                    latitude: 59.918279,
-                    longitude: 10.746535,
+                    latitude: lat,
+                    longitude: lng,
                 }),
                 'meters away from 51.525, 7.4575'
             );
@@ -96,6 +99,8 @@ export function Profile(props) {
             alert('Position could not be determined.');
         }
     );
+   }
+ 
 
     //Renders all the alarm-based notifications
     const myAlarmNotifications = userNotifications?.filter(notification => notification.type === "alarm")?.map((notification, index) => {

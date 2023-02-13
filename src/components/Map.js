@@ -91,12 +91,11 @@ export default function Map(props) {
             console.log(response)
             const distanceText = response.rows[0].elements[0].distance.text
             const distanceValue = response.rows[0].elements[0].distance.value
-            const diffRadiusandTotalDistance = distanceValue-Number(slidervalue)
             console.log(distanceText,distanceValue)
-            console.log(diffRadiusandTotalDistance)
 
-            if(distanceValue === diffRadiusandTotalDistance){
+            if(distanceValue <= Number(slidervalue)){
               console.log('You have reached your destination radius. Remember to do task.')
+              alert(`this is an alert`)
             }
           }}
           />

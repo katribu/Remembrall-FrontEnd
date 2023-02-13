@@ -93,16 +93,21 @@ export async function createMail(email, subject, message) {
     });
     const data = await response.json();
     return data;
-}
+};
 
-
+//Function to delete notifications
 export async function deleteNotification(id) {
     const response = await fetch(`${API_URL}/notifications`, {
         method: "DELETE",
+        headers: {
+            'Content-Type': 'application/json',
+        },
         body: JSON.stringify({
             id,
         })
     });
+
     const data = await response.json();
+    console.log(data); 
     return data;
 }

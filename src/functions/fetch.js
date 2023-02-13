@@ -75,3 +75,15 @@ export async function createNewRemembrall(type, time, lng, lat, slidervalue, mes
     const data = await response.json();
     return data;
 }
+
+export async function deleteNotification(id) {
+    const response = await fetch(`${API_URL}/notifications`, {
+        method: "DELETE",
+        body: JSON.stringify({
+            id,
+        })
+    });
+    const data = await response.json();
+    return data;
+}
+

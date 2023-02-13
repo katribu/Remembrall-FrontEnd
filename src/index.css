@@ -17,6 +17,16 @@ input[type='range']::-webkit-slider-thumb {
 
 
 
+/* Styles for component: Profile - delete and edit buttons */ 
+
+/* .profile-delete, .profile-edit {
+	display: none;
+} */
+
+/* .profile-notifications:hover {
+	color: green;
+	display: inline-block;
+} */
 
 
 /* Shahin saved css for smoke and header in module 4 on his local computer  */

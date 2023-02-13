@@ -1,7 +1,8 @@
 import { MdOutlineNotificationsNone } from "react-icons/md";
+import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai";
 import React, { useState, } from 'react';
 import { Link } from 'react-router-dom';
-import { getUserNotifications } from "../functions/fetch";
+import { deleteNotification, getUserNotifications } from "../functions/fetch";
 import '../App.css';
 
 // We want to order the "Today's Reminders" based on date and time
@@ -13,6 +14,7 @@ export function Profile(props) {
     const [remembralls, setRemembralls] = useState(false);
     const [userNotifications, setUserNotifications] = useState([]);
     const [buttonText, setButtonText] = useState('Hide Upcoming Remembr\'alls');
+    const [hoverIndex, setHoverIndex] = useState(-1);
 
     // Check if you are logged in (lines 16 -28)
     const { history } = props;
@@ -42,12 +44,32 @@ export function Profile(props) {
     }, [])
 
 
+    const handleDelete = async (id) => {
+        const data = await deleteNotification(id);
+        console.log(data);
+    }
+
+
+
+
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
         return (
-            <div key={index}>
+            <div
+                className="profile-notifications"
+                key={index}
+                onMouseEnter={() => setHoverIndex(index)}
+                onMouseLeave={() => setHoverIndex(-1)}
+            >
 
                 <p>What: {notification.data.message}</p>
+                <p>{notification.id}</p>
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
+                {hoverIndex === index && (
+                    <>
+                        <button onClick={() => handleDelete(notification.id)} className="profile-delete"> <AiTwotoneDelete /> </button>
+                        <button className="profile-edit"> <AiFillEdit /> </button>
+                    </>
+                )}
             </div>
         )
     });
@@ -57,7 +79,9 @@ export function Profile(props) {
             <div key={index}>
 
                 <p>What: {notification.data.message}</p>
-                <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
+                <p> <MdOutlineNotificationsNone /> {notification.data.time}</p>
+                <button> <AiTwotoneDelete /> </button>
+                <button> <AiFillEdit /> </button>
             </div>
         )
     });

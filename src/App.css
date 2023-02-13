@@ -58,14 +58,12 @@ body,html{
 }
 .logInBtn{
   margin: 0 auto 20px;
-  width: 50%;
 }
 
 .buttonDiv{
-  padding: 20px 0;
+ padding: 20px 0;
  display: flex;
  flex-direction: column;
-width: 50%;
 }
 
 .loginInputs{

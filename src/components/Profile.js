@@ -58,10 +58,16 @@ export function Profile(props) {
         await populateNotifications();
     }
 
+    
+
     //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
-       getDistanceFunction(notification.data.lat, notification.data.lng)
-       
+        
+        const distance = getDistanceFunction(notification.data.lat, notification.data.lng)
+        
+      if(distance <= notification.data.slidervalue){
+        alert(`Hi, the time is ${notification.data.time} `)
+      }
        
         return (
             <div
@@ -84,14 +90,20 @@ export function Profile(props) {
 
    //Measuring set position with current position: 
    function getDistanceFunction(lat, lng) {
-    navigator.geolocation.getCurrentPosition(
+        navigator.geolocation.getCurrentPosition(
         (position) => {
-            console.log(
-                `You are ${getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
-                    latitude: lat,
-                    longitude: lng,
-                })} meters away from ${lat} ${lng} `
-            );
+            const distance = getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+                latitude: lat,
+                longitude: lng,
+            })
+            console.log(distance)
+            return distance
+            // console.log(
+            //     `You are ${getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+            //         latitude: lat,
+            //         longitude: lng,
+            //     })} meters away from ${lat} ${lng} `
+            // );
         },
         () => {
             alert('Position could not be determined.');

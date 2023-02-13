@@ -60,7 +60,7 @@ export function Profile(props) {
 
     //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
-       setInterval(getDistanceFunction(notification.data.lat, notification.data.lng), 5000)
+       getDistanceFunction(notification.data.lat, notification.data.lng)
        
        
         return (
@@ -87,12 +87,10 @@ export function Profile(props) {
     navigator.geolocation.getCurrentPosition(
         (position) => {
             console.log(
-                'You are ',
-                getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+                `You are ${getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
                     latitude: lat,
                     longitude: lng,
-                }),
-                'meters away from 51.525, 7.4575'
+                })} meters away from ${lat} ${lng} `
             );
         },
         () => {

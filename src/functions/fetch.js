@@ -76,6 +76,7 @@ export async function createNewRemembrall(type, time, lng, lat, slidervalue, mes
     return data;
 }
 
+//Function that sends an email and takes in email-adress, subject and message for the email. 
 export async function createMail(email, subject, message) {
     const response = await fetch(`${API_URL}/createmail`, {
         method: "POST",

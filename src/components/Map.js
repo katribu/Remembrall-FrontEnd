@@ -5,7 +5,7 @@ import React from 'react';
 const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
 
 const containerStyle = {
-  width: '100vw',
+  width: '100%',
   height: '400px'
 };
 
@@ -53,7 +53,7 @@ export default function Map(props) {
 
   return (
     // Important! Always set the container height explicitly
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div>
       <LoadScriptNext libraries={lib} googleMapsApiKey={MY_MAP_KEY}>
 
         <GoogleMap

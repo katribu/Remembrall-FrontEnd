@@ -2,12 +2,20 @@
   box-sizing: border-box;
 }
 
+/*  ================ MAIN OVERALL STYLES ============= */
 body,html{
   padding: 0;
   margin: 0;
 }
 
 .mainDiv {
+  max-width: 400px;
+  border: 2px red solid;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.flexDiv {
   display: flex;
   flex-direction:column;
   margin: 30px auto;
@@ -37,7 +45,6 @@ body,html{
   justify-content: center;
   letter-spacing: .25px;
   line-height: normal;
-  width: 50%;
   overflow: visible;
   padding: 2px 24px;
   position: relative;
@@ -50,6 +57,8 @@ body,html{
   will-change: transform, opacity;
   z-index: 0;
   text-decoration: none;
+  margin: 10px 0;
+  width: 100%;
 }
 
 .linkButton:hover {
@@ -64,6 +73,9 @@ body,html{
  padding: 20px 0;
  display: flex;
  flex-direction: column;
+ margin: 0 auto;
+ align-self: center;
+ width: 60%;
 }
 
 .loginInputs{
@@ -77,7 +89,36 @@ body,html{
   height: 40px;
   padding-left: 10px;
   margin: 10px 0;
+  font-family: inherit;
 }
 
 
+/* ============ PROFILE PAGE STYLING =============== */
 
+.upcomingNotificationsLink{
+  border: none;
+  background:none;
+  font-size: 1rem;
+  font-weight: bolder;
+}
+
+.upcomingNotificationsLink:hover,
+.upcomingNotificationsLink:focus {
+  color: rgb(81, 14, 14);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+
+/* ======== SETREMEMBERALL PAGE STYLING =============*/
+.timeDateDiv{
+  display:flex;
+  margin: 10px auto;
+  justify-content: space-between;
+  width: 80%;
+}
+
+.timeDateChild{
+  text-align: center;
+  width: 45%;
+}

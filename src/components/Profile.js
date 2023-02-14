@@ -173,7 +173,7 @@ console.log(locationAlertFilter)
     // As a V2 feature, we want to give you a walkthrough of the functionality (a tutorial), the first time you log in. 
 
     return (
-        <div style={{ maxWidth: '500px', margin: 'auto' }}>
+        <div className="mainDiv">
             <h1>Welcome!</h1>
 
             <div id="upcoming-remebralls">
@@ -194,14 +194,17 @@ console.log(locationAlertFilter)
                 }
             </div>
             <div>
-                <button onClick={toggleRemembralls} className="linkButton">{buttonText}</button>
+                <button onClick={toggleRemembralls} className="upcomingNotificationsLink">{buttonText}</button>
             </div>
 
-            <div>
-                <Link to="/setremembrall" className="linkButton">
-                    Set Remembr'All
-                </Link>
+            <div className="buttonDiv">
+                <div>
+                <Link to="/setremembrall" className="linkButton"> Set Remembr'All</Link>
+                </div>
+
+                <div>
                 <Link to="/logout" className="linkButton">Log out</Link>
+                </div>
             </div>
         </div>
     )

@@ -58,7 +58,7 @@ export function LogIn(props) {
 
 
     return (
-        <div className="mainDiv">
+        <div className="flexDiv mainDiv">
             {/* <Smoke/> */}
             <div>
                 <h1>Remembr'All</h1>

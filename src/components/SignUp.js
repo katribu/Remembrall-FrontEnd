@@ -52,43 +52,53 @@ export function SignUp(props) {
 
 
     return (
-        <div className="mainDiv">
+        <div className="flexDiv mainDiv">
             <div>
                 <h1>Remembr'All</h1>
             </div>
             <div>
-                <label>Name:</label>
+               
                 <input type={"text"}
                     onChange={handleNameInputChange}
                     value={name}
+                    placeholder="Name"
+                    className="inputChild"
                 />
             </div>
             <div>
-                <label>Username:</label>
+                
                 <input type={"text"}
                     onChange={handleUsernameInputChange}
                     value={username}
+                    placeholder="Username"
+                    className='inputChild'
                 />
             </div>
             <div>
-                <label>Email:</label>
+              
                 <input type={"email"}
                     onChange={handleEmailInputChange}
                     value={email}
+                    placeholder='Email'
+                    className='inputChild'
                 />
             </div>
             <div>
-                <label>Password:</label>
                 <input type={"password"}
                     onChange={handlePasswordInputChange}
                     value={password}
+                    placeholder='Password'
+                    className='inputChild'
                 />
             </div>
-            <div>
-                <button className='linkButton' onClick={handleSignupAttempt}>Create User</button>
-            </div>
-            <div>
-                <Link to="/login" className='linkButton'>Back</Link>
+
+            <div className="buttonDiv">
+                <div>
+                    <button className='linkButton' onClick={handleSignupAttempt}>Create User</button>
+                </div>
+                <div>
+                    <Link to="/login" className='linkButton'>Back</Link>
+                </div>
             </div>
         </div>
     )

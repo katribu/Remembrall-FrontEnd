@@ -44,7 +44,7 @@ export function SetRemembrall(props) {
        }
     */
     // Coordinates of Oslo S is set as default state for now
-    
+
     const [location, setLocation] = useState({ lat: 59.91151554598712, lng: 10.752414484654482 });
     const handleLocationChange = (coordinates) => {
         setLocation(coordinates)
@@ -92,7 +92,7 @@ export function SetRemembrall(props) {
 
 
     return (
-        <div>
+        <div className="mainDiv">
             <h3>Remembr'all</h3>
 
             <div>My Remembr'all:</div>
@@ -106,23 +106,30 @@ export function SetRemembrall(props) {
                 value={text}
                 cols='25'
                 rows='3'
+                className="inputChild"
             />
 
             <div>Notify me at:</div>
-            <input
-                type={'time'}
-                min='00:00'
-                max='23:59'
-                step='60'
-                onChange={handleTime}
-                value={time}
-            />
 
-            <input
-                type={'date'}
-                onChange={handleDate}
-                value={date}
-            />
+            <div className="timeDateDiv">
+
+                <input
+                    type={'time'}
+                    min='00:00'
+                    max='23:59'
+                    step='60'
+                    onChange={handleTime}
+                    value={time}
+                    className="inputChild timeDateChild"
+                />
+
+                <input
+                    type={'date'}
+                    onChange={handleDate}
+                    value={date}
+                    className="inputChild timeDateChild"
+                />
+            </div>
 
             <div>
 
@@ -133,6 +140,7 @@ export function SetRemembrall(props) {
                     onChange={handleCheckedLocation}
                     value={checkedChooseLocation}
                     checked={checkedChooseLocation}
+                   
                 />
 
 
@@ -149,6 +157,7 @@ export function SetRemembrall(props) {
                             min="50"
                             max="1000"
                             step='50'
+                            
                         />
                         <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div><br />
                         <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />
@@ -164,6 +173,7 @@ export function SetRemembrall(props) {
                     onChange={handleCheckedFriend}
                     value={checkedFriend}
                     checked={checkedFriend}
+                   
                 />
 
 
@@ -172,7 +182,7 @@ export function SetRemembrall(props) {
                         <div>
                             
                             {/* PROBABLY HAVE TO MAP OVER THE PAYLOAD AND INPUT VALUE AND OPTION TEXT FROM THAT */}
-                            <select id="email-friends" onChange={handleChosenFriend} defaultValue={'Select a friend'}>
+                            <select id="email-friends" onChange={handleChosenFriend} defaultValue={'Select a friend'} className="inputChild">
                                 <option value="Select a friend" disabled>Select a friend</option>
                                 <option value='irgen_w.s@hotmail.com'>Irgen</option>
                                 <option value='katrinaburwash_17@hotmail.com'>Katrina</option>
@@ -180,18 +190,16 @@ export function SetRemembrall(props) {
                             </select>
                         </div>
 
-                        <h4>Will send e-mail to: {chosenFriend}</h4>
-                        <h4>Subject: {subject}</h4>
-                        <h4>Email text: {notificationText}</h4>
 
                         <div>
-                            Subject:
+                            <div>Subject:</div>
                             <input
                                 type={text}
                                 maxLength={'100'}
                                 placeholder='On my way home!'
                                 onChange={handleSubject}
                                 value={subject}
+                                className="inputChild"
                             />
                         </div>
 
@@ -207,14 +215,17 @@ export function SetRemembrall(props) {
                                 value={notificationText}
                                 cols='25'
                                 rows='4'
+                                className="inputChild"
                             />
                         </div>
                     </div>}
             </div>
 
             <div className="buttonDiv">
-                <button className="linkButton" onClick={handleSubmit}>Set Remembr'all</button>
+                <button className="linkButton logInBtn" onClick={handleSubmit}>Set Remembr'all</button>
+                <div>
                 <Link to="/profile" className='linkButton'>Back</Link>
+                </div>
             </div>
         </div >
     )

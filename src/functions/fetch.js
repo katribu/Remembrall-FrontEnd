@@ -55,7 +55,7 @@ export async function getUserNotifications() {
     return data;
 }
 
-export async function createNewRemembrall(type, time, lng, lat, slidervalue, message, chosenFriend, subject, notificationText) {
+export async function createNewRemembrall(type, time, lat, lng, slidervalue, message, chosenFriend, subject, notificationText) {
     const response = await fetch(`${API_URL}/setremembrall`, {
         method: "POST",
         headers: {
@@ -66,7 +66,8 @@ export async function createNewRemembrall(type, time, lng, lat, slidervalue, mes
             type,
             data: {
                 time,
-                lng, lat,
+                lat,
+                lng,
                 slidervalue,
                 message,
                 chosenFriend,
@@ -82,7 +83,7 @@ export async function createNewRemembrall(type, time, lng, lat, slidervalue, mes
 
 //Function that sends an email and takes in email-adress, subject and message for the email. 
 export async function createMail(email, subject, message) {
-    const response = await fetch(`${API_URL}/createmail`, {
+   await fetch(`${API_URL}/createmail`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',

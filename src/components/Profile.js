@@ -102,28 +102,39 @@ export function Profile(props) {
             setCurrentLocation({latitude: position.coords.latitude, longitude: position.coords.longitude})
     })
     
-}, {})
+}, [])
     console.log(currentLocation)
-//    function getDistanceFunction(lat, lng) {
-//         navigator.geolocation.watchPosition(
-//         (position) => {
-//             getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
-//                 latitude: lat,
-//                 longitude: lng,
-//             })
-//             // console.log(
-//             //     `You are ${getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
-//             //         latitude: lat,
-//             //         longitude: lng,
-//             //     })} meters away from ${lat} ${lng} `
-//             // );
-//         },
-//         () => {
-//             alert('Position could not be determined.');
-//         }
-//     );
-//    }
+
+    const locationAlertFilter = userNotifications?.filter(notificationInfo => {
+        const currentDistance = getDistance(currentLocation, 
+            {
+                latitude: notificationInfo.data.lat,
+                longitude: notificationInfo.data.lng,
+            }); 
+
+        if (currentDistance > 0 && currentDistance < notificationInfo.data.slidervalue) {
+
+            console.log('it fuckings works!!! ')
+            return;
+
+            // Add functionality to delete the alert or renew. 
+
+        }
+        else{
+            return console.log('Did not work')
+        } 
+       
+})
+
+console.log(locationAlertFilter)
+
+
  
+
+
+
+
+
 
     //Renders all the alarm-based notifications
     const myAlarmNotifications = userNotifications?.filter(notification => notification.type === "alarm")?.map((notification, index) => {
@@ -160,7 +171,7 @@ export function Profile(props) {
                 {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
                 
                 {myLocationNotifications.length > 0 ? myLocationNotifications : (<p>You currently have no location-based notifications!</p>)}
-
+                {locationAlertFilter}
                 {isHidden && 
                     <div>
                         <h2>Upcoming Remembr'Alls:</h2>
@@ -184,3 +195,26 @@ export function Profile(props) {
         </div>
     )
 }
+
+//Maybe redundant code: 
+
+//    function getDistanceFunction(lat, lng) {
+//         navigator.geolocation.watchPosition(
+//         (position) => {
+//             getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+//                 latitude: lat,
+//                 longitude: lng,
+//             })
+//             // console.log(
+//             //     `You are ${getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+//             //         latitude: lat,
+//             //         longitude: lng,
+//             //     })} meters away from ${lat} ${lng} `
+//             // );
+//         },
+//         () => {
+//             alert('Position could not be determined.');
+//         }
+//     );
+//    }
+ 

@@ -17,6 +17,7 @@ export function Profile(props) {
     const [isHidden, setIsHidden] = useState(false)
     const [buttonText, setButtonText] = useState('Show Upcoming Remembr\'alls');
     const [hoverIndex, setHoverIndex] = useState(-1);
+    const [currentLocation, setCurrentLocation] = useState({})
 
     // Check if you are logged in (lines 16 -28)
     const { history } = props;
@@ -62,13 +63,16 @@ export function Profile(props) {
 
     //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
-
-        const distance = getDistanceFunction(notification.data.lat, notification.data.lng)
-
-        if (distance <= notification.data.slidervalue) {
-            alert(`Hi, the time is ${notification.data.time} `)
-        }
-
+        
+        getDistance(currentLocation, {
+            latitude: notification.data.lat,
+            longitude: notification.data.lng,
+        })
+        
+    //   if(distance <= notification.data.slidervalue){
+    //     alert(`Hi, the time is ${notification.data.time} `)
+    //   }
+       
         return (
             <div
                 key={index}
@@ -88,28 +92,38 @@ export function Profile(props) {
         )
     });
 
-    //Measuring set position with current position: 
-    function getDistanceFunction(lat, lng) {
-        navigator.geolocation.getCurrentPosition(
-            (position) => {
-                const distance = getDistance({ latitude: position.coords.latitude, longitude: position.coords.longitude }, {
-                    latitude: lat,
-                    longitude: lng,
-                })
-                console.log(distance)
-                return distance
-                // console.log(
-                //     `You are ${getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
-                //         latitude: lat,
-                //         longitude: lng,
-                //     })} meters away from ${lat} ${lng} `
-                // );
-            },
-            () => {
-                alert('Position could not be determined.');
-            }
-        );
-    }
+   //Measuring set position with current position: 
+   // add use state to hold current location and run in a useEffect()
+
+
+   useEffect(() => {
+    navigator.geolocation.watchPosition(
+        (position) =>{
+            setCurrentLocation({latitude: position.coords.latitude, longitude: position.coords.longitude})
+    })
+    
+}, {})
+    console.log(currentLocation)
+//    function getDistanceFunction(lat, lng) {
+//         navigator.geolocation.watchPosition(
+//         (position) => {
+//             getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+//                 latitude: lat,
+//                 longitude: lng,
+//             })
+//             // console.log(
+//             //     `You are ${getDistance({latitude: position.coords.latitude, longitude: position.coords.longitude}, {
+//             //         latitude: lat,
+//             //         longitude: lng,
+//             //     })} meters away from ${lat} ${lng} `
+//             // );
+//         },
+//         () => {
+//             alert('Position could not be determined.');
+//         }
+//     );
+//    }
+ 
 
 
     //Renders all the alarm-based notifications, sorted by time and then date 

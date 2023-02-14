@@ -81,13 +81,14 @@ export default function Map(props) {
             onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
 
-          <DistanceMatrixService
+          {/* <DistanceMatrixService
           options={{
                     destinations: [location],
                     origins: [currentLocation],
                     travelMode: "WALKING",
                   }}
           callback = {(response) => {
+            console.log(response)
             const distanceValue = response.rows[0].elements[0].distance.value
 
             if(distanceValue <= Number(slidervalue)){
@@ -95,7 +96,7 @@ export default function Map(props) {
               alert(`this is an alert`)
             }
           }}
-          />
+          /> */}
 
           {/* Marker that comes from the search field.
           <MarkerF

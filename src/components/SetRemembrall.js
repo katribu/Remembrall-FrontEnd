@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { createNewRemembrall } from "../functions/fetch";
+import { createMail, createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 import { Link } from "react-router-dom";
 
@@ -83,10 +83,12 @@ export function SetRemembrall(props) {
 
         const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text, chosenFriend, subject, notificationText);
 
+        await createMail(chosenFriend, subject, notificationText); 
         const { history } = props;
         history.replace('/profile');
         return submitResponse;
     }
+
 
     return (
         <div>
@@ -169,8 +171,8 @@ export function SetRemembrall(props) {
                         <div>
                             
                             {/* PROBABLY HAVE TO MAP OVER THE PAYLOAD AND INPUT VALUE AND OPTION TEXT FROM THAT */}
-                            <select id="email-friends" onChange={handleChosenFriend}>
-                                <option value="" disabled selected>Select a friend</option>
+                            <select id="email-friends" onChange={handleChosenFriend} defaultValue={'Select a friend'}>
+                                <option value="Select a friend" disabled>Select a friend</option>
                                 <option value='irgen_w.s@hotmail.com'>Irgen</option>
                                 <option value='katrinaburwash_17@hotmail.com'>Katrina</option>
                                 <option value='shahinhemat@gmail.com'>Shahin</option>

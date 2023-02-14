@@ -44,6 +44,7 @@ export function SetRemembrall(props) {
        }
     */
     // Coordinates of Oslo S is set as default state for now
+    
     const [location, setLocation] = useState({ lat: 59.91151554598712, lng: 10.752414484654482 });
     const handleLocationChange = (coordinates) => {
         setLocation(coordinates)

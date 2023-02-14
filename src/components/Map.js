@@ -44,10 +44,10 @@ export default function Map(props) {
     setSearchBox(ref);
   };
 
-  const defaultProps = {
-    center: currentLocation,
-    zoom: 11
-  };
+  // const defaultProps = {
+  //   center: currentLocation,
+  //   zoom: 11
+  // };
 
 
 
@@ -78,7 +78,7 @@ export default function Map(props) {
 
           <MarkerF
             position={currentLocation}
-            onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
+            // onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
 
           {/* <DistanceMatrixService

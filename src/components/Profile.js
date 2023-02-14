@@ -14,7 +14,7 @@ import { getDistance } from 'geolib';
 export function Profile(props) {
 
     const [userNotifications, setUserNotifications] = useState([]);
-    const [isHidden,setIsHidden] = useState(false)
+    const [isHidden, setIsHidden] = useState(false)
     const [buttonText, setButtonText] = useState('Show Upcoming Remembr\'alls');
     const [hoverIndex, setHoverIndex] = useState(-1);
     const [currentLocation, setCurrentLocation] = useState({})
@@ -49,17 +49,17 @@ export function Profile(props) {
     }, [])
 
     const handleDelete = async (id) => {
-        const {error} = await deleteNotification(id);
+        const { error } = await deleteNotification(id);
 
-        if(error) {
+        if (error) {
             console.log('Was not able to delete notification')
-            console.log({error});
+            console.log({ error });
         }
 
         await populateNotifications();
     }
 
-    
+
 
     //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
@@ -132,30 +132,40 @@ console.log(locationAlertFilter)
  
 
 
+    //Renders all the alarm-based notifications, sorted by time and then date 
+    const myAlarmNotifications = userNotifications
+        ?.filter(notification => notification.type === "alarm")
+        ?.sort((a, b) => {
+            const [aHours, aMinutes] = a.data.time.split(":").map(s => parseInt(s));
+            const [bHours, bMinutes] = b.data.time.split(":").map(s => parseInt(s));
+            if (aHours !== bHours) {
+                return aHours - bHours;
+            } else {
+                return aMinutes - bMinutes;
+            }
+        })
+        ?.sort((a, b) => new Date(a.data.date) - new Date(b.data.date))
+        ?.map((notification, index) => {
 
+            return (
+                <div
+                    key={index}
+                    onMouseEnter={() => setHoverIndex(index)}
+                    onMouseLeave={() => setHoverIndex(-1)}
+                >
 
+                    <p>Remembr'All: {notification.data.message}</p>
+                    <p> <MdOutlineNotificationsNone /> {notification.data.time} at {notification.data.date}</p>
+                    {hoverIndex === index && (
+                        <>
+                            <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
+                            <button> <AiFillEdit /> </button>
+                        </>
+                    )}
+                </div>
+            )
+        });
 
-
-    //Renders all the alarm-based notifications
-    const myAlarmNotifications = userNotifications?.filter(notification => notification.type === "alarm")?.map((notification, index) => {
-        return (
-            <div
-            key={index}
-            onMouseEnter={() => setHoverIndex(index)}
-            onMouseLeave={() => setHoverIndex(-1)}
-            >
-
-                <p>My Remembr'All: {notification.data.message}</p>
-                <p> <MdOutlineNotificationsNone /> {notification.data.time}</p>
-                {hoverIndex === index && (
-                    <>
-                        <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
-                        <button> <AiFillEdit /> </button>
-                    </>
-                )}
-            </div>
-        )
-    });
 
     // We want to add "Welcome NAME" (instead of logged in as fex)
     // We also want THE VERY FIRST TIME, someone enters the profile site, for it to say "Get started by creating a remembra'll. Examples: "Get up and stretch for 5 minutes".
@@ -168,17 +178,18 @@ console.log(locationAlertFilter)
 
             <div id="upcoming-remebralls">
                 <h3>Your Notifications</h3>
+
                 {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
-                
+
                 {myLocationNotifications.length > 0 ? myLocationNotifications : (<p>You currently have no location-based notifications!</p>)}
                 {locationAlertFilter}
                 {isHidden && 
                     <div>
                         <h2>Upcoming Remembr'Alls:</h2>
                         <li>Visit Grandmother</li>
-                        <div><MdOutlineNotificationsNone /> Saturday 11/2/23 at 11:30</div>
+                        <div><MdOutlineNotificationsNone /> Saturday 15/3/23 at 11:30</div>
                         <li>Submit your tax-statements</li>
-                        <div><MdOutlineNotificationsNone /> Sunday 12/2/23 10:30</div>   
+                        <div><MdOutlineNotificationsNone /> Sunday 16/3/23 10:30</div>
                     </div>
                 }
             </div>

@@ -81,8 +81,8 @@ export function SetRemembrall(props) {
 
     // Add handleSubmit(must do a post request, to our database)
     const handleSubmit = async () => {
-
-        const submitResponse = await createNewRemembrall(type, time, location.lat, location.lng, slidervalue, text, chosenFriend, subject, notificationText);
+        
+        const submitResponse = await createNewRemembrall(type, time, date, location.lat, location.lng, slidervalue, text, chosenFriend, subject, notificationText);
 
         await createMail(chosenFriend, subject, notificationText); 
         const { history } = props;

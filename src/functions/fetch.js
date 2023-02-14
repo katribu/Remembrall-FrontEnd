@@ -55,7 +55,7 @@ export async function getUserNotifications() {
     return data;
 }
 
-export async function createNewRemembrall(type, time, lat, lng, slidervalue, message, chosenFriend, subject, notificationText) {
+export async function createNewRemembrall(type, time, date, lat, lng, slidervalue, message, chosenFriend, subject, notificationText) {
     const response = await fetch(`${API_URL}/setremembrall`, {
         method: "POST",
         headers: {
@@ -66,6 +66,7 @@ export async function createNewRemembrall(type, time, lat, lng, slidervalue, mes
             type,
             data: {
                 time,
+                date,
                 lat,
                 lng,
                 slidervalue,

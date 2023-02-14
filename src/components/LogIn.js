@@ -83,6 +83,7 @@ export function LogIn(props) {
                         value={password}
                         placeholder={"Password"}
                         className="inputChild"
+                        onKeyDown={(e) => {if (e.key === 'Enter'){handleLoginAttempt()}}}
                     ></input>
                 </div>
             </div>

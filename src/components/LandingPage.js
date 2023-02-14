@@ -1,4 +1,7 @@
 import '../App.css';
+/* import audioSong from './landingPageIntro.mp3' */
+import video from '../smokevideo.mp4'
+
 
 export function LandingPage(props) {
     const { history } = props;
@@ -6,22 +9,34 @@ export function LandingPage(props) {
     // Check if we have a token in local storage
     const token = localStorage.getItem('TWITTER_TOKEN');
 
-    // If not - redirect to /login
-    if (!token) {
-        history.replace('/login');
+
+    setTimeout(() => {
+        // If not - redirect to /login
+        if (!token) {
+            history.replace('/login');
+            return;
+        };
+
+        history.replace('/profile');
         return;
-    };
+    }, 7000)
 
-    // Else - get info from token and show in UI
-    /*    const payload = jwtDecode(token); 
-       this.setState({
-           user: payload,
-       });  */
-
-    // Fetch tweets from server
-    
-    history.replace('/profile');
-    return;
+    return (
+            <div id="smoke">
+                <video style={{maxWidth:'100vw'}} src={video} muted autoPlay loop />
+                <div id="text">Remembr'All</div>
+                <div style={{color:'white'}}>*Establishing Connection..</div>
+               {/*  <audio src={audioSong} type='audio/mp3' autoplay/> */}
+            </div>        
+    );
 };
 
 
+
+// Else - get info from token and show in UI
+/*    const payload = jwtDecode(token);
+   this.setState({
+       user: payload,
+   });  */
+
+// Fetch tweets from server

@@ -2,7 +2,8 @@
 
 
 
-/* Styles for component: Set Remembrall - slider */ 
+
+/* Styles for component: Set Remembrall - slider */
 input[type='range']::-webkit-slider-thumb {
 	-webkit-appearance: none;
 	height: 7px;
@@ -13,6 +14,644 @@ input[type='range']::-webkit-slider-thumb {
 }
 
 
+/* Styles for: LandingPage - smokeintro (header) */
+
+#smoke {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	color: red;
+	/* background-image: url(https://media.tenor.com/FPFutdx6_FgAAAAM/fog-smoke.gif); */
+	/* background-image: url(https://media.tenor.com/KSzpGNoaWAwAAAAC/red-smoke.gif); */
+	background-size: cover;
+	animation: smoke 1s ease-in-out forwards;
+}
+
+@keyframes smoke {
+	0% {
+		opacity: 0;
+	}
+
+	50% {
+		opacity: 0.5;
+	}
+
+	100% {
+		opacity: 1;
+	}
+}
+
+/* 
+@import url('https://fonts.cdnfonts.com/css/harry-potter');
+'Harry Potter', sans-serif; 
+*/
+
+@import url('https://fonts.cdnfonts.com/css/molly-sans-personal');
+
+#text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%) scale(0.01);
+	font-size: 72px;
+	font-family:'Molly Sans C PERSONAL', sans-serif;
+	color: white;
+	opacity: 0;
+	animation: revealText 7.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+	text-shadow: 2px 2px 4px #1b1507,
+		4px 4px 6px #8d5d2a;
+}
+
+/* @keyframes revealText {
+	0% {
+	  opacity: 0;
+	  transform: translate(-50%, -50%) scale(0.01);
+	}
+	5% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.05);
+	}
+	10% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.1);
+	}
+	15% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.15);
+	}
+	20% {
+		opacity: 0.1;
+		transform: translate(-50%, -50%) scale(0.2);
+	}
+	25% {
+		opacity: 0.1;
+		transform: translate(-50%, -50%) scale(0.25);
+	}
+	30% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.3);
+	}
+	35% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.35);
+	}
+	40% {
+		opacity: 0.4;
+		transform: translate(-50%, -50%) scale(0.4);
+	}
+	45% {
+		opacity: 0.4;
+		transform: translate(-50%, -50%) scale(0.45);
+	}
+	50% {
+		opacity: 0.5;
+		transform: translate(-50%, -50%) scale(0.5);
+	}
+	55% {
+		opacity: 0.5;
+		transform: translate(-50%, -50%) scale(0.55);
+	}
+	60% {
+		opacity: 0.6;
+		transform: translate(-50%, -50%) scale(0.6);
+	}
+	65% {
+		opacity: 0.6;
+		transform: translate(-50%, -50%) scale(0.65);
+	}
+	70% {
+		opacity: 0.7;
+		transform: translate(-50%, -50%) scale(0.7);
+	}
+	75% {
+		opacity: 0.7;
+		transform: translate(-50%, -50%) scale(0.75);
+	}
+	80% {
+		opacity: 0.8;
+		transform: translate(-50%, -50%) scale(0.8);
+	}
+	85% {
+		opacity: 0.8;
+		transform: translate(-50%, -50%) scale(0.85);
+	}
+	90% {
+		opacity: 0.9;
+		transform: translate(-50%, -50%) scale(0.9);
+	}
+	95% {
+		opacity: 0.9;
+		transform: translate(-50%, -50%) scale(0.95);
+	}
+	100% {
+	  opacity: 1;
+	  transform: translate(-50%, -50%) scale(8);
+	}
+  } */
+
+@keyframes revealText {
+	0% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.01);
+	}
+
+	2% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.02);
+	}
+
+	3% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.03);
+	}
+
+	4% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.04);
+	}
+
+	5% {
+		opacity: 0;
+		transform: translate(-50%, -50%) scale(0.05);
+	}
+
+	6% {
+		opacity: 0.1;
+		transform: translate(-50%, -50%) scale(0.06);
+	}
+
+	7% {
+		opacity: 0.1;
+		transform: translate(-50%, -50%) scale(0.07);
+	}
+
+	8% {
+		opacity: 0.1;
+		transform: translate(-50%, -50%) scale(0.08);
+	}
+
+	9% {
+		opacity: 0.1;
+		transform: translate(-50%, -50%) scale(0.09);
+	}
+
+	10% {
+		opacity: 0.1;
+		transform: translate(-50%, -50%) scale(0.1);
+	}
+
+	11% {
+		opacity: 0.11;
+		transform: translate(-50%, -50%) scale(0.11);
+	}
+
+	12% {
+		opacity: 0.12;
+		transform: translate(-50%, -50%) scale(0.12);
+	}
+
+	13% {
+		opacity: 0.12;
+		transform: translate(-50%, -50%) scale(0.13);
+	}
+
+	14% {
+		opacity: 0.12;
+		transform: translate(-50%, -50%) scale(0.14);
+	}
+
+	15% {
+		opacity: 0.12;
+		transform: translate(-50%, -50%) scale(0.15);
+	}
+
+	16% {
+		opacity: 0.12;
+		transform: translate(-50%, -50%) scale(0.16);
+	}
+
+	17% {
+		opacity: 0.18;
+		transform: translate(-50%, -50%) scale(0.17);
+	}
+
+	18% {
+		opacity: 0.18;
+		transform: translate(-50%, -50%) scale(0.18);
+	}
+
+	19% {
+		opacity: 0.18;
+		transform: translate(-50%, -50%) scale(0.19);
+	}
+
+	20% {
+		opacity: 0.18;
+		transform: translate(-50%, -50%) scale(0.2);
+	}
+
+	21% {
+		opacity: 0.18;
+		transform: translate(-50%, -50%) scale(0.21);
+	}
+
+	22% {
+		opacity: 0.18;
+		transform: translate(-50%, -50%) scale(0.22);
+	}
+
+	23% {
+		opacity: 0.18;
+		transform: translate(-50%, -50%) scale(0.23);
+	}
+
+	24% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.24);
+	}
+
+	25% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.25);
+	}
+
+	26% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.26);
+	}
+
+	27% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.27);
+	}
+
+	28% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.28);
+	}
+
+	29% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.29);
+	}
+
+	30% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.30);
+	}
+
+	31% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.31);
+	}
+
+	32% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.32);
+	}
+
+	33% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.33);
+	}
+
+	34% {
+		opacity: 0.2;
+		transform: translate(-50%, -50%) scale(0.34);
+	}
+
+	35% {
+		opacity: 0.25;
+		transform: translate(-50%, -50%) scale(0.35);
+	}
+
+	36% {
+		opacity: 0.25;
+		transform: translate(-50%, -50%) scale(0.36);
+	}
+
+	37% {
+		opacity: 0.25;
+		transform: translate(-50%, -50%) scale(0.37);
+	}
+
+	38% {
+		opacity: 0.25;
+		transform: translate(-50%, -50%) scale(0.38);
+	}
+
+	39% {
+		opacity: 0.25;
+		transform: translate(-50%, -50%) scale(0.39);
+	}
+
+	40% {
+		opacity: 0.25;
+		transform: translate(-50%, -50%) scale(0.40);
+	}
+
+	41% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.41);
+	}
+
+	42% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.42);
+	}
+
+	43% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.43);
+	}
+
+	44% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.44);
+	}
+
+	45% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.45);
+	}
+
+	46% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.46);
+	}
+
+	47% {
+		opacity: 0.3;
+		transform: translate(-50%, -50%) scale(0.47);
+	}
+
+	48% {
+		opacity: 0.35;
+		transform: translate(-50%, -50%) scale(0.48);
+	}
+
+	49% {
+		opacity: 0.35;
+		transform: translate(-50%, -50%) scale(0.49);
+	}
+
+	50% {
+		opacity: 0.35;
+		transform: translate(-50%, -50%) scale(0.50);
+	}
+
+	51% {
+		opacity: 0.35;
+		transform: translate(-50%, -50%) scale(0.51);
+	}
+
+	52% {
+		opacity: 0.4;
+		transform: translate(-50%, -50%) scale(0.52);
+	}
+
+	53% {
+		opacity: 0.4;
+		transform: translate(-50%, -50%) scale(0.53);
+	}
+
+	54% {
+		opacity: 0.4;
+		transform: translate(-50%, -50%) scale(0.54);
+	}
+
+	55% {
+		opacity: 0.45;
+		transform: translate(-50%, -50%) scale(0.55);
+	}
+
+	56% {
+		opacity: 0.45;
+		transform: translate(-50%, -50%) scale(0.56);
+	}
+
+	57% {
+		opacity: 0.45;
+		transform: translate(-50%, -50%) scale(0.57);
+	}
+
+	58% {
+		opacity: 0.5;
+		transform: translate(-50%, -50%) scale(0.58);
+	}
+
+	59% {
+		opacity: 0.5;
+		transform: translate(-50%, -50%) scale(0.59);
+	}
+
+	60% {
+		opacity: 0.5;
+		transform: translate(-50%, -50%) scale(0.60);
+	}
+
+	61% {
+		opacity: 0.58;
+		transform: translate(-50%, -50%) scale(0.61);
+	}
+
+	62% {
+		opacity: 0.58;
+		transform: translate(-50%, -50%) scale(0.62);
+	}
+
+	63% {
+		opacity: 0.58;
+		transform: translate(-50%, -50%) scale(0.63);
+	}
+
+	64% {
+		opacity: 0.58;
+		transform: translate(-50%, -50%) scale(0.64);
+	}
+
+	65% {
+		opacity: 0.65;
+		transform: translate(-50%, -50%) scale(0.65);
+	}
+
+	66% {
+		opacity: 0.66;
+		transform: translate(-50%, -50%) scale(0.66);
+	}
+
+	67% {
+		opacity: 0.67;
+		transform: translate(-50%, -50%) scale(0.67);
+	}
+
+	68% {
+		opacity: 0.68;
+		transform: translate(-50%, -50%) scale(0.68);
+	}
+
+	69% {
+		opacity: 0.69;
+		transform: translate(-50%, -50%) scale(0.69);
+	}
+
+	70% {
+		opacity: 0.7;
+		transform: translate(-50%, -50%) scale(0.70);
+	}
+
+	71% {
+		opacity: 0.71;
+		transform: translate(-50%, -50%) scale(0.71);
+	}
+
+	72% {
+		opacity: 0.72;
+		transform: translate(-50%, -50%) scale(0.72);
+	}
+
+	73% {
+		opacity: 0.73;
+		transform: translate(-50%, -50%) scale(0.73);
+	}
+
+	74% {
+		opacity: 0.74;
+		transform: translate(-50%, -50%) scale(0.74);
+	}
+
+	75% {
+		opacity: 0.75;
+		transform: translate(-50%, -50%) scale(0.75);
+	}
+
+	76% {
+		opacity: 0.76;
+		transform: translate(-50%, -50%) scale(0.76);
+	}
+
+	77% {
+		opacity: 0.77;
+		transform: translate(-50%, -50%) scale(0.77);
+	}
+
+	78% {
+		opacity: 0.78;
+		transform: translate(-50%, -50%) scale(0.78);
+	}
+
+	79% {
+		opacity: 0.79;
+		transform: translate(-50%, -50%) scale(0.79);
+	}
+
+	80% {
+		opacity: 0.80;
+		transform: translate(-50%, -50%) scale(0.80);
+	}
+
+	81% {
+		opacity: 0.81;
+		transform: translate(-50%, -50%) scale(0.81);
+	}
+
+	82% {
+		opacity: 0.82;
+		transform: translate(-50%, -50%) scale(0.82);
+	}
+
+	83% {
+		opacity: 0.83;
+		transform: translate(-50%, -50%) scale(0.83);
+	}
+
+	84% {
+		opacity: 0.84;
+		transform: translate(-50%, -50%) scale(0.84);
+	}
+
+	85% {
+		opacity: 0.85;
+		transform: translate(-50%, -50%) scale(0.85);
+	}
+
+	86% {
+		opacity: 0.86;
+		transform: translate(-50%, -50%) scale(0.86);
+	}
+
+	87% {
+		opacity: 0.87;
+		transform: translate(-50%, -50%) scale(0.87);
+	}
+
+	88% {
+		opacity: 0.88;
+		transform: translate(-50%, -50%) scale(0.88);
+	}
+
+	89% {
+		opacity: 0.89;
+		transform: translate(-50%, -50%) scale(0.89);
+	}
+
+	90% {
+		opacity: 0.90;
+		transform: translate(-50%, -50%) scale(1);
+	}
+
+	91% {
+		opacity: 0.91;
+		transform: translate(-50%, -50%) scale(1.5);
+	}
+
+	92% {
+		opacity: 0.92;
+		transform: translate(-50%, -50%) scale(2);
+	}
+
+	93% {
+		opacity: 0.93;
+		transform: translate(-50%, -50%) scale(2.5);
+	}
+
+	94% {
+		opacity: 0.94;
+		transform: translate(-50%, -50%) scale(3);
+	}
+
+	95% {
+		opacity: 0.95;
+		transform: translate(-50%, -50%) scale(4);
+	}
+
+	96% {
+		opacity: 0.96;
+		transform: translate(-50%, -50%) scale(5);
+	}
+
+	97% {
+		opacity: 0.93;
+		transform: translate(-50%, -50%) scale(6);
+	}
+
+	98% {
+		opacity: 0.98;
+		transform: translate(-50%, -50%) scale(7);
+	}
+
+	99% {
+		opacity: 0.99;
+		transform: translate(-50%, -50%) scale(8);
+	}
+
+	100% {
+		opacity: 1;
+		transform: translate(-50%, -50%) scale(9);
+	}
+}
 
 
 /* Shahin saved css for smoke and header in module 4 on his local computer  */

@@ -20,7 +20,7 @@ export default function Map(props) {
   const [searchBox, setSearchBox] = React.useState(null);
 
   const onMapLoad = () => {
-    navigator.geolocation.watchPosition(
+    navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude: lat, longitude: lng } }) => {
         setCurrentLocation({ lat, lng });
       }

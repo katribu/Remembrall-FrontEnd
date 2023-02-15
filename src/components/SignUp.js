@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import '../App.css';
 import { createNewUser } from '../functions/fetch';
 import React from "react"
+import { Header } from './Header';
 
 export function SignUp(props) {
     const [name, setName] = React.useState("");
@@ -52,6 +53,8 @@ export function SignUp(props) {
 
 
     return (
+        <div>
+            <Header/>
         <div className="flexDiv mainDiv">
             <div>
                 <h1>Remembr'All</h1>
@@ -100,6 +103,7 @@ export function SignUp(props) {
                     <Link to="/login" className='linkButton'>Back</Link>
                 </div>
             </div>
+        </div>
         </div>
     )
 };

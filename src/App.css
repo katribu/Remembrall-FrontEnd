@@ -6,41 +6,41 @@
 body,html{
   padding: 0;
   margin: 0;
+  font-family: 'Montserrat', sans-serif;
+  background:whitesmoke;
 }
 
 .mainDiv {
   max-width: 400px;
-  border: 2px red solid;
-  margin: 0 auto;
+  margin: 20px auto;
   text-align: center;
+  color: #03191E;
 }
 
 .flexDiv {
   display: flex;
   flex-direction:column;
-  margin: 30px auto;
-  max-width: 375px;
+  margin: 0 auto;
+  max-width: 400px;
   text-align: center;
-  padding:20px;
-
 }
 
 /* Link-button-styles */
 .linkButton {
   align-items: center;
   appearance: none;
-  background-color: #fff;
+  background: #6a0203;
   border-radius: 24px;
   border-style: none;
   box-shadow: rgba(0, 0, 0, .2) 0 3px 5px -1px, rgba(0, 0, 0, .14) 0 6px 10px 0, rgba(0, 0, 0, .12) 0 1px 18px 0;
   box-sizing: border-box;
-  color: #3c4043;
+  color: whitesmoke;
   cursor: pointer;
   display: inline-flex;
   fill: currentcolor;
-  font-family: "Google Sans", Roboto, Arial, sans-serif;
+  font-family: inherit;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: bolder;
   height: 48px;
   justify-content: center;
   letter-spacing: .25px;
@@ -62,8 +62,9 @@ body,html{
 }
 
 .linkButton:hover {
-  background: #F6F9FE;
-  color: #174ea6;
+  background: #000;
+  color: white;
+  scale: 1.1;
 }
 .logInBtn{
   margin: 0 auto 20px;
@@ -85,21 +86,53 @@ body,html{
 }
 
 .inputChild{
-  width: 80%;
+  width: 100%;
   height: 40px;
   padding-left: 10px;
   margin: 10px 0;
   font-family: inherit;
 }
+/* ======= HEADER STYLES ============ */
+.header{
+  background:#000000;
+  color:#eeeeee;
+  padding: 10px;
+}
+.headerTitle{
+  font-family: 'Righteous', cursive;
+  font-weight: 400;
+  margin: 0 20px;
+  font-size: 20px;
+  text-shadow: 2px 2px 2px #6a0203;
+}
 
+/* ======= LOGIN PAGE STYLES ========== */
+.logInTitle{
+  color:black;
+  /* color:#6a0203; */
+  margin-top: 50px;
+  /* text-shadow: 2px 2px 2px black;
+  -webkit-text-stroke: 0.5px;
+  -webkit-text-stroke-color: black; */
+  font-family: 'Righteous', cursive;
+}
 
 /* ============ PROFILE PAGE STYLING =============== */
-
+.notificationContainer{
+  border: black 0.5px solid;
+  width: 80%;
+  margin: 10px auto;
+  text-align: left;
+  box-shadow: 2px 2px 2px black;
+  border-radius: 10px;
+  padding: 5px 10px;
+}
 .upcomingNotificationsLink{
   border: none;
   background:none;
   font-size: 1rem;
   font-weight: bolder;
+  font-family: inherit;
 }
 
 .upcomingNotificationsLink:hover,
@@ -115,10 +148,18 @@ body,html{
   display:flex;
   margin: 10px auto;
   justify-content: space-between;
-  width: 80%;
+  width: 100%;
 }
 
 .timeDateChild{
   text-align: center;
   width: 45%;
+}
+
+.setRemembrallStyles{
+  width: 80%;
+}
+
+.textAlignLeft{
+  text-align: left;
 }

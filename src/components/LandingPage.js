@@ -22,12 +22,13 @@ export function LandingPage(props) {
     }, 7000)
 
     return (
+        <div>
             <div id="smoke">
-                <video style={{maxWidth:'100vw'}} src={video} muted autoPlay loop />
+                <video style={{ maxWidth: '100vw' }} src={video} muted autoPlay loop />
                 <div id="text">Remembr'All</div>
-                <div style={{color:'white'}}>*Establishing Connection..</div>
-               {/*  <audio src={audioSong} type='audio/mp3' autoplay/> */}
-            </div>        
+            </div>
+        </div>
+
     );
 };
 

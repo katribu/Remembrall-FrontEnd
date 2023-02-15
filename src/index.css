@@ -43,12 +43,15 @@ input[type='range']::-webkit-slider-thumb {
 	}
 }
 
-/* 
-@import url('https://fonts.cdnfonts.com/css/harry-potter');
-'Harry Potter', sans-serif; 
-*/
 
-@import url('https://fonts.cdnfonts.com/css/molly-sans-personal');
+/* @import url('https://fonts.cdnfonts.com/css/harry-potter');
+'Harry Potter', sans-serif;  */
+
+
+/* @import url('https://fonts.cdnfonts.com/css/molly-sans-personal');
+'Molly Sans C PERSONAL', sans-serif; */
+
+@import url('https://fonts.cdnfonts.com/css/harrypotter7');
 
 #text {
 	position: absolute;
@@ -56,13 +59,46 @@ input[type='range']::-webkit-slider-thumb {
 	left: 50%;
 	transform: translate(-50%, -50%) scale(0.01);
 	font-size: 72px;
-	font-family:'Molly Sans C PERSONAL', sans-serif;
+	font-family: 'HarryPotter7', sans-serif;
 	color: white;
 	opacity: 0;
-	animation: revealText 7.3s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
-	text-shadow: 2px 2px 4px #1b1507,
-		4px 4px 6px #8d5d2a;
+	animation: revealText 7.1s cubic-bezier(0.18, 0.89, 0.32, 1.28) forwards;
+	text-shadow:
+    0 0 1px #ff5500,
+    0 0 2px #ff5500,
+    0 0 4px #ff5500,
+    0 0 8px #ff5500,
+    0 0 16px #ff5500,
+    0 0 32px #ff5500,
+    0 0 64px #ff5500;
+	
 }
+
+@keyframes glow {
+  0% {
+    text-shadow:
+      0 0 2px #ff5500,
+      0 0 4px #ff5500,
+      0 0 8px #ff5500,
+      0 0 16px #ff5500,
+      0 0 32px #ff5500,
+      0 0 64px #ff5500,
+      0 0 128px #ff5500;
+  }
+  100% {
+    text-shadow:
+      0 0 2px #ff5500,
+      0 0 4px #ff5500,
+      0 0 8px #ff5500,
+      0 0 16px #ff5500,
+      0 0 32px #ff5500,
+      0 0 64px #ff5500,
+      0 0 128px #ff5500,
+      0 0 256px #ff5500;
+  }
+}
+
+
 
 /* @keyframes revealText {
 	0% {
@@ -604,52 +640,52 @@ input[type='range']::-webkit-slider-thumb {
 
 	91% {
 		opacity: 0.91;
-		transform: translate(-50%, -50%) scale(1.5);
+		transform: translate(-50%, -50%) scale(2);
 	}
 
 	92% {
 		opacity: 0.92;
-		transform: translate(-50%, -50%) scale(2);
+		transform: translate(-50%, -50%) scale(3);
 	}
 
 	93% {
 		opacity: 0.93;
-		transform: translate(-50%, -50%) scale(2.5);
+		transform: translate(-50%, -50%) scale(4);
 	}
 
 	94% {
 		opacity: 0.94;
-		transform: translate(-50%, -50%) scale(3);
+		transform: translate(-50%, -50%) scale(5);
 	}
 
 	95% {
 		opacity: 0.95;
-		transform: translate(-50%, -50%) scale(4);
+		transform: translate(-50%, -50%) scale(6);
 	}
 
 	96% {
 		opacity: 0.96;
-		transform: translate(-50%, -50%) scale(5);
+		transform: translate(-50%, -50%) scale(9);
 	}
 
 	97% {
 		opacity: 0.93;
-		transform: translate(-50%, -50%) scale(6);
+		transform: translate(-50%, -50%) scale(11);
 	}
 
 	98% {
 		opacity: 0.98;
-		transform: translate(-50%, -50%) scale(7);
+		transform: translate(-50%, -50%) scale(13);
 	}
 
 	99% {
 		opacity: 0.99;
-		transform: translate(-50%, -50%) scale(8);
+		transform: translate(-50%, -50%) scale(15);
 	}
 
 	100% {
 		opacity: 1;
-		transform: translate(-50%, -50%) scale(9);
+		transform: translate(-50%, -50%) scale(17);
 	}
 }
 

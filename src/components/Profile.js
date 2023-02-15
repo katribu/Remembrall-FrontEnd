@@ -103,46 +103,7 @@ export function Profile(props) {
         )
     });
 
-   //Measuring set position with current position: 
-   // add use state to hold current location and run in a useEffect()
-
-
-   useEffect(() => {
-    navigator.geolocation.watchPosition(
-        (position) =>{
-            setCurrentLocation({latitude: position.coords.latitude, longitude: position.coords.longitude})
-    })
-    
-}, [])
-    console.log(currentLocation)
-
-    const locationAlertFilter = userNotifications?.filter(notificationInfo => {
-        const currentDistance = getDistance(currentLocation, 
-            {
-                latitude: notificationInfo.data.lat,
-                longitude: notificationInfo.data.lng,
-            }); 
-
-        if (currentDistance > 0 && currentDistance < notificationInfo.data.slidervalue) {
-
-            console.log('it fuckings works!!! ')
-            return;
-
-            // Add functionality to delete the alert or renew. 
-
-        }
-        else{
-            return console.log('Did not work')
-        } 
-       
-})
-
-console.log(locationAlertFilter)
-
-
- 
-
-
+  
     //Renders all the alarm-based notifications, sorted by time and then date 
     const myAlarmNotifications = userNotifications
         ?.filter(notification => notification.type === "alarm")
@@ -188,6 +149,59 @@ console.log(locationAlertFilter)
     // We also want to add a conditional, that checks if there are any remembra'lls in the list. If no list, then show "No active remembr'alls for today".
     // As a V2 feature, we want to give you a walkthrough of the functionality (a tutorial), the first time you log in. 
 
+
+//============================ CHECKING THE NOTIFICATIONS AND WHEN TO ALERT ===============================
+    // Measuring set position with current position: 
+   // add use state to hold current location and run in a useEffect()
+   useEffect(() => {
+    navigator.geolocation.watchPosition(
+        (position) =>{
+            setCurrentLocation({latitude: position.coords.latitude, longitude: position.coords.longitude})
+    })
+    
+    }, [])
+
+
+     //An useeffect to check the current location towards the saved locations in the database. 
+    useEffect(() => {
+        const checkLocation = setInterval(() => {
+
+            userNotifications?.forEach(notificationInfo => {
+                const currentDistance = getDistance(currentLocation, 
+                    {
+                        latitude: notificationInfo.data.lat,
+                        longitude: notificationInfo.data.lng,
+                    }); 
+        
+                if (currentDistance > 0 && currentDistance < notificationInfo.data.slidervalue) {
+        
+                    console.log('it fuckings works!!! ')
+                    return;
+        
+                    // Add functionality to delete the alert or renew. 
+        
+                }
+                else{
+                    return console.log('Did not work')
+                } 
+               
+        })
+
+        }, 1000);
+        return () => clearInterval(checkLocation);
+    }, []);
+
+
+    useEffect(() => {
+        userNotifications
+        ?.forEach(notification => {
+            const setTime = notification.data.time
+            console.log(setTime)
+        })
+    }, [])
+
+
+//===============================FINAL RETURN ================================
     return (
         <div>
             <Header/>
@@ -201,7 +215,6 @@ console.log(locationAlertFilter)
                 {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
 
                 {myLocationNotifications.length > 0 ? myLocationNotifications : (<p>You currently have no location-based notifications!</p>)}
-                {locationAlertFilter}
                 {isHidden && 
                 <>
                     <h2>Upcoming</h2>

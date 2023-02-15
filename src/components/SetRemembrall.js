@@ -100,7 +100,7 @@ export function SetRemembrall(props) {
             <textarea
                 maxLength={'200'}
                 minLength={'3'}
-                placeholder='Example: Prepare for salary negotations with Academic Work'
+                placeholder='Example: Prepare for interview with Google'
                 onChange={handleText}
                 value={text}
                 cols='25'

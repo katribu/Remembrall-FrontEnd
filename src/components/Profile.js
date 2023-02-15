@@ -16,7 +16,8 @@ export function Profile(props) {
     const [userNotifications, setUserNotifications] = useState([]);
     const [isHidden, setIsHidden] = useState(false)
     const [buttonText, setButtonText] = useState('Show Upcoming Remembr\'alls');
-    const [hoverIndex, setHoverIndex] = useState(-1);
+    const [hoverIndexLocation, setHoverIndexLocation] = useState(-1);
+    const [hoverIndexAlarm, setHoverIndexAlarm] = useState(-1)
     const [currentLocation, setCurrentLocation] = useState({})
 
     // Check if you are logged in (lines 16 -28)
@@ -61,6 +62,7 @@ export function Profile(props) {
 
 
 
+
     //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
         
@@ -76,13 +78,13 @@ export function Profile(props) {
         return (
             <div
                 key={index}
-                onMouseEnter={() => setHoverIndex(index)}
-                onMouseLeave={() => setHoverIndex(-1)}
+                onMouseEnter={() => setHoverIndexLocation(index)}
+                onMouseLeave={() => setHoverIndexLocation(-1)}
             >
 
                 <p>My Remembr'All: {notification.data.message}</p>
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
-                {hoverIndex === index && (
+                {hoverIndexLocation === index && (
                     <>
                         <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
                         <button> <AiFillEdit /> </button>
@@ -150,13 +152,13 @@ console.log(locationAlertFilter)
             return (
                 <div
                     key={index}
-                    onMouseEnter={() => setHoverIndex(index)}
-                    onMouseLeave={() => setHoverIndex(-1)}
+                    onMouseEnter={() => setHoverIndexAlarm(index)}
+                    onMouseLeave={() => setHoverIndexAlarm(-1)}
                 >
 
                     <p>Remembr'All: {notification.data.message}</p>
                     <p> <MdOutlineNotificationsNone /> {notification.data.time} at {notification.data.date}</p>
-                    {hoverIndex === index && (
+                    {hoverIndexAlarm === index && (
                         <>
                             <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
                             <button> <AiFillEdit /> </button>

@@ -1,7 +1,7 @@
 import { MdAlarm } from "react-icons/md";
 
 // First try to randomize function times for the alarm type notifications
-export default function firstNotification(chosenTime) {
+export function alarmNotification(chosenTime) {
     const date = new Date()
     let timeOfDay = date.toLocaleString('no-NO', {
         hour: '2-digit',

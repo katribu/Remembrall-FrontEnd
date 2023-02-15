@@ -1,5 +1,7 @@
-import { MdOutlineNotificationsNone } from "react-icons/md";
 import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai";
+import {IoEllipsisHorizontal,IoAlarmOutline} from "react-icons/io5";
+import {FaRegEnvelope} from "react-icons/fa"
+import {HiOutlineLocationMarker} from "react-icons/hi"
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createMail, deleteNotification, getUserNotifications } from "../functions/fetch";
@@ -7,6 +9,7 @@ import '../App.css';
 import { getDistance } from 'geolib';
 import { Header } from "./Header";
 import { alarmNotification } from "../functions/notifications";
+import { Footer } from "./Footer";
 
 
 // We want to order the "Today's Reminders" based on date and time
@@ -17,7 +20,7 @@ export function Profile(props) {
 
     const [userNotifications, setUserNotifications] = useState([]);
     const [isHidden, setIsHidden] = useState(false)
-    const [buttonText, setButtonText] = useState('Show Upcoming Remembr\'alls');
+    const [buttonText, setButtonText] = useState('Show Upcoming');
     const [hoverIndexLocation, setHoverIndexLocation] = useState(-1);
     const [hoverIndexAlarm, setHoverIndexAlarm] = useState(-1)
     const [currentLocation, setCurrentLocation] = useState({})
@@ -40,7 +43,7 @@ export function Profile(props) {
 
     const toggleRemembralls = () => {
         setIsHidden(prevState => !prevState);
-        setButtonText(buttonText === 'Hide Upcoming Remembr\'Alls' ? 'Show Upcoming Remembr\'Alls' : 'Hide Upcoming Remembr\'Alls');
+        setButtonText(buttonText === 'Hide' ? 'Show Upcoming' : 'Hide');
     };
 
 
@@ -87,14 +90,18 @@ export function Profile(props) {
                 onMouseLeave={() => setHoverIndexLocation(-1)}
                 className="notificationContainer"
             >
-
-                <p>{notification.data.message}</p>
-                <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
+                <div className="ellipsesAlign"><IoEllipsisHorizontal/></div>
+                <h4>{notification.data.message}</h4>
+                <div className="iconAlertDiv">
+                    <><IoAlarmOutline/></>
+                    <> <HiOutlineLocationMarker/> </>
+                    <> <FaRegEnvelope/> </>
+                </div>
                 {hoverIndexLocation === index && (
-                    <>
+                    <div className="notificationBtns">
                         <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
                         <button> <AiFillEdit /> </button>
-                    </>
+                    </div>
                 )}
             </div>
         )
@@ -123,14 +130,18 @@ export function Profile(props) {
                     onMouseLeave={() => setHoverIndexAlarm(-1)}
                     className="notificationContainer"
                 >
-
-                    <p>{notification.data.message}</p>
-                    <p> <MdOutlineNotificationsNone /> {notification.data.time}</p>
+                    <div className="ellipsesAlign"><IoEllipsisHorizontal/></div>
+                    <h4>{notification.data.message}</h4>
+                    <div className="iconAlertDiv">
+                    <div> <IoAlarmOutline/></div>
+                    <div className="inactiveIcon"> <HiOutlineLocationMarker/> </div>
+                    <div className="inactiveIcon"> <FaRegEnvelope/> </div>
+                </div>
                     {hoverIndexAlarm === index && (
-                        <>
+                        <div className="notificationBtns">
                             <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
                             <button> <AiFillEdit /> </button>
-                        </>
+                        </div>
                     )}
                 </div>
             )
@@ -224,20 +235,24 @@ export function Profile(props) {
             {/* <h1>Welcome!</h1> */}
 
             <div id="upcoming-remebralls">
-                <h3>Today's Notifications</h3>
+                <h1>Today's Remembr'Alls</h1>
 
 
                 {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
 
                 {myLocationNotifications.length > 0 ? myLocationNotifications : (<p>You currently have no location-based notifications!</p>)}
                 {isHidden && 
-                    <div>
-                        <h2>Upcoming Remembr'Alls:</h2>
-                        <li>Visit Grandmother</li>
-                        <div><MdOutlineNotificationsNone /> Saturday 15/3/23 at 11:30</div>
-                        <li>Submit your tax-statements</li>
-                        <div><MdOutlineNotificationsNone /> Sunday 16/3/23 10:30</div>
+                <>
+                    <h2>Upcoming</h2>
+                    <div className="notificationContainer">
+                        <h4>Visit Grandmother</h4>
+                        <div><IoAlarmOutline/> Saturday 15/3/23 at 11:30</div>
                     </div>
+                    <div className="notificationContainer">
+                        <h4>Submit your tax-statements</h4>
+                        <div><IoAlarmOutline/> Sunday 16/3/23 at 10:30</div>
+                    </div>
+                </>
                 }
             </div>
             <div>
@@ -254,6 +269,7 @@ export function Profile(props) {
                 </div>
             </div>
         </div>
+        <Footer/>
         </div>
     )
 }

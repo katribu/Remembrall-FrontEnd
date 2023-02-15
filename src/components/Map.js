@@ -6,7 +6,8 @@ const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
 
 const containerStyle = {
   width: '100%',
-  height: '400px'
+  height: '400px',
+  margin: '20px 0'
 };
 
 // Need to have places as a prop in the Loaded Script tag. StackOverflow said to put it outside the component to keep it from

@@ -3,6 +3,7 @@ import { createMail, createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 import { Link } from "react-router-dom";
 import { Header } from "./Header";
+import { Footer } from "./Footer";
 
 
 export function SetRemembrall(props) {
@@ -138,6 +139,7 @@ export function SetRemembrall(props) {
                     onChange={handleCheckedLocation}
                     value={checkedChooseLocation}
                     checked={checkedChooseLocation}
+                    className="extraMargin"
                 />
                 </div>
 
@@ -146,6 +148,7 @@ export function SetRemembrall(props) {
 
                     <div>
 
+                        <div style={{ display: 'inline',fontFamily:"inherit" }}>Choose radius: {slidervalue}m</div><br />
                         <input
                             type={'range'}
                             onChange={handleSliderValue}
@@ -155,7 +158,6 @@ export function SetRemembrall(props) {
                             step='50'
                             
                         />
-                        <div style={{ display: 'inline',fontFamily:"inherit" }}>{slidervalue} meter radius of:</div><br />
                         <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />
                     </div>}
             </div>
@@ -225,6 +227,7 @@ export function SetRemembrall(props) {
                 </div>
             </div>
         </div >
+        <Footer/>
         </div>
     )
 }

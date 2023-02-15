@@ -2,7 +2,7 @@ import React from "react"
 import { getLoginToken } from "../functions/fetch"
 import { Link } from 'react-router-dom';
 import '../App.css';
-// import { Smoke } from "./Smoke";
+import { Header } from "./Header";
 
 export function LogIn(props) {
 
@@ -58,15 +58,15 @@ export function LogIn(props) {
 
 
     return (
+        <div>
+        <Header/>
         <div className="flexDiv mainDiv">
-            {/* <Smoke/> */}
             <div>
-                <h1>Remembr'All</h1>
+                <h1 className="logInTitle">Log In to <br/>Remembr'All</h1>
             </div>
 
             <div className="loginInputs">
                 <div className="emailDiv">
-                    {/* <label>Email:</label> */}
                     <input
                         type={"email"}
                         onChange={handleEmailInputChange}
@@ -76,7 +76,6 @@ export function LogIn(props) {
                     ></input>
                 </div><br/>
                 <div>
-                    {/* <label>Password:</label> */}
                     <input
                         type={"password"}
                         onChange={handlePasswordInputChange}
@@ -97,6 +96,7 @@ export function LogIn(props) {
             {/* If error is truthy, show error message under the button */}
             {error && <div>{error.message}</div>}
 
+        </div>
         </div>
     )
 }

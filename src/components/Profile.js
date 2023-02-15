@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { deleteNotification, getUserNotifications } from "../functions/fetch";
 import '../App.css';
 import { getDistance } from 'geolib';
+import { Header } from "./Header";
 
 
 // We want to order the "Today's Reminders" based on date and time
@@ -16,7 +17,8 @@ export function Profile(props) {
     const [userNotifications, setUserNotifications] = useState([]);
     const [isHidden, setIsHidden] = useState(false)
     const [buttonText, setButtonText] = useState('Show Upcoming Remembr\'alls');
-    const [hoverIndex, setHoverIndex] = useState(-1);
+    const [hoverIndexLocation, setHoverIndexLocation] = useState(-1);
+    const [hoverIndexAlarm, setHoverIndexAlarm] = useState(-1)
     const [currentLocation, setCurrentLocation] = useState({})
 
     // Check if you are logged in (lines 16 -28)
@@ -35,7 +37,7 @@ export function Profile(props) {
 
     const toggleRemembralls = () => {
         setIsHidden(prevState => !prevState);
-        setButtonText(buttonText === 'Hide Upcoming Remembr\'alls' ? 'Show Upcoming Remembr\'alls' : 'Hide Upcoming Remembr\'alls');
+        setButtonText(buttonText === 'Hide Upcoming Remembr\'Alls' ? 'Show Upcoming Remembr\'Alls' : 'Hide Upcoming Remembr\'Alls');
     };
 
 
@@ -61,6 +63,7 @@ export function Profile(props) {
 
 
 
+
     //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
         
@@ -76,13 +79,14 @@ export function Profile(props) {
         return (
             <div
                 key={index}
-                onMouseEnter={() => setHoverIndex(index)}
-                onMouseLeave={() => setHoverIndex(-1)}
+                onMouseEnter={() => setHoverIndexLocation(index)}
+                onMouseLeave={() => setHoverIndexLocation(-1)}
+                className="notificationContainer"
             >
 
-                <p>My Remembr'All: {notification.data.message}</p>
+                <p>{notification.data.message}</p>
                 <p><MdOutlineNotificationsNone /> {notification.data.time}</p>
-                {hoverIndex === index && (
+                {hoverIndexLocation === index && (
                     <>
                         <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
                         <button> <AiFillEdit /> </button>
@@ -150,13 +154,14 @@ console.log(locationAlertFilter)
             return (
                 <div
                     key={index}
-                    onMouseEnter={() => setHoverIndex(index)}
-                    onMouseLeave={() => setHoverIndex(-1)}
+                    onMouseEnter={() => setHoverIndexAlarm(index)}
+                    onMouseLeave={() => setHoverIndexAlarm(-1)}
+                    className="notificationContainer"
                 >
 
-                    <p>Remembr'All: {notification.data.message}</p>
-                    <p> <MdOutlineNotificationsNone /> {notification.data.time} at {notification.data.date}</p>
-                    {hoverIndex === index && (
+                    <p>{notification.data.message}</p>
+                    <p> <MdOutlineNotificationsNone /> {notification.data.time}</p>
+                    {hoverIndexAlarm === index && (
                         <>
                             <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
                             <button> <AiFillEdit /> </button>
@@ -173,11 +178,14 @@ console.log(locationAlertFilter)
     // As a V2 feature, we want to give you a walkthrough of the functionality (a tutorial), the first time you log in. 
 
     return (
+        <div>
+            <Header/>
         <div className="mainDiv">
-            <h1>Welcome!</h1>
+            {/* <h1>Welcome!</h1> */}
 
             <div id="upcoming-remebralls">
-                <h3>Your Notifications</h3>
+                <h3>Today's Notifications</h3>
+
 
                 {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
 
@@ -199,13 +207,14 @@ console.log(locationAlertFilter)
 
             <div className="buttonDiv">
                 <div>
-                <Link to="/setremembrall" className="linkButton"> Set Remembr'All</Link>
+                <Link to="/setremembrall" className="linkButton"> Create Remembr'All</Link>
                 </div>
 
                 <div>
                 <Link to="/logout" className="linkButton">Log out</Link>
                 </div>
             </div>
+        </div>
         </div>
     )
 }

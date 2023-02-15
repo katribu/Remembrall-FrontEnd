@@ -90,7 +90,7 @@ export function SetRemembrall(props) {
 
 
     return (
-        <div>
+        <div className="outerContainer">
             <Header/>
         <div className="mainDiv setRemembrallStyles">
 

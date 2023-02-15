@@ -8,7 +8,13 @@ body,html{
   margin: 0;
   font-family: 'Montserrat', sans-serif;
   background:whitesmoke;
-  height: 100vh;
+
+}
+
+.outerContainer {
+  display: flex;
+  flex-flow: column nowrap;
+  min-height: 100vh;
 }
 
 .mainDiv {
@@ -16,6 +22,7 @@ body,html{
   margin: 20px auto;
   text-align: center;
   color: #03191E;
+  flex-grow: 2;
 }
 
 .flexDiv {
@@ -25,6 +32,7 @@ body,html{
   max-width: 400px;
   text-align: center;
   width: 80%;
+  flex-grow: 2;
 }
 
 /* Link-button-styles */
@@ -94,7 +102,11 @@ body,html{
   margin: 10px 0;
   font-family: inherit;
 }
-/* ======= HEADER STYLES ============ */
+
+.notificationDataMessage {
+  margin:0; 
+}
+/* ======= HEADER & FOOTER STYLES ============ */
 .header{
   background:#000000;
   color:#eeeeee;
@@ -114,10 +126,6 @@ body,html{
   background:#000000;
   color:#eeeeee;
   padding: 10px;
-  /* position: sticky; */
-  left: 0;
-  bottom: 0;
-  width: 100%;
 }
 
 .footerTitle{
@@ -126,7 +134,6 @@ body,html{
   font-size: 15px;
   text-align: center;
   opacity: 0.8;
-  
 }
 
 .hamburgerIcon{

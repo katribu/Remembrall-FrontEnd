@@ -91,7 +91,7 @@ export function Profile(props) {
                 className="notificationContainer"
             >
                 <div className="ellipsesAlign"><IoEllipsisHorizontal/></div>
-                <h4>{notification.data.message}</h4>
+                <h4 className="notificationDataMessage">{notification.data.message}</h4>
                 <div className="iconAlertDiv">
                     <><IoAlarmOutline/></>
                     <> <HiOutlineLocationMarker/> </>
@@ -131,7 +131,7 @@ export function Profile(props) {
                     className="notificationContainer"
                 >
                     <div className="ellipsesAlign"><IoEllipsisHorizontal/></div>
-                    <h4>{notification.data.message}</h4>
+                    <h4 className="notificationDataMessage">{notification.data.message}</h4>
                     <div className="iconAlertDiv">
                     <div> <IoAlarmOutline/></div>
                     <div className="inactiveIcon"> <HiOutlineLocationMarker/> </div>
@@ -229,7 +229,7 @@ export function Profile(props) {
 
 //===============================FINAL RETURN ================================
     return (
-        <div>
+        <div className="outerContainer">
             <Header/>
         <div className="mainDiv">
             {/* <h1>Welcome!</h1> */}

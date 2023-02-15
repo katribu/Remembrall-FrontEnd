@@ -54,7 +54,7 @@ export function SignUp(props) {
 
 
     return (
-        <div>
+        <div className="outerContainer">
             <Header/>
         <div className="flexDiv mainDiv">
             <div>

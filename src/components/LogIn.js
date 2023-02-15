@@ -59,7 +59,7 @@ export function LogIn(props) {
 
 
     return (
-        <div>
+        <div className="outerContainer">
         <Header/>
         <div className="flexDiv mainDiv">
             <div>

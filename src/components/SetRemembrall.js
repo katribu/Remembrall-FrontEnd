@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { createMail, createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 import { Link } from "react-router-dom";
+import { Header } from "./Header";
 
 
 export function SetRemembrall(props) {
@@ -88,16 +89,17 @@ export function SetRemembrall(props) {
 
 
     return (
-        <div className="mainDiv">
-            <h3>Remembr'all</h3>
+        <div>
+            <Header/>
+        <div className="mainDiv setRemembrallStyles">
 
-            <div>My Remembr'all:</div>
+            <div className="textAlignLeft">My Remembr'All:</div>
 
 
             <textarea
                 maxLength={'200'}
                 minLength={'3'}
-                placeholder='Example: Prepare for salary negotations with Academic Work'
+                placeholder='Example: Prepare for interview with Google'
                 onChange={handleText}
                 value={text}
                 cols='25'
@@ -105,7 +107,7 @@ export function SetRemembrall(props) {
                 className="inputChild"
             />
 
-            <div>Notify me at:</div>
+            <div className="textAlignLeft">Notify me at:</div>
 
             <div className="timeDateDiv">
 
@@ -128,23 +130,21 @@ export function SetRemembrall(props) {
             </div>
 
             <div>
-
-                <b>Choose a Location <em>(Optional)</em>: </b>
+                <div className="textAlignLeft">
+                <b >Choose a Location: </b>
                 <input
                     type={'checkbox'}
                     name={'checked'}
                     onChange={handleCheckedLocation}
                     value={checkedChooseLocation}
                     checked={checkedChooseLocation}
-                   
                 />
+                </div>
 
 
                 {checkedChooseLocation &&
 
                     <div>
-
-                        <div>Within</div>
 
                         <input
                             type={'range'}
@@ -155,22 +155,23 @@ export function SetRemembrall(props) {
                             step='50'
                             
                         />
-                        <div style={{ display: 'inline' }}>{slidervalue} meter radius of:</div><br />
+                        <div style={{ display: 'inline',fontFamily:"inherit" }}>{slidervalue} meter radius of:</div><br />
                         <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />
                     </div>}
             </div>
 
             <div>
-
-                <b> Notify a friend <em>(Optional)</em>: </b>
-                <input
-                    type={'checkbox'}
-                    name={'checked'}
-                    onChange={handleCheckedFriend}
-                    value={checkedFriend}
-                    checked={checkedFriend}
-                   
-                />
+                
+                <div className="textAlignLeft">
+                    <b style={{fontFamily:"inherit"}}> Notify a friend: </b>
+                    <input
+                        type={'checkbox'}
+                        name={'checked'}
+                        onChange={handleCheckedFriend}
+                        value={checkedFriend}
+                        checked={checkedFriend}
+                    />
+                </div>
 
 
                 {checkedFriend &&
@@ -188,7 +189,7 @@ export function SetRemembrall(props) {
 
 
                         <div>
-                            <div>Subject:</div>
+                            <div className="textAlignLeft">Subject:</div>
                             <input
                                 type={text}
                                 maxLength={'100'}
@@ -201,7 +202,7 @@ export function SetRemembrall(props) {
 
                         <div>
 
-                            <div>Notification:</div>
+                            <div className="textAlignLeft">Notification:</div>
 
                             <textarea
                                 maxLength={'200'}
@@ -218,12 +219,13 @@ export function SetRemembrall(props) {
             </div>
 
             <div className="buttonDiv">
-                <button className="linkButton logInBtn" onClick={handleSubmit}>Set Remembr'all</button>
+                <button className="linkButton logInBtn" onClick={handleSubmit}>Save Remembr'All</button>
                 <div>
                 <Link to="/profile" className='linkButton'>Back</Link>
                 </div>
             </div>
         </div >
+        </div>
     )
 }
 

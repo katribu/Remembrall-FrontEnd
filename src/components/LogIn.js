@@ -3,6 +3,7 @@ import { getLoginToken } from "../functions/fetch"
 import { Link } from 'react-router-dom';
 import '../App.css';
 import { Header } from "./Header";
+import { Footer } from "./Footer";
 
 export function LogIn(props) {
 
@@ -62,7 +63,7 @@ export function LogIn(props) {
         <Header/>
         <div className="flexDiv mainDiv">
             <div>
-                <h1 className="logInTitle">Log In to <br/>Remembr'All</h1>
+                <h1 className="logInTitle">Log In to <br/><span className="logoFont">Remembr'All</span></h1>
             </div>
 
             <div className="loginInputs">
@@ -97,6 +98,7 @@ export function LogIn(props) {
             {error && <div>{error.message}</div>}
 
         </div>
+        <Footer/>
         </div>
     )
 }

@@ -3,6 +3,7 @@ import '../App.css';
 import { createNewUser } from '../functions/fetch';
 import React from "react"
 import { Header } from './Header';
+import { Footer } from './Footer';
 
 export function SignUp(props) {
     const [name, setName] = React.useState("");
@@ -57,7 +58,7 @@ export function SignUp(props) {
             <Header/>
         <div className="flexDiv mainDiv">
             <div>
-                <h1>Remembr'All</h1>
+                <h1>Sign Up</h1>
             </div>
             <div>
                
@@ -104,6 +105,7 @@ export function SignUp(props) {
                 </div>
             </div>
         </div>
+        <Footer/>
         </div>
     )
 };

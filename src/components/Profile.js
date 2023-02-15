@@ -2,10 +2,11 @@ import { MdOutlineNotificationsNone } from "react-icons/md";
 import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai";
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { deleteNotification, getUserNotifications } from "../functions/fetch";
+import { createMail, deleteNotification, getUserNotifications } from "../functions/fetch";
 import '../App.css';
 import { getDistance } from 'geolib';
 import { Header } from "./Header";
+import { alarmNotification } from "../functions/notifications";
 
 
 // We want to order the "Today's Reminders" based on date and time
@@ -20,6 +21,7 @@ export function Profile(props) {
     const [hoverIndexLocation, setHoverIndexLocation] = useState(-1);
     const [hoverIndexAlarm, setHoverIndexAlarm] = useState(-1)
     const [currentLocation, setCurrentLocation] = useState({})
+    const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
 
     // Check if you are logged in (lines 16 -28)
     const { history } = props;
@@ -28,6 +30,7 @@ export function Profile(props) {
     // useEffect will run after the first render, it will check if the token is valid.
     // If no token in local storage - redirect to /login
     useEffect(() => {
+        console.log('useeffect twitterToken')
         const token = localStorage.getItem('TWITTER_TOKEN');
         if (!token) {
             history.replace('/login');
@@ -47,6 +50,7 @@ export function Profile(props) {
     }
 
     useEffect(() => {
+        console.log('useeffect populate')
         populateNotifications()
     }, [])
 
@@ -151,8 +155,10 @@ export function Profile(props) {
     }, [])
 
 
-     //An useeffect to check the current location towards the saved locations in the database. 
+    //An useeffect to check the current location towards the saved locations in the database. 
     useEffect(() => {
+
+        console.log('useeffect location')
         const checkLocation = setInterval(() => {
 
             userNotifications?.forEach(notificationInfo => {
@@ -165,6 +171,12 @@ export function Profile(props) {
                 if (currentDistance > 0 && currentDistance < notificationInfo.data.slidervalue) {
         
                     console.log('it fuckings works!!! ')
+                    if (notificationInfo.data.chosenFriend) {
+                      /*   createMail(notificationInfo.data.chosenFriend, notificationInfo.data.subject, notificationInfo.data.notificationText); 
+                        console.log('did we send an email?') */
+                        //JUST SEND NOTIFACTION ID TO BACKEND AND LET BACKEND GET the notification data and patch the data with LastNotified. 
+                        //Then check if lastNotified < 1 hour and see whether to send again. 
+                    }
                     return;
         
                     // Add functionality to delete the alert or renew. 
@@ -176,18 +188,32 @@ export function Profile(props) {
                
         })
 
-        }, 1000);
+        }, 60000);
         return () => clearInterval(checkLocation);
-    }, []);
+    }, [currentLocation]);
 
 
     useEffect(() => {
-        userNotifications
-        ?.forEach(notification => {
-            const setTime = notification.data.time
-            console.log(setTime)
-        })
+        console.log('Setcurrent time useeffect')
+        const interval = setInterval(() => {
+                console.log('setcurrentTime')
+                setCurrentTime(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5))
+        }, 5000)
+        return () => clearInterval(interval);
     }, [])
+
+//Checking alarm notifications time. 
+    useEffect(() => {
+        console.log('useeffect alarm') 
+        
+            userNotifications
+            ?.forEach(notification => {
+                const chosenTime = notification?.data.time
+                console.log(chosenTime)
+                alarmNotification(chosenTime, currentTime)
+            })
+
+    }, [currentTime, userNotifications])
 
 
 //===============================FINAL RETURN ================================

@@ -1,4 +1,4 @@
-import { MdAlarm } from "react-icons/md";
+/* import { MdAlarm } from "react-icons/md"; */
 
 // First try to randomize function times for the alarm type notifications
 export function alarmNotification(chosenTime) {
@@ -14,12 +14,8 @@ export function alarmNotification(chosenTime) {
     }
     if (timeOfDay > chosenTime) {
         return;
-    } else {
-        setTimeout(() => {
-            firstNotification(chosenTime)
-            return;
-        }, 5000)
-    }
+    } 
+    return;
 };
 
 

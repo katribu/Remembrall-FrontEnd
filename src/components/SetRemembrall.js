@@ -9,25 +9,21 @@ export function SetRemembrall(props) {
     const [text, setText] = useState('');
     const handleText = (event) => {
         setText(event.target.value);
-        console.log(text);
     }
 
     const [slidervalue, setSlidervalue] = useState(100);
     const handleSliderValue = (event) => {
         setSlidervalue(event.target.value);
-        console.log(slidervalue);
     }
 
     const [time, setTime] = useState(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
     const handleTime = (event) => {
         setTime(event.target.value);
-        console.log(time);
     }
 
     const [date, setDate] = useState(new Date().toJSON().slice(0, 10))
     const handleDate = (event) => {
         setDate(event.target.value);
-        console.log(date);
     }
 
 

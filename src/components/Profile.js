@@ -224,7 +224,7 @@ export function Profile(props) {
             ?.forEach(notification => {
                 const chosenTime = notification?.data.time
                 console.log(chosenTime)
-                alarmNotification(chosenTime, currentTime)
+                alarmNotification(chosenTime,currentTime,notification.data.message)
             })
 
     }, [currentTime, userNotifications])

@@ -1,18 +1,14 @@
 /* import { MdAlarm } from "react-icons/md"; */
 
 // First try to randomize function times for the alarm type notifications
-export function alarmNotification(chosenTime) {
-    const date = new Date()
-    let timeOfDay = date.toLocaleString('no-NO', {
-        hour: '2-digit',
-        minute: '2-digit',
-    })
-    console.log(timeOfDay)
-    if (timeOfDay === chosenTime) {
-        alert(`It is this ${timeOfDay}`)
+export function alarmNotification(chosenTime,currentTime,message) {
+    if (currentTime === chosenTime) {
+        alert(`
+        It is ${currentTime}!
+        ${message}`)
         return;
     }
-    if (timeOfDay > chosenTime) {
+    if (currentTime > chosenTime) {
         return;
     } 
     return;

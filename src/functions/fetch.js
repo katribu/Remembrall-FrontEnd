@@ -73,7 +73,7 @@ export async function createNewRemembrall(type, time, date, lat, lng, slidervalu
                 message,
                 chosenFriend,
                 subject,
-                notificationText
+                notificationText, 
             }
         })
     });

@@ -1,7 +1,7 @@
 import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai";
 import {IoEllipsisHorizontal,IoAlarmOutline} from "react-icons/io5";
-import {FaRegEnvelope} from "react-icons/fa"
-import {HiOutlineLocationMarker} from "react-icons/hi"
+import {FaRegEnvelope} from "react-icons/fa";
+import {HiOutlineLocationMarker} from "react-icons/hi";
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { createMail, deleteNotification, getUserNotifications, updateLastNotifiedNotification } from "../functions/fetch";
@@ -10,7 +10,6 @@ import { getDistance } from 'geolib';
 import { Header } from "./Header";
 import { alarmNotification } from "../functions/notifications";
 import { Footer } from "./Footer";
-
 
 // We want to order the "Today's Reminders" based on date and time
 // We also want a button for toggling hide/show "Upcoming reminders" that are not set for "today" 
@@ -46,10 +45,9 @@ export function Profile(props) {
         setButtonText(buttonText === 'Hide' ? 'Show Upcoming' : 'Hide');
     };
 
-
     async function populateNotifications() {
         const notifications = await getUserNotifications()
-        setUserNotifications(notifications)
+        setUserNotifications(notifications) 
     }
 
     useEffect(() => {
@@ -67,9 +65,6 @@ export function Profile(props) {
 
         await populateNotifications();
     }
-
-
-
 
     //Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
@@ -109,7 +104,6 @@ export function Profile(props) {
         )
     });
 
-  
     //Renders all the alarm-based notifications, sorted by time and then date 
     const myAlarmNotifications = userNotifications
         ?.filter(notification => notification.type === "alarm")
@@ -171,42 +165,50 @@ export function Profile(props) {
 //An useeffect to check the current location towards the saved locations in the database. 
     useEffect(() => {
 
-        const currentDate = new Date()
-        const notificationSnooze = new Date(currentDate.getTime() + (60 * 60 * 1000)).toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' });
+       /*  const currentDate = new Date()
+        const notificationSnooze = new Date(currentDate.getTime() + (60 * 60 * 1000)).toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }); */
 
         console.log('useeffect location')
         const checkLocation = setInterval(() => {
 
-            userNotifications?.forEach(notificationInfo => {
-                const {lat, lng, slidervalue, message, chosenFriend, id, lastNotified} = notificationInfo.data;
+            userNotifications?.forEach(async (notificationInfo) => {
+                const {lat, lng, slidervalue, message, chosenFriend, lastNotified} = notificationInfo.data;
+                const { id } = notificationInfo; 
 
                 const currentDistance = getDistance(currentLocation, 
                     {
                         latitude: lat,
                         longitude: lng,
                     }); 
-                  if(notificationSnooze < lastNotified) { 
-                    console.log('hello')
-
-                  }
-
+          
+                    console.log(lastNotified)
+                    console.log(id)
+                    console.log(currentTime > lastNotified || !lastNotified)
         
                 if (currentDistance > 0 && currentDistance < slidervalue) {
+                    console.log('distance work')
                   
-
-                    /* alert(message) */
-                    console.log('it fuckings works!!! ')
-
+                    if(currentTime > lastNotified || !lastNotified) { 
+                       
+                        console.log(lastNotified)
+                        console.log('it fuckings works!!! ')
+                        await updateLastNotifiedNotification(id)
+                        alert(message)
+                        return; 
+                      }
+                    
                     if (chosenFriend) {
 
                         createMail(id); 
-                        updateLastNotifiedNotification(id)
+                        
 
                         console.log('did we send an email')
+
                       /*   createMail(notificationInfo.data.chosenFriend, notificationInfo.data.subject, notificationInfo.data.notificationText); 
                         console.log('did we send an email?') */
                         //JUST SEND NOTIFACTION ID TO BACKEND AND LET BACKEND GET the notification data and patch the data with LastNotified. 
                         //Then check if lastNotified < 1 hour and see whether to send again. 
+                        return;
                     }
                     return;
                     // Add functionality to delete the alert or renew. 
@@ -222,7 +224,6 @@ export function Profile(props) {
 
     }, [currentLocation, userNotifications, currentTime]);
 
-
     useEffect(() => {
         console.log('Setcurrent time useeffect')
         const interval = setInterval(() => {
@@ -230,7 +231,7 @@ export function Profile(props) {
                 setCurrentTime(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5))
         }, 5000)
         return () => clearInterval(interval);
-    }, [])
+    }, []);
 
 //Checking alarm notifications time. 
     useEffect(() => {

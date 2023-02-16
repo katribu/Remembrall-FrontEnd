@@ -156,6 +156,7 @@ export function Profile(props) {
 
     }, [])
 
+    
     //An useeffect to check the current location towards the saved locations in the database. 
     useEffect(() => {
 

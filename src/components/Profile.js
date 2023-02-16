@@ -4,7 +4,7 @@ import {FaRegEnvelope} from "react-icons/fa"
 import {HiOutlineLocationMarker} from "react-icons/hi"
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { createMail, deleteNotification, getUserNotifications } from "../functions/fetch";
+import { createMail, deleteNotification, getUserNotifications, updateLastNotifiedNotification } from "../functions/fetch";
 import '../App.css';
 import { getDistance } from 'geolib';
 import { Header } from "./Header";
@@ -165,43 +165,59 @@ export function Profile(props) {
     
     }, [])
 
-
-    //An useeffect to check the current location towards the saved locations in the database. 
+//An useeffect to check the current location towards the saved locations in the database. 
     useEffect(() => {
+
+        const currentDate = new Date()
+        const notificationSnooze = new Date(currentDate.getTime() + (60 * 60 * 1000)).toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' });
 
         console.log('useeffect location')
         const checkLocation = setInterval(() => {
 
             userNotifications?.forEach(notificationInfo => {
+                const {lat, lng, slidervalue, message, chosenFriend, id, lastNotified} = notificationInfo.data;
+
                 const currentDistance = getDistance(currentLocation, 
                     {
-                        latitude: notificationInfo.data.lat,
-                        longitude: notificationInfo.data.lng,
+                        latitude: lat,
+                        longitude: lng,
                     }); 
+                  if(notificationSnooze < lastNotified) { 
+                    console.log('hello')
+
+                  }
+
         
-                if (currentDistance > 0 && currentDistance < notificationInfo.data.slidervalue) {
-        
+                if (currentDistance > 0 && currentDistance < slidervalue) {
+                  
+
+                    /* alert(message) */
                     console.log('it fuckings works!!! ')
-                    if (notificationInfo.data.chosenFriend) {
+
+                    if (chosenFriend) {
+
+                        createMail(id); 
+                        updateLastNotifiedNotification(id)
+
+                        console.log('did we send an email')
                       /*   createMail(notificationInfo.data.chosenFriend, notificationInfo.data.subject, notificationInfo.data.notificationText); 
                         console.log('did we send an email?') */
                         //JUST SEND NOTIFACTION ID TO BACKEND AND LET BACKEND GET the notification data and patch the data with LastNotified. 
                         //Then check if lastNotified < 1 hour and see whether to send again. 
                     }
                     return;
-        
                     // Add functionality to delete the alert or renew. 
-        
+                
                 }
                 else{
                     return console.log('Did not work')
                 } 
-               
         })
+        }, 1000);
 
-        }, 60000);
         return () => clearInterval(checkLocation);
-    }, [currentLocation]);
+
+    }, [currentLocation, userNotifications, currentTime]);
 
 
     useEffect(() => {

@@ -98,6 +98,20 @@ export async function createMail(email, subject, message) {
     });
 };
 
+export async function updateLastNotifiedNotification(id) {
+    await fetch(`${API_URL}/lastnotified`, {
+        method: "PATCH",
+        headers: {
+            'Content-Type': 'application/json',
+            "x-token": localStorage.getItem('TWITTER_TOKEN')
+        },
+        body: JSON.stringify({
+              id
+        })
+    });
+
+}
+
 //Function to delete notifications
 export async function deleteNotification(id) {
     const response = await fetch(`${API_URL}/notifications`, {

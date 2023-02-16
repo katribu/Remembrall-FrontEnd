@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { createMail, createNewRemembrall } from "../functions/fetch";
+import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
 import { Link } from "react-router-dom";
 import { Header } from "./Header";
@@ -82,7 +82,6 @@ export function SetRemembrall(props) {
         
         const submitResponse = await createNewRemembrall(type, time, date, location.lat, location.lng, slidervalue, text, chosenFriend, subject, notificationText);
 
-        await createMail(chosenFriend, subject, notificationText); 
         const { history } = props;
         history.replace('/profile');
         return submitResponse;

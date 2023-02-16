@@ -1,6 +1,8 @@
 import React from "react"
 import { GiHamburgerMenu } from "react-icons/gi";
 
+
+// Header
 export function Header(){
     return(
         <header className="header">

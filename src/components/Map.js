@@ -1,25 +1,31 @@
-// For the Markers to show up in React version 18+ need to import as "MarkerF" due to the App running strict mode.
-import { GoogleMap, MarkerF, StandaloneSearchBox, Circle, LoadScriptNext, DistanceMatrixService } from '@react-google-maps/api';
+import { GoogleMap, MarkerF, StandaloneSearchBox, Circle, LoadScriptNext } from '@react-google-maps/api';
 import React from 'react';
 
+// Katrina's API key
 const MY_MAP_KEY = 'AIzaSyCO2T57yToSRLuaPbtEaQqNV26wpK4i0EY';
 
+// Map container styles
 const containerStyle = {
   width: '100%',
   height: '400px',
   margin: '20px 0'
 };
 
-// Need to have places as a prop in the Loaded Script tag. StackOverflow said to put it outside the component to keep it from
-// Infinitly rendering (or add as state inside the component)
+// Need to have places as a prop in the Loaded Script tag. StackOverflow said to put it outside the component to keep it from infinitly rendering (or add as state inside the component)
 const lib = ['places']
 
 export default function Map(props) {
 
+  // Destructuring from props
   const { location, onCoordinatesChanged, slidervalue } = props;
-  const [currentLocation, setCurrentLocation] = React.useState({ lat: 0, lng: 0 })
+
+  // States
+  const [currentLocation, setCurrentLocation] = React.useState({ 
+    lat: 59.911491, 
+    lng: 10.757933 })
   const [searchBox, setSearchBox] = React.useState(null);
 
+  // Load map with user's current position
   const onMapLoad = () => {
     navigator.geolocation.getCurrentPosition(
       ({ coords: { latitude: lat, longitude: lng } }) => {
@@ -28,7 +34,7 @@ export default function Map(props) {
     );
   }
 
-  // Returns the lat/lng based on the position we search for in the searchfield
+  // Returns the lat/lng based on the position searched for in the searchfield
   const onPlacesChanged = () => {
     let result = searchBox.getPlaces()
     let coordinates = result.map(coords => {
@@ -41,19 +47,13 @@ export default function Map(props) {
     onCoordinatesChanged(coordinates[0])
   };
 
+  // Searchfield
   const onSBLoad = ref => {
     setSearchBox(ref);
   };
 
-  // const defaultProps = {
-  //   center: currentLocation,
-  //   zoom: 11
-  // };
-
-
-
+  // Rendering the component
   return (
-    // Important! Always set the container height explicitly
     <div>
       <LoadScriptNext libraries={lib} googleMapsApiKey={MY_MAP_KEY}>
 
@@ -79,35 +79,13 @@ export default function Map(props) {
 
           <MarkerF
             position={currentLocation}
-            // onClick={() => alert(`Your current position is: Latitude: ${defaultProps.center.lat} Longtitude: ${defaultProps.center.lng}`)}
           />
-
-          {/* <DistanceMatrixService
-          options={{
-                    destinations: [location],
-                    origins: [currentLocation],
-                    travelMode: "WALKING",
-                  }}
-          callback = {(response) => {
-            console.log(response)
-            const distanceValue = response.rows[0].elements[0].distance.value
-
-            if(distanceValue <= Number(slidervalue)){
-              console.log('You have reached your destination radius. Remember to do task.')
-              alert(`this is an alert`)
-            }
-          }}
-          /> */}
-
-          {/* Marker that comes from the search field.
-          <MarkerF
-            position={location}
-          /> */}
 
           <StandaloneSearchBox
             onLoad={onSBLoad}
             onPlacesChanged={onPlacesChanged}
           >
+
             <input
               type="text"
               placeholder="Type in place or address"
@@ -133,3 +111,27 @@ export default function Map(props) {
     </div>
   );
 }
+
+
+
+
+
+
+
+
+{/* <DistanceMatrixService
+          options={{
+                    destinations: [location],
+                    origins: [currentLocation],
+                    travelMode: "WALKING",
+                  }}
+          callback = {(response) => {
+            console.log(response)
+            const distanceValue = response.rows[0].elements[0].distance.value
+
+            if(distanceValue <= Number(slidervalue)){
+              console.log('You have reached your destination radius. Remember to do task.')
+              alert(`this is an alert`)
+            }
+          }}
+          /> */}

@@ -2,6 +2,7 @@
   box-sizing: border-box;
 }
 
+
 /*  ================ MAIN OVERALL STYLES ============= */
 body,html{
   padding: 0;
@@ -34,6 +35,7 @@ body,html{
   width: 80%;
   flex-grow: 2;
 }
+
 
 /* Link-button-styles */
 .linkButton {
@@ -106,6 +108,8 @@ body,html{
 .notificationDataMessage {
   margin:0; 
 }
+
+
 /* ======= HEADER & FOOTER STYLES ============ */
 .header{
   background:#000000;
@@ -143,6 +147,7 @@ body,html{
   padding-right: 20px;
 }
 
+
 /* ======= LOGIN PAGE STYLES ========== */
 .logInTitle{
   color:black;
@@ -152,6 +157,8 @@ body,html{
 .logoFont{
   font-family: 'Righteous', cursive;
 }
+
+
 /* ============ PROFILE PAGE STYLING =============== */
 .notificationBtns{
   display: flex;

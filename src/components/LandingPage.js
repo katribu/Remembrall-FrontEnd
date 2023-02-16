@@ -1,26 +1,27 @@
 import '../App.css';
-/* import audioSong from './landingPageIntro.mp3' */
 import video from '../smokevideo.mp4'
 
 
+// LandingPage
 export function LandingPage(props) {
     const { history } = props;
 
-    // Check if we have a token in local storage
+    // Check if a token is in local storage
     const token = localStorage.getItem('TWITTER_TOKEN');
 
-
     setTimeout(() => {
-        // If not - redirect to /login
+        // If no token - redirect to /login
         if (!token) {
             history.replace('/login');
             return;
         };
 
+        // If token - redirect to /profile
         history.replace('/profile');
         return;
     }, 7000)
 
+    // Rendering the component
     return (
         <div>
             <div id="smoke">
@@ -32,12 +33,3 @@ export function LandingPage(props) {
     );
 };
 
-
-
-// Else - get info from token and show in UI
-/*    const payload = jwtDecode(token);
-   this.setState({
-       user: payload,
-   });  */
-
-// Fetch tweets from server

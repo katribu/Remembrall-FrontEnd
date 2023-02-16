@@ -1,14 +1,7 @@
-
 const API_URL = 'http://localhost:3333';
 
-// Get all objects from API/Database
-export async function getUsersFromServer() {
-    const response = await fetch(`${API_URL}/users`);
-    const data = response.json();
-    return data;
-}
 
-// Get login token to sign in
+// Creating a webtoken upon login
 export async function getLoginToken(email, password) {
     const response = await fetch(`${API_URL}/login`, {
         method: "POST",
@@ -24,7 +17,8 @@ export async function getLoginToken(email, password) {
     return data;
 }
 
-// Get signup info to create user in users table
+
+// Register new user's info in database
 export async function createNewUser(name, email, password, username) {
     const response = await fetch(`${API_URL}/signup`, {
         method: "POST",
@@ -43,7 +37,7 @@ export async function createNewUser(name, email, password, username) {
 }
 
 
-// Get notification information from database according to user.
+// Get notification information from database matched by webtoken
 export async function getUserNotifications() {
     const response = await fetch(`${API_URL}/notifications`, {
         headers: {
@@ -55,6 +49,8 @@ export async function getUserNotifications() {
     return data;
 }
 
+
+// Register new Remembr'alls info in database
 export async function createNewRemembrall(type, time, date, lat, lng, slidervalue, message, chosenFriend, subject, notificationText) {
     const response = await fetch(`${API_URL}/setremembrall`, {
         method: "POST",
@@ -82,18 +78,18 @@ export async function createNewRemembrall(type, time, date, lat, lng, slidervalu
 }
 
 
-//Function that sends an email and takes in email-adress, subject and message for the email. 
+// Function for sending e-mail (Npm package)
 export async function createMail(email, subject, message) {
-   await fetch(`${API_URL}/createmail`, {
+    await fetch(`${API_URL}/createmail`, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
             "x-token": localStorage.getItem('TWITTER_TOKEN')
         },
         body: JSON.stringify({
-               email, 
-               subject, 
-               message
+            email,
+            subject,
+            message
         })
     });
 };
@@ -112,7 +108,8 @@ export async function updateLastNotifiedNotification(id) {
 
 }
 
-//Function to delete notifications
+
+// Function to delete notification matched by id
 export async function deleteNotification(id) {
     const response = await fetch(`${API_URL}/notifications`, {
         method: "DELETE",
@@ -125,6 +122,5 @@ export async function deleteNotification(id) {
     });
 
     const data = await response.json();
-    console.log(data); 
     return data;
 }

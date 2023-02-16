@@ -1,5 +1,3 @@
-/* import { MdAlarm } from "react-icons/md"; */
-
 // First try to randomize function times for the alarm type notifications
 export function alarmNotification(chosenTime,currentTime,message) {
     if (currentTime === chosenTime) {
@@ -15,7 +13,7 @@ export function alarmNotification(chosenTime,currentTime,message) {
 };
 
 
-// Randomize function for use with random pushes within set time.
+// Randomize function for use with random pushes within set time
 function randomizeSetTime(startTime, endTime) {
     const hours = startTime + (Math.floor(Math.random() * (endTime - startTime)))
     const minutes = Math.floor(Math.random() * 60)
@@ -24,15 +22,5 @@ function randomizeSetTime(startTime, endTime) {
     const randomTime = (hoursString + ":" + minutesString)
     return randomTime
 };
-
-randomizeSetTime(0, 2);
-
-
-
-/* ID  TYPE     JSON
-[
-{ID:1,   TYPE:alarm;    JSON: {id: id, time:time, days: {monday: true, tuesday: false}}}
-
-2   GEO     {id: id, location: {lng: 50, lat: 40}}
-] */
+/* randomizeSetTime(0, 2); */
 

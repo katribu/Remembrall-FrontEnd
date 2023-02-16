@@ -8,6 +8,7 @@ import { Footer } from "./Footer";
 
 export function SetRemembrall(props) {
 
+    // States and their respective event targets
     const [text, setText] = useState('');
     const handleText = (event) => {
         setText(event.target.value);
@@ -27,21 +28,6 @@ export function SetRemembrall(props) {
     const handleDate = (event) => {
         setDate(event.target.value);
     }
-
-
-    /*    const [checkedPush, setCheckedPush] = useState(false);
-       const handleCheckedPush = (event) => {
-           setCheckedPush(event.target.checked);
-           console.log(checkedPush);
-       }
-    */
-    /*    const [checkedSound, setCheckedSound] = useState(false);
-       const handleCheckedSound = (event) => {
-           setCheckedSound(event.target.checked);
-           console.log(checkedSound);
-       }
-    */
-    // Coordinates of Oslo S is set as default state for now
 
     const [location, setLocation] = useState({ lat: 0, lng: 0 });
     const handleLocationChange = (coordinates) => {
@@ -76,161 +62,164 @@ export function SetRemembrall(props) {
     }
 
 
-
-    // Add handleSubmit(must do a post request, to our database)
     const handleSubmit = async () => {
-        
+
         const submitResponse = await createNewRemembrall(type, time, date, location.lat, location.lng, slidervalue, text, chosenFriend, subject, notificationText);
 
-        await createMail(chosenFriend, subject, notificationText); 
+        await createMail(chosenFriend, subject, notificationText);
         const { history } = props;
         history.replace('/profile');
         return submitResponse;
     }
 
-
+    // Rendering the component
     return (
         <div className="outerContainer">
-            <Header/>
-        <div className="mainDiv setRemembrallStyles">
+            <Header />
+            <div className="mainDiv setRemembrallStyles">
 
-            <div className="textAlignLeft">My Remembr'All:</div>
+                <div className="textAlignLeft">My Remembr'All:</div>
 
-
-            <textarea
-                maxLength={'200'}
-                minLength={'3'}
-                placeholder='Example: Prepare for interview with Google'
-                onChange={handleText}
-                value={text}
-                cols='25'
-                rows='3'
-                className="inputChild"
-            />
-
-            <div className="textAlignLeft">Notify me at:</div>
-
-            <div className="timeDateDiv">
-
-                <input
-                    type={'time'}
-                    min='00:00'
-                    max='23:59'
-                    step='60'
-                    onChange={handleTime}
-                    value={time}
-                    className="inputChild timeDateChild"
+                <textarea
+                    maxLength={'200'}
+                    minLength={'3'}
+                    placeholder='Example: Prepare for interview with Google'
+                    onChange={handleText}
+                    value={text}
+                    cols='25'
+                    rows='3'
+                    className="inputChild"
                 />
 
-                <input
-                    type={'date'}
-                    onChange={handleDate}
-                    value={date}
-                    className="inputChild timeDateChild"
-                />
-            </div>
+                <div className="textAlignLeft">Notify me at:</div>
 
-            <div>
-                <div className="textAlignLeft">
-                <b >Choose a Location: </b>
-                <input
-                    type={'checkbox'}
-                    name={'checked'}
-                    onChange={handleCheckedLocation}
-                    value={checkedChooseLocation}
-                    checked={checkedChooseLocation}
-                    className="extraMargin"
-                />
-                </div>
+                <div className="timeDateDiv">
 
-
-                {checkedChooseLocation &&
-
-                    <div>
-
-                        <div style={{ display: 'inline',fontFamily:"inherit" }}>Choose radius: {slidervalue}m</div><br />
-                        <input
-                            type={'range'}
-                            onChange={handleSliderValue}
-                            value={slidervalue}
-                            min="50"
-                            max="1000"
-                            step='50'
-                            
-                        />
-                        <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />
-                    </div>}
-            </div>
-
-            <div>
-                
-                <div className="textAlignLeft">
-                    <b style={{fontFamily:"inherit"}}> Notify a friend: </b>
                     <input
-                        type={'checkbox'}
-                        name={'checked'}
-                        onChange={handleCheckedFriend}
-                        value={checkedFriend}
-                        checked={checkedFriend}
+                        type={'time'}
+                        min='00:00'
+                        max='23:59'
+                        step='60'
+                        onChange={handleTime}
+                        value={time}
+                        className="inputChild timeDateChild"
+                    />
+
+                    <input
+                        type={'date'}
+                        onChange={handleDate}
+                        value={date}
+                        className="inputChild timeDateChild"
                     />
                 </div>
 
-
-                {checkedFriend &&
-                    <div>
-                        <div>
-                            
-                            {/* PROBABLY HAVE TO MAP OVER THE PAYLOAD AND INPUT VALUE AND OPTION TEXT FROM THAT */}
-                            <select id="email-friends" onChange={handleChosenFriend} defaultValue={'Select a friend'} className="inputChild">
-                                <option value="Select a friend" disabled>Select a friend</option>
-                                <option value='irgen_w.s@hotmail.com'>Irgen</option>
-                                <option value='katrinaburwash_17@hotmail.com'>Katrina</option>
-                                <option value='shahinhemat@gmail.com'>Shahin</option>
-                            </select>
-                        </div>
-
-
-                        <div>
-                            <div className="textAlignLeft">Subject:</div>
-                            <input
-                                type={text}
-                                maxLength={'100'}
-                                placeholder='On my way home!'
-                                onChange={handleSubject}
-                                value={subject}
-                                className="inputChild"
-                            />
-                        </div>
-
-                        <div>
-
-                            <div className="textAlignLeft">Notification:</div>
-
-                            <textarea
-                                maxLength={'200'}
-                                minLength={'3'}
-                                placeholder="Example: I'm on my way home!"
-                                onChange={handleNotificationText}
-                                value={notificationText}
-                                cols='25'
-                                rows='4'
-                                className="inputChild"
-                            />
-                        </div>
-                    </div>}
-            </div>
-
-            <div className="buttonDiv">
-                <button className="linkButton logInBtn" onClick={handleSubmit}>Save Remembr'All</button>
                 <div>
-                <Link to="/profile" className='linkButton'>Back</Link>
+                    <div className="textAlignLeft">
+                        <b >Choose a Location: </b>
+                        <input
+                            type={'checkbox'}
+                            name={'checked'}
+                            onChange={handleCheckedLocation}
+                            value={checkedChooseLocation}
+                            checked={checkedChooseLocation}
+                            className="extraMargin"
+                        />
+                    </div>
+
+                    {checkedChooseLocation &&
+
+                        <div>
+                            <div style={{ display: 'inline', fontFamily: "inherit" }}>Choose radius: {slidervalue}m</div><br />
+                            <input
+                                type={'range'}
+                                onChange={handleSliderValue}
+                                value={slidervalue}
+                                min="50"
+                                max="1000"
+                                step='50'
+
+                            />
+                            <Map location={location} onCoordinatesChanged={handleLocationChange} slidervalue={slidervalue} />
+                        </div>}
                 </div>
-            </div>
-        </div >
-        <Footer/>
+
+                <div>
+                    <div className="textAlignLeft">
+                        <b style={{ fontFamily: "inherit" }}> Notify a friend: </b>
+                        <input
+                            type={'checkbox'}
+                            name={'checked'}
+                            onChange={handleCheckedFriend}
+                            value={checkedFriend}
+                            checked={checkedFriend}
+                        />
+                    </div>
+
+                    {checkedFriend &&
+                        <div>
+                            <div>
+                                <select id="email-friends" onChange={handleChosenFriend} defaultValue={'Select a friend'} className="inputChild">
+                                    <option value="Select a friend" disabled>Select a friend</option>
+                                    <option value='irgen_w.s@hotmail.com'>Irgen</option>
+                                    <option value='katrinaburwash_17@hotmail.com'>Katrina</option>
+                                    <option value='shahinhemat@gmail.com'>Shahin</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <div className="textAlignLeft">Subject:</div>
+                                <input
+                                    type={text}
+                                    maxLength={'100'}
+                                    placeholder='On my way home!'
+                                    onChange={handleSubject}
+                                    value={subject}
+                                    className="inputChild"
+                                />
+                            </div>
+
+                            <div>
+                                <div className="textAlignLeft">Notification:</div>
+                                <textarea
+                                    maxLength={'200'}
+                                    minLength={'3'}
+                                    placeholder="Example: I'm on my way home!"
+                                    onChange={handleNotificationText}
+                                    value={notificationText}
+                                    cols='25'
+                                    rows='4'
+                                    className="inputChild"
+                                />
+                            </div>
+                        </div>}
+                </div>
+
+                <div className="buttonDiv">
+                    <button className="linkButton logInBtn" onClick={handleSubmit}>Save Remembr'All</button>
+                    <div>
+                        <Link to="/profile" className='linkButton'>Back</Link>
+                    </div>
+                </div>
+            </div >
+            <Footer />
         </div>
     )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -256,3 +245,16 @@ export function SetRemembrall(props) {
     />
     <label>Sound</label>
 </div> */}
+
+/*    const [checkedPush, setCheckedPush] = useState(false);
+     const handleCheckedPush = (event) => {
+         setCheckedPush(event.target.checked);
+         console.log(checkedPush);
+     }
+  */
+/*    const [checkedSound, setCheckedSound] = useState(false);
+   const handleCheckedSound = (event) => {
+       setCheckedSound(event.target.checked);
+       console.log(checkedSound);
+   }
+*/

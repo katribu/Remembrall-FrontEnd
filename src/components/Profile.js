@@ -22,6 +22,8 @@ export function Profile(props) {
     const [hoverIndexAlarm, setHoverIndexAlarm] = useState(-1)
     const [currentLocation, setCurrentLocation] = useState({})
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
+    const [getRealTime, setGetRealTime] = useState(new Date().getTime());
+
 
     // Check if a token is in localstorage (lines 27 - 38)
     const { history } = props;
@@ -158,12 +160,10 @@ export function Profile(props) {
 //An useeffect to check the current location towards the saved locations in the database. 
     useEffect(() => {
 
-       /*  const currentDate = new Date()
-        const notificationSnooze = new Date(currentDate.getTime() + (60 * 60 * 1000)).toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }); */
-
         console.log('useeffect location')
-        const checkLocation = setInterval(() => {
+       
 
+         
             userNotifications?.forEach(async (notificationInfo) => {
                 const {lat, lng, slidervalue, message, chosenFriend, lastNotified} = notificationInfo.data;
                 const { id } = notificationInfo; 
@@ -173,36 +173,22 @@ export function Profile(props) {
                         latitude: lat,
                         longitude: lng,
                     }); 
-          
-                    console.log(lastNotified)
-                    console.log(id)
-                    console.log(currentTime > lastNotified || !lastNotified)
         
                 if (currentDistance > 0 && currentDistance < slidervalue) {
-                    console.log('distance work')
                   
-                    if(currentTime > lastNotified || !lastNotified) { 
+                    if(!lastNotified || getRealTime > (lastNotified + (3600 * 1000))) { 
                        
-                        console.log(lastNotified)
-                        console.log('it fuckings works!!! ')
                         await updateLastNotifiedNotification(id)
-                        alert(message)
-                        return; 
+                        await populateNotifications();
+                        alert(message);
+                        if (chosenFriend) {
+
+                            createMail(id); 
+                            
+                            console.log('did we send an email')
+                        }
                       }
                     
-                    if (chosenFriend) {
-
-                        createMail(id); 
-                        
-
-                        console.log('did we send an email')
-
-                      /*   createMail(notificationInfo.data.chosenFriend, notificationInfo.data.subject, notificationInfo.data.notificationText); 
-                        console.log('did we send an email?') */
-                        //JUST SEND NOTIFACTION ID TO BACKEND AND LET BACKEND GET the notification data and patch the data with LastNotified. 
-                        //Then check if lastNotified < 1 hour and see whether to send again. 
-                        return;
-                    }
                     return;
 
                     // Add functionality to delete the alert or renew. 
@@ -212,17 +198,21 @@ export function Profile(props) {
                     return console.log('Did not work')
                 } 
         })
-        }, 1000);
 
-        return () => clearInterval(checkLocation);
-
-    }, [currentLocation, userNotifications, currentTime]);
+    }, [currentLocation, userNotifications, getRealTime]);
 
     // Check time in frontend every 5th second
     useEffect(() => {
         const interval = setInterval(() => {
-            setCurrentTime(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5))
-        }, 5000)
+            setCurrentTime(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
+        }, 2000)
+        return () => clearInterval(interval);
+    }, []);
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setGetRealTime(new Date().getTime())
+        }, 2000)
         return () => clearInterval(interval);
     }, []);
 

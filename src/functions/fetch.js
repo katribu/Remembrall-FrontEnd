@@ -79,7 +79,7 @@ export async function createNewRemembrall(type, time, date, lat, lng, slidervalu
 
 
 // Function for sending e-mail (Npm package)
-export async function createMail(email, subject, message) {
+export async function createMail(id) {
     await fetch(`${API_URL}/createmail`, {
         method: "POST",
         headers: {
@@ -87,9 +87,7 @@ export async function createMail(email, subject, message) {
             "x-token": localStorage.getItem('TWITTER_TOKEN')
         },
         body: JSON.stringify({
-            email,
-            subject,
-            message
+           id
         })
     });
 };

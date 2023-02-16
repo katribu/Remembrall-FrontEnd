@@ -29,7 +29,8 @@ export function SignUp(props) {
     }
 
 
-    const handleSignupAttempt = async () => {
+    const handleSignupAttempt = async (e) => {
+        e.preventDefault()
         try {
             // Sends the inputvalues to create a new user and receives back the '"username" have been created'
             const newUserResponse = await createNewUser(name, email, password, username);
@@ -60,6 +61,7 @@ export function SignUp(props) {
             <div>
                 <h1>Sign Up</h1>
             </div>
+            <form onSubmit={handleSignupAttempt}>
             <div>
                
                 <input type={"text"}
@@ -67,6 +69,7 @@ export function SignUp(props) {
                     value={name}
                     placeholder="Name"
                     className="inputChild"
+                    required
                 />
             </div>
             <div>
@@ -76,6 +79,7 @@ export function SignUp(props) {
                     value={username}
                     placeholder="Username"
                     className='inputChild'
+                    required
                 />
             </div>
             <div>
@@ -85,6 +89,7 @@ export function SignUp(props) {
                     value={email}
                     placeholder='Email'
                     className='inputChild'
+                    required
                 />
             </div>
             <div>
@@ -93,19 +98,23 @@ export function SignUp(props) {
                     value={password}
                     placeholder='Password'
                     className='inputChild'
+                    required
                 />
             </div>
-
+        
             <div className="buttonDiv">
                 <div>
-                    <button className='linkButton' onClick={handleSignupAttempt}>Create User</button>
+                    <input type="submit" className='linkButton' value="Create User"/>
                 </div>
                 <div>
                     <Link to="/login" className='linkButton'>Back</Link>
                 </div>
             </div>
+            </form>
         </div>
         <Footer/>
         </div>
     )
 };
+
+// onClick={handleSignupAttempt}

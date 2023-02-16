@@ -82,6 +82,8 @@ export function Profile(props) {
     //   if(distance <= notification.data.slidervalue){
     //     alert(`Hi, the time is ${notification.data.time} `)
     //   }
+        let noLocationChosen = notification.data.lat === 0 && notification.data.lng === 0
+        let noChosenFriend = notification.data.chosenFriend === ""
        
         return (
             <div
@@ -93,9 +95,9 @@ export function Profile(props) {
                 <div className="ellipsesAlign"><IoEllipsisHorizontal/></div>
                 <h4 className="notificationDataMessage">{notification.data.message}</h4>
                 <div className="iconAlertDiv">
-                    <><IoAlarmOutline/></>
-                    <> <HiOutlineLocationMarker/> </>
-                    <> <FaRegEnvelope/> </>
+                    <div><IoAlarmOutline/></div>
+                    <div className={noLocationChosen? "inactiveIcon":""}> <HiOutlineLocationMarker/> </div>
+                    <div className={noChosenFriend? "inactiveIcon":""}> <FaRegEnvelope/> </div>
                 </div>
                 {hoverIndexLocation === index && (
                     <div className="notificationBtns">
@@ -122,7 +124,8 @@ export function Profile(props) {
         })
         ?.sort((a, b) => new Date(a.data.date) - new Date(b.data.date))
         ?.map((notification, index) => {
-
+            let noLocationChosen = notification.data.lat === 0 && notification.data.lng === 0
+            let noChosenFriend = notification.data.chosenFriend === ""
             return (
                 <div
                     key={index}
@@ -134,8 +137,8 @@ export function Profile(props) {
                     <h4 className="notificationDataMessage">{notification.data.message}</h4>
                     <div className="iconAlertDiv">
                     <div> <IoAlarmOutline/></div>
-                    <div className="inactiveIcon"> <HiOutlineLocationMarker/> </div>
-                    <div className="inactiveIcon"> <FaRegEnvelope/> </div>
+                    <div className={noLocationChosen? "inactiveIcon":""}> <HiOutlineLocationMarker/> </div>
+                    <div className={noChosenFriend? "inactiveIcon":""}> <FaRegEnvelope/> </div>
                 </div>
                     {hoverIndexAlarm === index && (
                         <div className="notificationBtns">

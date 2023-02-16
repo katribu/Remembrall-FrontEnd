@@ -25,7 +25,7 @@ export function LandingPage(props) {
     return (
         <div>
             <div id="smoke">
-                <video style={{ maxWidth: '100vw' }} src={video} muted autoPlay loop />
+                <video style={{ width: '100%' }} src={video} muted autoPlay loop />
                 <div id="text">Remembr'All</div>
             </div>
         </div>

@@ -45,11 +45,10 @@ export function Profile(props) {
         setButtonText(buttonText === 'Hide' ? 'Show Upcoming' : 'Hide');
     };
 
-
     // Render user's notifications to the DOM
     async function populateNotifications() {
         const notifications = await getUserNotifications()
-        setUserNotifications(notifications) 
+        setUserNotifications(notifications)
     }
 
     useEffect(() => {
@@ -69,7 +68,7 @@ export function Profile(props) {
         await populateNotifications();
     }
 
-    //Renders all the location-based notifications
+    // Renders all the location-based notifications
     const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
 
         getDistance(currentLocation, {
@@ -106,7 +105,7 @@ export function Profile(props) {
         )
     });
 
-    //Renders all the alarm-based notifications, sorted by time and then date 
+    // Renders all the alarm-based notifications, sorted by time and then date 
     const myAlarmNotifications = userNotifications
         ?.filter(notification => notification.type === "alarm")
         ?.sort((a, b) => {
@@ -157,7 +156,7 @@ export function Profile(props) {
 
     }, [])
 
-//An useeffect to check the current location towards the saved locations in the database. 
+    //An useeffect to check the current location towards the saved locations in the database. 
     useEffect(() => {
 
         console.log('useeffect location')
@@ -165,10 +164,10 @@ export function Profile(props) {
 
          
             userNotifications?.forEach(async (notificationInfo) => {
-                const {lat, lng, slidervalue, message, chosenFriend, lastNotified} = notificationInfo.data;
-                const { id } = notificationInfo; 
+                const { lat, lng, slidervalue, message, chosenFriend, lastNotified } = notificationInfo.data;
+                const { id } = notificationInfo;
 
-                const currentDistance = getDistance(currentLocation, 
+                const currentDistance = getDistance(currentLocation,
                     {
                         latitude: lat,
                         longitude: lng,

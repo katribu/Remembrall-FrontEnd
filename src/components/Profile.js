@@ -242,6 +242,7 @@ export function Profile(props) {
                     {isHidden &&
                         <>
                             <h2>Upcoming</h2>
+                            <h3>This is Kat's Branch.</h3>
                             <div className="notificationContainer">
                                 <h4>Visit Grandmother</h4>
                                 <div><IoAlarmOutline /> Saturday 15/3/23 at 11:30</div>

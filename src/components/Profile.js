@@ -10,6 +10,7 @@ import { getDistance } from 'geolib';
 import { Header } from "./Header";
 import { alarmNotification } from "../functions/notifications";
 import { Footer } from "./Footer";
+import NotificationStyle from "./NotificationStyle";
 
 
 export function Profile(props) {
@@ -81,27 +82,38 @@ export function Profile(props) {
 
         // Return the mapping of the array
         return (
-            <div
-                key={index}
-                onMouseEnter={() => setHoverIndexToday(index)}
-                onMouseLeave={() => setHoverIndexToday(-1)}
-                className="notificationContainer"
-            >
-                <div className="ellipsesAlign"><IoEllipsisHorizontal /></div>
-                <h4 className="notificationDataMessage">{notification.data.message}</h4>
-                <div className="iconAlertDiv">
-                    <div><IoAlarmOutline /></div>
-                    <div className={noLocationChosen ? "inactiveIcon" : ""}> <HiOutlineLocationMarker /> </div>
-                    <div className={noChosenFriend ? "inactiveIcon" : ""}> <FaRegEnvelope /> </div>
-                </div>
-                {hoverIndexToday === index && (
-                    <div className="notificationBtns">
-                        <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
-                        <button> <AiFillEdit /> </button>
-                    </div>
-                )}
+            <NotificationStyle
+            key={index}
+            setHoverIndexToday={setHoverIndexToday(index)}
+            setHover={setHoverIndexToday(-1)}
+            message={notification.data.message}
+            noLocationChosen={noLocationChosen}
+            noChosenFriend={noChosenFriend}
+            handleDelete={handleDelete(notification.id)}
+            hoverIndexToday={hoverIndexToday}
+            index={index}
+            />
+            // <div
+            //     key={index}
+            //     onMouseEnter={() => setHoverIndexToday(index)}
+            //     onMouseLeave={() => setHoverIndexToday(-1)}
+            //     className="notificationContainer"
+            // >
+            //     <div className="ellipsesAlign"><IoEllipsisHorizontal /></div>
+            //     <h4 className="notificationDataMessage">{notification.data.message}</h4>
+            //     <div className="iconAlertDiv">
+            //         <div><IoAlarmOutline /></div>
+            //         <div className={noLocationChosen ? "inactiveIcon" : ""}> <HiOutlineLocationMarker /> </div>
+            //         <div className={noChosenFriend ? "inactiveIcon" : ""}> <FaRegEnvelope /> </div>
+            //     </div>
+            //     {hoverIndexToday === index && (
+            //         <div className="notificationBtns">
+            //             <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
+            //             <button> <AiFillEdit /> </button>
+            //         </div>
+            //     )}
                
-            </div>
+            // </div>
             
         )
     });

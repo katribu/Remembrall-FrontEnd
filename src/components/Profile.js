@@ -76,7 +76,7 @@ export function Profile(props) {
         // Return the mapping of the array
         return (
             <NotificationStyle
-            key={index}
+            key={notification.id}
             setHoverIndexToday={()=>setHoverIndexToday(index)}
             setHover={()=>setHoverIndexToday(-1)}
             message={notification.data.message}
@@ -97,7 +97,7 @@ export function Profile(props) {
         // Return the mapping of the array
         return (
             <NotificationStyle
-            key={index}
+            key={notification.id}
             setHoverIndexToday={()=>setHoverIndexFuture(index)}
             setHover={()=>setHoverIndexFuture(-1)}
             message={notification.data.message}

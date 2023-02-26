@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { Link } from 'react-router-dom';
 import { createMail, deleteNotification, getUserNotifications, updateLastNotifiedNotification } from "../functions/fetch";
 import '../App.css';
@@ -186,7 +186,8 @@ export function Profile(props) {
             ?.forEach(notification => {
                 const chosenTime = notification?.data.time
                 // console.log(chosenTime)
-                alarmNotification(chosenTime, currentTime, notification.data.message)
+                alarmNotification(chosenTime, currentTime, notification.data.message,todaysDate, notification.data.date)
+                
             })
 
     }, [currentTime, userNotifications])

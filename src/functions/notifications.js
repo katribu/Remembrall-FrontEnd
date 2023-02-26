@@ -1,6 +1,6 @@
 // First try to randomize function times for the alarm type notifications
-export function alarmNotification(chosenTime,currentTime,message) {
-    if (currentTime === chosenTime) {
+export function alarmNotification(chosenTime,currentTime,message,todaysDate,setDate) {
+    if (currentTime === chosenTime && todaysDate===setDate) {
         alert(`
         It is ${currentTime}!
         ${message}`)

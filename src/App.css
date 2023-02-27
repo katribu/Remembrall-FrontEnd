@@ -105,6 +105,10 @@ body,html{
   font-family: inherit;
 }
 
+textarea.inputChild {
+padding-top: 7px;
+}
+
 .notificationDataMessage {
   margin:0; 
 }

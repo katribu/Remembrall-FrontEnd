@@ -262,9 +262,6 @@ export function Profile(props) {
                         <Link to="/setremembrall" className="linkButton"> Create Remembr'All</Link>
                     </div>
 
-                    <div>
-                        <Link to="/logout" className="linkButton">Log out</Link>
-                    </div>
                 </div>
 
             </div>

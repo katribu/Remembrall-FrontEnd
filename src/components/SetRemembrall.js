@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { createNewRemembrall } from "../functions/fetch";
 import Map from "./Map"
-import { Link } from "react-router-dom";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
 
@@ -195,9 +194,6 @@ export function SetRemembrall(props) {
 
                 <div className="buttonDiv">
                     <button className="linkButton logInBtn" onClick={handleSubmit}>Save Remembr'All</button>
-                    <div>
-                        <Link to="/profile" className='linkButton'>Back</Link>
-                    </div>
                 </div>
             </div >
             <Footer />

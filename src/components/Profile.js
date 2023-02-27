@@ -1,12 +1,13 @@
 import React, { useState, useEffect, } from 'react';
 import { Link } from 'react-router-dom';
-import { createMail, deleteNotification, getUserNotifications, updateLastNotifiedNotification } from "../functions/fetch";
+import { createMail, deleteNotification, getUserNotifications, updateLastNotifiedNotification,updateNotification } from "../functions/fetch";
 import '../App.css';
 import { getDistance } from 'geolib';
 import { Header } from "./Header";
 import { alarmNotification } from "../functions/notifications";
 import { Footer } from "./Footer";
 import NotificationStyle from "./NotificationStyle";
+import Modal from './Modal';
 
 
 export function Profile(props) {
@@ -20,6 +21,12 @@ export function Profile(props) {
     const [currentLocation, setCurrentLocation] = useState({})
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
     const [getRealTime, setGetRealTime] = useState(new Date().getTime());
+
+    // States shared with MODAL component.
+    const [show, setShow] = useState(false)
+    const [message, setMessage] = useState('')
+    const [time, setTime] = useState('')
+    const [date, setDate] = useState('')
 
 
     // Check if a token is in localstorage (lines 27 - 38)
@@ -65,6 +72,19 @@ export function Profile(props) {
         await populateNotifications();
     }
 
+    // Update Notification matched by id
+    const handleUpdate = (id) => {
+        userNotifications?.map(async notification => {
+            if(notification.id === id){
+                setShow(false)
+                await updateNotification(notification.id, message,time,date )
+            }
+            await populateNotifications()
+        })
+    }
+
+    
+
     //Compare today's date with the notification date.
     const todaysDate = new Date().toJSON().slice(0,10)
 
@@ -75,18 +95,29 @@ export function Profile(props) {
 
         // Return the mapping of the array
         return (
+            <div>
             <NotificationStyle
             key={notification.id}
             setHoverIndexToday={()=>setHoverIndexToday(index)}
             setHover={()=>setHoverIndexToday(-1)}
             message={notification.data.message}
             handleDelete={()=>handleDelete(notification.id)}
+            openModal={()=>setShow(true)}
             hoverIndex={hoverIndexToday}
             index={index}
             lat={notification.data.lat}
             lng={notification.data.lng}
             chosenFriend={notification.data.chosenFriend}
             />
+
+            <Modal 
+            show={show} 
+            onClose={()=>handleUpdate(notification.id)}
+            setMessage={setMessage}
+            setTime={setTime}
+            setDate={setDate}
+            />
+            </div>
         )
     });
 
@@ -96,18 +127,29 @@ export function Profile(props) {
     ?.map((notification, index) => {
         // Return the mapping of the array
         return (
+            <div>
             <NotificationStyle
             key={notification.id}
             setHoverIndexToday={()=>setHoverIndexFuture(index)}
             setHover={()=>setHoverIndexFuture(-1)}
             message={notification.data.message}
             handleDelete={()=>handleDelete(notification.id)}
+            openModal={()=>setShow(true)}
             hoverIndex={hoverIndexFuture}
             index={index}
             lat={notification.data.lat}
             lng={notification.data.lng}
             chosenFriend={notification.data.chosenFriend}
             />
+
+            <Modal 
+            show={show} 
+            onClose={()=>handleUpdate(notification.id)}
+            setMessage={setMessage}
+            setTime={setTime}
+            setDate={setDate}
+            />
+            </div>
         )
     });
 
@@ -190,7 +232,7 @@ export function Profile(props) {
                 
             })
 
-    }, [currentTime, userNotifications])
+    }, [currentTime, userNotifications,todaysDate])
 
 
     // Rendering the component

@@ -11,23 +11,34 @@ export default function NotificationStyle(props){
 
     return(
         <div
-            onMouseEnter={props.setHoverIndexToday}
-            onMouseLeave={props.setHover}
             className="notificationContainer"
+            onMouseLeave={props.setHover}
         >
-            <div className="ellipsesAlign"><IoEllipsisHorizontal /></div>
-            <h4 className="notificationDataMessage">{props.message}</h4>
-            <div className="iconAlertDiv">
-                <div><IoAlarmOutline /></div>
-                <div className={noLocationChosen ? "inactiveIcon" : ""}> <HiOutlineLocationMarker /> </div>
-                <div className={noChosenFriend ? "inactiveIcon" : ""}> <FaRegEnvelope /> </div>
-            </div>
-            {props.hoverIndex === props.index && (
-                <div className="notificationBtns">
-                    <button onClick={props.handleDelete}> <AiTwotoneDelete /> </button>
-                    <button> <AiFillEdit /> </button>
+        
+            <div className="flexContainer">
+
+                <div className="notificationInfo">
+                    <div className="ellipsesAlign">
+                        <IoEllipsisHorizontal
+                        onMouseEnter={props.setHoverIndexToday}
+                        />
+                    </div>
+                    <h4 className="notificationDataMessage">{props.message}</h4>
+                    <div className="iconAlertDiv">
+                        <div><IoAlarmOutline /></div>
+                        <div className={noLocationChosen ? "inactiveIcon" : ""}> <HiOutlineLocationMarker /> </div>
+                        <div className={noChosenFriend ? "inactiveIcon" : ""}> <FaRegEnvelope /> </div>
+                    </div>
                 </div>
-            )}
+                
+                {props.hoverIndex === props.index && (
+                    <div className="notificationBtns">
+                        <button onClick={props.handleDelete}> <AiTwotoneDelete /> </button>
+                        <button onClick={props.openModal}> <AiFillEdit /> </button>
+                    </div>
+                )}
+                
+            </div>
                
         </div>
     )

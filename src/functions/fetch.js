@@ -106,6 +106,22 @@ export async function updateLastNotifiedNotification(id) {
 
 }
 
+export async function updateNotification(id,message,time,date){
+    await fetch(`${API_URL}/update/${id}`,{
+        method:"PATCH",
+        headers:{
+            'Content-Type': 'application/json',
+            "x-token": localStorage.getItem('TWITTER_TOKEN')
+        },
+        body:JSON.stringify({
+            message,
+            time,
+            date
+        })
+    })
+
+}
+
 
 // Function to delete notification matched by id
 export async function deleteNotification(id) {

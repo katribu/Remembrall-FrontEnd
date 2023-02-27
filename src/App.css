@@ -160,8 +160,19 @@ body,html{
 
 
 /* ============ PROFILE PAGE STYLING =============== */
+.flexContainer {
+  display:flex;
+  justify-content: space-between;
+}
+
+.notificationInfo {
+  flex: 1;
+  width: 80%;
+}
+
 .notificationBtns{
   display: flex;
+  flex-direction: column;
   justify-content: right;
 }
 
@@ -183,7 +194,7 @@ body,html{
 }
 
 .ellipsesAlign{
-  text-align: right;
+  text-align: left;
   margin-right: 15px;
 }
 
@@ -209,7 +220,6 @@ body,html{
   box-shadow: 2px 2px 2px black;
   border-radius: 10px;
   padding: 5px 10px;
-  /* background:rgba(81, 14, 14, 0.2); */
   background:rgba(237,237,237,0.1);
 }
 .upcomingNotificationsLink{
@@ -226,6 +236,53 @@ body,html{
   color: rgb(81, 14, 14);
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* ======= MODAL STYLING */
+.modal {
+  position: fixed;
+  left: 0;
+  top:-250px;
+  right:0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  width: 300px;
+  background: #fff;
+}
+
+.modalHeader, .modalFooter {
+  padding: 10px;
+}
+
+.modalTitle {
+  margin: 0;
+}
+
+.modalBody {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.modalBtn {
+   background:#6a0203;
+   color:#eee;
+   font-family: inherit;
+   font-weight: 600;
+   border: none;
+   border-radius: 5px;
+   padding: 10px;
+}
+
+.modalBtn:hover {
+  cursor: pointer;
+  background-color: #000;
 }
 
 

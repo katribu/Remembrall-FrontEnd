@@ -113,6 +113,7 @@ export function Profile(props) {
             <Modal 
             show={show} 
             onClose={()=>handleUpdate(notification.id)}
+            cancel={()=>setShow(false)}
             setMessage={setMessage}
             setTime={setTime}
             setDate={setDate}
@@ -145,6 +146,7 @@ export function Profile(props) {
             <Modal 
             show={show} 
             onClose={()=>handleUpdate(notification.id)}
+            cancel={()=>setShow(false)}
             setMessage={setMessage}
             setTime={setTime}
             setDate={setDate}

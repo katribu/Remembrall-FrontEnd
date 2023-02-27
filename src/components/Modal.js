@@ -6,8 +6,8 @@ export default function Modal(props){
     }
 
     return (
-        <div className="modal">
-            <div className="modalContent">
+        <div className="modal" onClick={props.cancel}>
+            <div className="modalContent" onClick={(e)=>e.stopPropagation()}>
                 <div className="modalHeader">
                     <h4 className="modalTitle">
                         Edit Notification
@@ -38,7 +38,7 @@ export default function Modal(props){
                 </div>
 
                 <div className="modalFooter">
-                    <button className="modalBtn" onClick={props.onClose}> Close</button>
+                    <button className="modalBtn" onClick={props.onClose}>Update</button>
                 </div>
 
             </div>

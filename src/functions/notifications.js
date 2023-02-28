@@ -8,13 +8,11 @@ export function alarmNotification(chosenTime,currentTime,message,todaysDate,setD
     if (currentTime === chosenTime && todaysDate===setDate) {
         let snooze = window.confirm(`${text}`)
         if(snooze){
-            console.log("i want to delete")
             deletefn(id)
             return;
-        }else if(!snooze){
-            console.log("i want to snooze")
+        }else{
             return;
-        } 
+        }   
     }else{
         return;
     }

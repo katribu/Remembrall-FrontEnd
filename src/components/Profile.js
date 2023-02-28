@@ -157,7 +157,7 @@ export function Profile(props) {
     // Checking the notifications and when to alert
     // Get our current position (add use state to hold current location and run in a useEffect())
     useEffect(() => {
-        navigator.geolocation.watchPosition(
+        navigator.geolocation.getCurrentPosition(
             (position) => {
                 setCurrentLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude })
             })
@@ -165,11 +165,11 @@ export function Profile(props) {
     }, [])
 
     
-    //A useeffect to check the current location towards the saved locations in the database. 
+    //A useeffect to check the current location towards the saved locations in the database "location" notifications
     useEffect(() => {
 
         // console.log('useeffect location')         
-            userNotifications?.forEach(async (notificationInfo) => {
+            userNotifications?.filter(el => el.type === "location")?.forEach(async (notificationInfo) => {
                 const { lat, lng, slidervalue, message, chosenFriend, lastNotified } = notificationInfo.data;
                 const { id } = notificationInfo;
 
@@ -184,28 +184,30 @@ export function Profile(props) {
                     if(!lastNotified || getRealTime > (lastNotified + (3600 * 1000))) { 
                        
                         await updateLastNotifiedNotification(id)
-                        await populateNotifications();
-                        alert(message);
                         if (chosenFriend) {
-
                             createMail(id); 
-                            
                             console.log('did we send an email')
                         }
                       }
-                    
-                    return;
-
-                    // Add functionality to delete the alert or renew. 
+                    let text = `
+                    ${message}.
+                    Click "ok" to delete.
+                    Click "cancel" to edit.
+                    `
+                    let deleteNotification = window.confirm(`${text}`)
+                    if(deleteNotification){
+                        handleDelete(id)
+                        return;
+                    }
+                    await populateNotifications();                        
 
                 }
                 else {
                     return;
-                    // console.log('Did not work')
                 } 
         })
 
-    }, [currentLocation, userNotifications, getRealTime]);
+    }, [currentLocation, userNotifications, getRealTime,handleDelete]);
 
     // Check time in frontend every 5th second
     useEffect(() => {
@@ -223,10 +225,10 @@ export function Profile(props) {
     }, []);
 
 
-    // Check current time in frontend against time saved in database for all notifications
+    // Check current time in frontend against time saved in database for all "alarm" notifications
     useEffect(() => {
         userNotifications
-            ?.forEach(notification => {
+            ?.filter(el => el.type === "alarm")?.forEach(notification => {
                 const chosenTime = notification?.data.time
                 // console.log(chosenTime)
                 alarmNotification(

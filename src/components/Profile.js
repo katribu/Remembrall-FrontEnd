@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { createMail, deleteNotification, getUserNotifications, updateLastNotifiedNotification,updateNotification } from "../functions/fetch";
 import '../App.css';
@@ -35,7 +35,6 @@ export function Profile(props) {
     // useEffect will run after the first render, it will check if the token is valid.
     // If no token in local storage - redirect to /login
     useEffect(() => {
-        console.log('useeffect twitterToken')
         const token = localStorage.getItem('TWITTER_TOKEN');
         if (!token) {
             history.replace('/login');
@@ -61,7 +60,8 @@ export function Profile(props) {
 
 
     // Delete notification matched by id
-    const handleDelete = async (id) => {
+    const handleDelete = useCallback(async (id) => {
+        console.log("handleDelete function")
         const { error } = await deleteNotification(id);
 
         if (error) {
@@ -70,10 +70,11 @@ export function Profile(props) {
         }
 
         await populateNotifications();
-    }
+    },[])
 
     // Update Notification matched by id
-    const handleUpdate = (id) => {
+    const handleUpdate = useCallback((id) => {
+        console.log("handle Update function")
         userNotifications?.map(async notification => {
             if(notification.id === id){
                 setShow(false)
@@ -81,7 +82,7 @@ export function Profile(props) {
             }
             await populateNotifications()
         })
-    }
+    },[date,time,message,userNotifications])
 
     
 
@@ -228,11 +229,17 @@ export function Profile(props) {
             ?.forEach(notification => {
                 const chosenTime = notification?.data.time
                 // console.log(chosenTime)
-                alarmNotification(chosenTime, currentTime, notification.data.message,todaysDate, notification.data.date)
+                alarmNotification(
+                    chosenTime, currentTime, 
+                    notification.data.message,todaysDate, 
+                    notification.data.date,
+                    notification.id, 
+                    handleDelete
+                    )
                 
             })
 
-    }, [currentTime, userNotifications,todaysDate])
+    }, [currentTime,userNotifications,todaysDate,handleDelete])
 
 
     // Rendering the component

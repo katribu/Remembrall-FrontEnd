@@ -14,7 +14,6 @@ export function Header(){
         let handler = (e)=>{
             if(!menuRef.current.contains(e.target)){
               setOpen(false);
-              console.log(menuRef.current);
             }      
           };
       
@@ -27,7 +26,7 @@ export function Header(){
     })
 
     return(
-        <header className="header">
+        <header className="header" ref={menuRef}>
             <h4 className="headerTitle">Remembr'All</h4>
             <div 
             className="hamburgerIcon"
@@ -37,7 +36,7 @@ export function Header(){
             </div>
 
             { open && 
-            <div className={`dropdownMenu ${open ? "active" : "inactive"}`} ref={menuRef}>
+            <div className={`dropdownMenu ${open ? "active" : "inactive"}`} >
                 <Dropdown icon={<SlLogout/>} text={"Log out"} to={"/logout"} />
                 <Dropdown icon={<CgProfile/>} text={"Profile"} to={"/profile"} />
             </div>}

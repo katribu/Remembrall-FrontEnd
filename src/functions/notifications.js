@@ -1,15 +1,23 @@
-// First try to randomize function times for the alarm type notifications
-export function alarmNotification(chosenTime,currentTime,message,todaysDate,setDate) {
+
+
+export function alarmNotification(chosenTime,currentTime,message,todaysDate,setDate,id,deletefn) {
+    let text = `
+    ${message}. 
+    Click "Ok" delete.
+    Click "cancel" in order to edit notification.`
     if (currentTime === chosenTime && todaysDate===setDate) {
-        alert(`
-        It is ${currentTime}!
-        ${message}`)
+        let snooze = window.confirm(`${text}`)
+        if(snooze){
+            console.log("i want to delete")
+            deletefn(id)
+            return;
+        }else if(!snooze){
+            console.log("i want to snooze")
+            return;
+        } 
+    }else{
         return;
     }
-    if (currentTime > chosenTime) {
-        return;
-    } 
-    return;
 };
 
 

@@ -105,6 +105,10 @@ body,html{
   font-family: inherit;
 }
 
+textarea.inputChild {
+padding-top: 7px;
+}
+
 .notificationDataMessage {
   margin:0; 
 }
@@ -147,6 +151,75 @@ body,html{
   padding-right: 20px;
 }
 
+.hamburgerIcon:focus,
+.hamburgerIcon:hover {
+  color:rgb(81, 14, 14);
+  cursor: pointer;
+}
+
+/*  =========== DROP DOWN MENU STYLES =========== */
+.dropdownMenu{
+  position: absolute;
+  top: 100px;
+  right: 10px;
+  background-color: #242526;
+  border-radius: 10px;
+  padding: 10px 20px;
+  width: 150px;
+}
+
+.dropdownMenu:hover,
+.dropdownMenu:focus {
+  color:rgb(81, 14, 14);
+  background:rgba(0, 0, 0, .12);
+}
+.dropdownMenu::before{
+  position: absolute;
+  top: -5px;
+  right: 20px;
+  height: 20px;
+  width: 20px;
+  background: whitesmoke;
+}
+
+.dropdownMenu.active{
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(-40px);
+  transition: 500ms;
+}
+
+.dropdownMenu.inactive{
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: 500ms;
+}
+
+.dropdownItem {
+  display: flex;
+  width: 90%;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(128, 126, 126, 1);
+}
+
+.dropdownIcon {
+  margin-top:5px;
+}
+
+.dropdownLink {
+  text-decoration: none;
+  color:#fff;
+}
+
+.dropdownLink:hover,
+.dropdownLink:focus {
+  color:rgb(81, 14, 14);
+  text-decoration: underline;
+}
 
 /* ======= LOGIN PAGE STYLES ========== */
 .logInTitle{
@@ -160,15 +233,42 @@ body,html{
 
 
 /* ============ PROFILE PAGE STYLING =============== */
+.flexContainer {
+  display:flex;
+  justify-content: space-between;
+}
+
+.notificationInfo {
+  flex: 1;
+  width: 80%;
+  padding: 10px;
+}
+
 .notificationBtns{
   display: flex;
+  flex-direction: column;
   justify-content: right;
-  align-items: right;
-  justify-items: right;
+}
+
+.notificationBtns button {
+  align-self: flex-end;
+  margin: 5px;
+  background-color: #6a0203;
+  color:#eeeeee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.notificationBtns button:hover,
+.notificationBtns button:focus {
+  cursor: pointer;
+  background:rgba(0, 0, 0,0.15);
+  color:#6a0203;
 }
 
 .ellipsesAlign{
-  text-align: right;
+  text-align: left;
   margin-right: 15px;
 }
 
@@ -194,7 +294,6 @@ body,html{
   box-shadow: 2px 2px 2px black;
   border-radius: 10px;
   padding: 5px 10px;
-  /* background:rgba(81, 14, 14, 0.2); */
   background:rgba(237,237,237,0.1);
 }
 .upcomingNotificationsLink{
@@ -211,6 +310,54 @@ body,html{
   color: rgb(81, 14, 14);
   text-decoration: underline;
   cursor: pointer;
+}
+
+/* ======= MODAL STYLING */
+.modal {
+  position: fixed;
+  left: 0;
+  top:-250px;
+  right:0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  width: 300px;
+  background: #fff;
+}
+
+.modalHeader, .modalFooter {
+  padding: 10px;
+}
+
+.modalTitle {
+  margin: 0;
+}
+
+.modalBody {
+  padding: 10px;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+}
+
+.modalBtn {
+   background:#6a0203;
+   color:#eee;
+   font-family: inherit;
+   font-weight: 600;
+   border: none;
+   border-radius: 5px;
+   padding: 10px;
+   margin: 10px;
+}
+
+.modalBtn:hover {
+  cursor: pointer;
+  background-color: #000;
 }
 
 

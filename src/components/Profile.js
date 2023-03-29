@@ -1,15 +1,13 @@
-import { AiTwotoneDelete, AiFillEdit } from "react-icons/ai";
-import { IoEllipsisHorizontal, IoAlarmOutline } from "react-icons/io5";
-import { FaRegEnvelope } from "react-icons/fa"
-import { HiOutlineLocationMarker } from "react-icons/hi"
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
-import { createMail, deleteNotification, getUserNotifications, updateLastNotifiedNotification } from "../functions/fetch";
+import { createMail, deleteNotification, getUserNotifications, updateLastNotifiedNotification,updateNotification } from "../functions/fetch";
 import '../App.css';
 import { getDistance } from 'geolib';
 import { Header } from "./Header";
 import { alarmNotification } from "../functions/notifications";
 import { Footer } from "./Footer";
+import NotificationStyle from "./NotificationStyle";
+import Modal from './Modal';
 
 
 export function Profile(props) {
@@ -18,11 +16,17 @@ export function Profile(props) {
     const [userNotifications, setUserNotifications] = useState([]);
     const [isHidden, setIsHidden] = useState(false)
     const [buttonText, setButtonText] = useState('Show Upcoming');
-    const [hoverIndexLocation, setHoverIndexLocation] = useState(-1);
-    const [hoverIndexAlarm, setHoverIndexAlarm] = useState(-1)
+    const [hoverIndexToday, setHoverIndexToday] = useState(-1);
+    const [hoverIndexFuture, setHoverIndexFuture] = useState(-1)
     const [currentLocation, setCurrentLocation] = useState({})
     const [currentTime, setCurrentTime] = useState(new Date().toLocaleTimeString('nor', { hour: '2-digit', minute: '2-digit' }).slice(0, 5));
     const [getRealTime, setGetRealTime] = useState(new Date().getTime());
+
+    // States shared with MODAL component.
+    const [show, setShow] = useState(false)
+    const [message, setMessage] = useState('')
+    const [time, setTime] = useState('')
+    const [date, setDate] = useState('')
 
 
     // Check if a token is in localstorage (lines 27 - 38)
@@ -31,7 +35,6 @@ export function Profile(props) {
     // useEffect will run after the first render, it will check if the token is valid.
     // If no token in local storage - redirect to /login
     useEffect(() => {
-        console.log('useeffect twitterToken')
         const token = localStorage.getItem('TWITTER_TOKEN');
         if (!token) {
             history.replace('/login');
@@ -57,7 +60,8 @@ export function Profile(props) {
 
 
     // Delete notification matched by id
-    const handleDelete = async (id) => {
+    const handleDelete = useCallback(async (id) => {
+        console.log("handleDelete function")
         const { error } = await deleteNotification(id);
 
         if (error) {
@@ -66,90 +70,94 @@ export function Profile(props) {
         }
 
         await populateNotifications();
-    }
+    },[])
 
-    // Renders all the location-based notifications
-    const myLocationNotifications = userNotifications?.filter(notification => notification.type === "location")?.map((notification, index) => {
-
-        getDistance(currentLocation, {
-            latitude: notification.data.lat,
-            longitude: notification.data.lng,
+    // Update Notification matched by id
+    const handleUpdate = useCallback((id) => {
+        console.log("handle Update function")
+        userNotifications?.map(async notification => {
+            if(notification.id === id){
+                setShow(false)
+                await updateNotification(notification.id, message,time,date )
+            }
+            await populateNotifications()
         })
+    },[date,time,message,userNotifications])
 
-        // Conditional setting of Icon colors
-        let noLocationChosen = notification.data.lat === 0 && notification.data.lng === 0
-        let noChosenFriend = notification.data.chosenFriend === ""
+    
+
+    //Compare today's date with the notification date.
+    const todaysDate = new Date().toJSON().slice(0,10)
+
+    // Renders Today's Notifications
+    const myNotificationsToday = userNotifications
+    ?.filter(notification => todaysDate === notification.data.date)
+    ?.map((notification, index) => {
 
         // Return the mapping of the array
         return (
-            <div
-                key={index}
-                onMouseEnter={() => setHoverIndexLocation(index)}
-                onMouseLeave={() => setHoverIndexLocation(-1)}
-                className="notificationContainer"
-            >
-                <div className="ellipsesAlign"><IoEllipsisHorizontal /></div>
-                <h4 className="notificationDataMessage">{notification.data.message}</h4>
-                <div className="iconAlertDiv">
-                    <div><IoAlarmOutline /></div>
-                    <div className={noLocationChosen ? "inactiveIcon" : ""}> <HiOutlineLocationMarker /> </div>
-                    <div className={noChosenFriend ? "inactiveIcon" : ""}> <FaRegEnvelope /> </div>
-                </div>
-                {hoverIndexLocation === index && (
-                    <div className="notificationBtns">
-                        <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
-                        <button> <AiFillEdit /> </button>
-                    </div>
-                )}
+            <div key={notification.id}>
+            <NotificationStyle
+            setHoverIndexToday={()=>setHoverIndexToday(index)}
+            setHover={()=>setHoverIndexToday(-1)}
+            message={notification.data.message}
+            handleDelete={()=>handleDelete(notification.id)}
+            openModal={()=>setShow(true)}
+            hoverIndex={hoverIndexToday}
+            index={index}
+            lat={notification.data.lat}
+            lng={notification.data.lng}
+            chosenFriend={notification.data.chosenFriend}
+            />
+
+            <Modal 
+            show={show} 
+            onClose={()=>handleUpdate(notification.id)}
+            cancel={()=>setShow(false)}
+            setMessage={setMessage}
+            setTime={setTime}
+            setDate={setDate}
+            />
             </div>
         )
     });
 
-    // Renders all the alarm-based notifications, sorted by time and then date 
-    const myAlarmNotifications = userNotifications
-        ?.filter(notification => notification.type === "alarm")
-        ?.sort((a, b) => {
-            const [aHours, aMinutes] = a.data.time.split(":").map(s => parseInt(s));
-            const [bHours, bMinutes] = b.data.time.split(":").map(s => parseInt(s));
-            if (aHours !== bHours) {
-                return aHours - bHours;
-            } else {
-                return aMinutes - bMinutes;
-            }
-        })
-        ?.sort((a, b) => new Date(a.data.date) - new Date(b.data.date))
-        ?.map((notification, index) => {
-            let noLocationChosen = notification.data.lat === 0 && notification.data.lng === 0
-            let noChosenFriend = notification.data.chosenFriend === ""
-            return (
-                <div
-                    key={index}
-                    onMouseEnter={() => setHoverIndexAlarm(index)}
-                    onMouseLeave={() => setHoverIndexAlarm(-1)}
-                    className="notificationContainer"
-                >
-                    <div className="ellipsesAlign"><IoEllipsisHorizontal /></div>
-                    <h4 className="notificationDataMessage">{notification.data.message}</h4>
-                    <div className="iconAlertDiv">
-                        <div> <IoAlarmOutline /></div>
-                        <div className={noLocationChosen ? "inactiveIcon" : ""}> <HiOutlineLocationMarker /> </div>
-                        <div className={noChosenFriend ? "inactiveIcon" : ""}> <FaRegEnvelope /> </div>
-                    </div>
-                    {hoverIndexAlarm === index && (
-                        <div className="notificationBtns">
-                            <button onClick={() => handleDelete(notification.id)}> <AiTwotoneDelete /> </button>
-                            <button> <AiFillEdit /> </button>
-                        </div>
-                    )}
-                </div>
-            )
-        });
+    // Render Future Notifications
+    const futureNotifications = userNotifications
+    ?.filter(notification => notification.data.date > todaysDate)
+    ?.map((notification, index) => {
+        // Return the mapping of the array
+        return (
+            <div key={notification.id}>
+            <NotificationStyle
+            setHoverIndexToday={()=>setHoverIndexFuture(index)}
+            setHover={()=>setHoverIndexFuture(-1)}
+            message={notification.data.message}
+            handleDelete={()=>handleDelete(notification.id)}
+            openModal={()=>setShow(true)}
+            hoverIndex={hoverIndexFuture}
+            index={index}
+            lat={notification.data.lat}
+            lng={notification.data.lng}
+            chosenFriend={notification.data.chosenFriend}
+            />
 
+            <Modal 
+            show={show} 
+            onClose={()=>handleUpdate(notification.id)}
+            cancel={()=>setShow(false)}
+            setMessage={setMessage}
+            setTime={setTime}
+            setDate={setDate}
+            />
+            </div>
+        )
+    });
 
     // Checking the notifications and when to alert
     // Get our current position (add use state to hold current location and run in a useEffect())
     useEffect(() => {
-        navigator.geolocation.watchPosition(
+        navigator.geolocation.getCurrentPosition(
             (position) => {
                 setCurrentLocation({ latitude: position.coords.latitude, longitude: position.coords.longitude })
             })
@@ -157,14 +165,11 @@ export function Profile(props) {
     }, [])
 
     
-    //An useeffect to check the current location towards the saved locations in the database. 
+    //A useeffect to check the current location towards the saved locations in the database "location" notifications
     useEffect(() => {
 
-        console.log('useeffect location')
-       
-
-         
-            userNotifications?.forEach(async (notificationInfo) => {
+        // console.log('useeffect location')         
+            userNotifications?.filter(el => el.type === "location")?.forEach(async (notificationInfo) => {
                 const { lat, lng, slidervalue, message, chosenFriend, lastNotified } = notificationInfo.data;
                 const { id } = notificationInfo;
 
@@ -179,27 +184,30 @@ export function Profile(props) {
                     if(!lastNotified || getRealTime > (lastNotified + (3600 * 1000))) { 
                        
                         await updateLastNotifiedNotification(id)
-                        await populateNotifications();
-                        alert(message);
                         if (chosenFriend) {
-
                             createMail(id); 
-                            
                             console.log('did we send an email')
                         }
                       }
-                    
-                    return;
-
-                    // Add functionality to delete the alert or renew. 
+                    let text = `
+                    ${message}.
+                    Click "ok" to delete.
+                    Click "cancel" to edit.
+                    `
+                    let deleteNotification = window.confirm(`${text}`)
+                    if(deleteNotification){
+                        handleDelete(id)
+                        return;
+                    }
+                    await populateNotifications();                        
 
                 }
                 else {
-                    return console.log('Did not work')
+                    return;
                 } 
         })
 
-    }, [currentLocation, userNotifications, getRealTime]);
+    }, [currentLocation, userNotifications, getRealTime,handleDelete]);
 
     // Check time in frontend every 5th second
     useEffect(() => {
@@ -217,16 +225,23 @@ export function Profile(props) {
     }, []);
 
 
-    // Check current time in frontend against time saved in database for all notifications
+    // Check current time in frontend against time saved in database for all "alarm" notifications
     useEffect(() => {
         userNotifications
-            ?.forEach(notification => {
+            ?.filter(el => el.type === "alarm")?.forEach(notification => {
                 const chosenTime = notification?.data.time
-                console.log(chosenTime)
-                alarmNotification(chosenTime, currentTime, notification.data.message)
+                // console.log(chosenTime)
+                alarmNotification(
+                    chosenTime, currentTime, 
+                    notification.data.message,todaysDate, 
+                    notification.data.date,
+                    notification.id, 
+                    handleDelete
+                    )
+                
             })
 
-    }, [currentTime, userNotifications])
+    }, [currentTime,userNotifications,todaysDate,handleDelete])
 
 
     // Rendering the component
@@ -237,19 +252,12 @@ export function Profile(props) {
 
                 <div id="upcoming-remebralls">
                     <h1>Today's Remembr'Alls</h1>
-                    {myAlarmNotifications.length > 0 ? myAlarmNotifications : (<p>You currently have no alarm-based notifications!</p>)}
-                    {myLocationNotifications.length > 0 ? myLocationNotifications : (<p>You currently have no location-based notifications!</p>)}
+                    {myNotificationsToday.length > 0 ? myNotificationsToday : (<p>You currently have no notifications for today!</p>)}
+                   
                     {isHidden &&
                         <>
                             <h2>Upcoming</h2>
-                            <div className="notificationContainer">
-                                <h4>Visit Grandmother</h4>
-                                <div><IoAlarmOutline /> Saturday 15/3/23 at 11:30</div>
-                            </div>
-                            <div className="notificationContainer">
-                                <h4>Submit your tax-statements</h4>
-                                <div><IoAlarmOutline /> Sunday 16/3/23 at 10:30</div>
-                            </div>
+                            {futureNotifications.length > 0 ? futureNotifications : (<p>You have no upcoming notifications!</p>) }
                         </>
                     }
                 </div>
@@ -263,9 +271,6 @@ export function Profile(props) {
                         <Link to="/setremembrall" className="linkButton"> Create Remembr'All</Link>
                     </div>
 
-                    <div>
-                        <Link to="/logout" className="linkButton">Log out</Link>
-                    </div>
                 </div>
 
             </div>
